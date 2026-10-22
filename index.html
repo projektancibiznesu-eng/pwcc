@@ -78,7 +78,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Hero */
 .hero { position: relative; color: var(--cream); background: var(--ink); min-height: min(92vh, 860px); display: grid; align-items: end; }
-.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.slides { position: absolute; inset: 0; overflow: hidden; }
+.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; opacity: 0; transform: scale(1.05); transition: opacity 1.2s ease, transform 7s linear; }
+.slide.is-active { opacity: 1; transform: scale(1); }
+.stories { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.story { display: grid; gap: 10px; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; opacity: .7; transition: opacity .3s; }
+.story.is-active, .story:hover { opacity: 1; }
+.story .bar { height: 2px; background: rgba(255,243,227,.3); overflow: hidden; }
+.story .bar i { display: block; height: 100%; background: var(--saffron); transform: scaleX(0); transform-origin: left; }
+.story.is-done .bar i { transform: scaleX(1); }
+.story.is-active .bar i { animation: storyfill var(--dur, 6s) linear forwards; }
+.hero.is-paused .story.is-active .bar i { animation-play-state: paused; }
+@keyframes storyfill { to { transform: scaleX(1); } }
 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30,15,8,.55) 0%, rgba(30,15,8,0) 20%, rgba(30,15,8,0) 38%, rgba(30,15,8,.62) 62%, rgba(30,15,8,.9) 100%); }
 .hero h1, .hero-side p { text-shadow: 0 1px 24px rgba(20,10,4,.45); }
 .hero .wrap { position: relative; z-index: 1; width: 100%; padding-block: 140px 56px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
@@ -185,7 +196,66 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Booking */
 .booking { background: var(--forest); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
-.booking .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 7vw, 110px); }
+.booking .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 96px); }
+.booking-head { grid-column: 1 / -1; }
+.booking-head .contact { display: flex; flex-wrap: wrap; gap: 14px 48px; }
+
+/* Calendar */
+.cal { display: grid; gap: 18px; align-content: start; min-width: 0; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.cal-title { font: 400 var(--t-lg)/1 var(--f-display); text-transform: capitalize; }
+.cal-nav { width: 40px; height: 40px; border: 1px solid var(--rule-light); background: none; color: var(--cream); font: 400 1.1rem/1 var(--f-body); cursor: pointer; }
+.cal-nav:disabled { opacity: .3; cursor: default; }
+.cal-nav:not(:disabled):hover { border-color: var(--saffron); color: var(--saffron); }
+.cal-dow, .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.cal-dow span { text-align: center; font-size: var(--t-xs); letter-spacing: .14em; text-transform: uppercase; color: rgba(255,243,227,.55); padding-bottom: 4px; }
+.day { aspect-ratio: 1; border: 1px solid transparent; background: rgba(255,243,227,.06); color: var(--cream); font: 400 var(--t-sm)/1 var(--f-body); font-variant-numeric: tabular-nums; cursor: pointer; display: grid; place-items: center; position: relative; }
+.day::after { content: ""; position: absolute; bottom: 18%; width: 4px; height: 4px; border-radius: 50%; background: var(--saffron); }
+.day:hover { border-color: var(--saffron); }
+.day.is-full::after { background: rgba(255,243,227,.3); }
+.day:disabled { background: none; color: rgba(255,243,227,.25); cursor: default; border-color: transparent; }
+.day:disabled::after { display: none; }
+.day.is-selected { background: var(--saffron); color: var(--ink); }
+.day.is-selected::after { background: var(--ink); }
+.day.is-blank { visibility: hidden; }
+.slots-label { color: var(--saffron); }
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; }
+.slot { min-height: 42px; border: 1px solid var(--rule-light); background: none; color: var(--cream); font: 400 var(--t-sm)/1 var(--f-body); font-variant-numeric: tabular-nums; cursor: pointer; }
+.slot:hover { border-color: var(--saffron); }
+.slot:disabled { color: rgba(255,243,227,.3); text-decoration: line-through; cursor: default; border-color: rgba(255,243,227,.1); }
+.slot.is-selected { background: var(--saffron); border-color: var(--saffron); color: var(--ink); }
+.slots-empty { color: rgba(255,243,227,.6); font-size: var(--t-sm); grid-column: 1 / -1; }
+.cal-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: var(--t-xs); color: rgba(255,243,227,.6); }
+.cal-legend span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; vertical-align: middle; background: var(--saffron); }
+.cal-legend span + span::before { background: rgba(255,243,227,.3); }
+.picked { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--rule-light); padding-bottom: 12px; }
+.picked b { font: 400 var(--t-lg)/1.3 var(--f-display); font-weight: 400; }
+.picked.is-empty b { color: rgba(255,243,227,.5); }
+
+/* Reel of podcast frames */
+.reel { background: var(--wine); color: var(--cream); padding-block: clamp(56px, 7vw, 90px) clamp(40px, 5vw, 64px); }
+.reel-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+.reel-head .caps { color: var(--saffron); margin-bottom: 14px; }
+.reel-head h2 { font-size: var(--t-xl); }
+.reel-head p { color: rgba(255,243,227,.65); font-size: var(--t-sm); }
+.reel-track { overflow-x: auto; scrollbar-width: none; cursor: grab; touch-action: pan-x pan-y; padding-left: var(--gutter); }
+.reel-track::-webkit-scrollbar { display: none; }
+.reel-track.is-dragging { cursor: grabbing; }
+.reel-list { display: flex; gap: 14px; width: max-content; padding-block: 4px; }
+.frame { position: relative; flex: none; width: clamp(240px, 26vw, 360px); aspect-ratio: 16 / 9; padding: 0; border: 0; background: var(--ink); cursor: pointer; overflow: hidden; color: var(--cream); }
+.frame img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; pointer-events: none; -webkit-user-drag: none; }
+.frame:hover img, .frame:focus-visible img { transform: scale(1.05); }
+.frame-top { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; justify-content: space-between; font: 500 .68rem/1 var(--f-body); letter-spacing: .14em; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.frame-top .rec::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #E2492B; margin-right: 6px; vertical-align: 0; }
+.frame-cap { position: absolute; inset: auto 0 0 0; padding: 26px 12px 10px; text-align: left; background: linear-gradient(180deg, transparent, rgba(20,8,4,.8)); font-size: .78rem; letter-spacing: .06em; }
+.frame-cap b { display: block; font: 400 .95rem/1.2 var(--f-display); letter-spacing: .02em; }
+
+.lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(20, 8, 4, .9); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lightbox figure { margin: 0; display: grid; gap: 14px; max-width: min(1100px, 100%); color: var(--cream); }
+.lightbox img { width: 100%; height: auto; max-height: 78vh; object-fit: contain; }
+.lightbox figcaption { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
+.lightbox figcaption b { font: 400 var(--t-lg)/1.2 var(--f-display); }
+.lb-close { position: absolute; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); width: 44px; height: 44px; border: 1px solid rgba(255,243,227,.4); background: none; color: var(--cream); font-size: 1.4rem; cursor: pointer; }
 .booking-head { display: grid; gap: 26px; align-content: start; }
 .booking-head .caps { color: var(--gold); }
 .booking-head h2 { font-size: var(--t-2xl); }
@@ -218,6 +288,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 960px) {
   .nav ul { display: none; }
   .hero .wrap { grid-template-columns: 1fr; }
+  .booking-head { grid-column: auto; }
   .intro .wrap, .studio .wrap, .studio--flip .wrap, .menu .wrap, .sec-head, .faq-sec .wrap, .booking .wrap { grid-template-columns: minmax(0, 1fr); }
   .studio--flip figure { order: 0; }
   .plans { grid-template-columns: minmax(0, 1fr); }
@@ -230,7 +301,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 @media (max-width: 600px) {
   .hero { display: block; min-height: 0; }
-  .hero img { position: relative; height: auto; aspect-ratio: 4 / 3.4; object-position: 50% 30%; }
+  .slides { position: relative; aspect-ratio: 4 / 3.4; }
+  .slide { object-position: 50% 35%; }
+  .stories { gap: 8px; }
+  .story .caps { font-size: .6rem; letter-spacing: .18em; }
   .hero::after { inset: 0 0 auto; height: 120px; background: linear-gradient(180deg, rgba(30,15,8,.6), rgba(30,15,8,0)); }
   .hero .wrap { padding-block: 36px 40px; background: var(--wine); }
   .nav .btn { display: none; }
@@ -240,6 +314,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .menu .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .slide { transition: opacity .01s; transform: none; }
+  .story.is-active .bar i { animation: none; transform: scaleX(1); }
+  .frame img { transition: none; }
   html { scroll-behavior: auto; }
   .link::after, .btn, .faq summary::after { transition: none; }
 }
@@ -261,13 +338,22 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 </header>
 
 <main id="top">
-  <section class="hero">
-    <img src="assets/studio-forum.jpg" alt="Studio Global Women Forum: kremowa i rdzawa sofa z mikrofonami, okrągły stolik z orzecha i bordowa ściana z logo" width="1600" height="1067" fetchpriority="high">
+  <section class="hero" id="hero">
+    <div class="slides">
+      <img class="slide is-active" src="assets/studio-forum.jpg" alt="Studio Global Women Forum: kremowa i rdzawa sofa z mikrofonami, okrągły stolik z orzecha i bordowa ściana z logo" width="1600" height="1067" fetchpriority="high">
+      <img class="slide" src="assets/studio-ivory-sculpture.jpg" alt="Studio Ivory Sculpture: kremowy stół i dwa bordowe fotele z mikrofonami" width="1600" height="1067">
+      <img class="slide" src="assets/studio-terra-botanica.jpg" alt="Studio Terra Botanica: oliwkowe fotele, terakotowy stolik i ściana z roślin" width="1600" height="1067">
+    </div>
     <div class="wrap">
+      <div class="stories" aria-label="Studia">
+        <button class="story is-active" type="button" data-slide="0"><span class="bar"><i></i></span><span class="caps">Global Women Forum</span></button>
+        <button class="story" type="button" data-slide="1"><span class="bar"><i></i></span><span class="caps">Ivory Sculpture</span></button>
+        <button class="story" type="button" data-slide="2"><span class="bar"><i></i></span><span class="caps">Terra Botanica</span></button>
+      </div>
       <h1>Miejsce, w którym Twoja marka zabiera głos</h1>
       <div class="hero-side">
         <p>Studio Polish Women Chamber of Commerce. Nagrania podcastów, wywiadów i wydarzeń dla firm, ekspertek i liderów.</p>
-        <a class="btn btn--solid" href="#rezerwacja">Zarezerwuj termin</a>
+        <a class="btn btn--solid" href="#rezerwacja">Sprawdź wolne terminy</a>
       </div>
       <div class="services-line caps">
         <span>Studio podcastowe</span><span>Studio wideo</span><span>Sala konferencyjna</span><span>Abonament dla firm</span>
@@ -425,8 +511,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="wrap">
       <div class="booking-head">
         <p class="caps">Rezerwacja</p>
-        <h2>Zarezerwuj swoje nagranie</h2>
-        <p>Napisz, co chcesz nagrać. Odpowiemy z propozycją terminu i wyceną w ciągu jednego dnia roboczego.</p>
+        <h2>Wybierz dzień i godzinę</h2>
+        <p>Zaznacz termin w kalendarzu i wyślij zgłoszenie. Potwierdzimy rezerwację w ciągu jednego dnia roboczego.</p>
         <dl class="contact">
           <div><dt class="caps">E-mail</dt><dd data-cfg="email"></dd></div>
           <div><dt class="caps">Telefon</dt><dd data-cfg="phone"></dd></div>
@@ -434,12 +520,24 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </dl>
       </div>
 
+      <div class="cal" id="cal">
+        <div class="cal-head">
+          <button class="cal-nav" type="button" id="cal-prev" aria-label="Poprzedni miesiąc">‹</button>
+          <p class="cal-title" id="cal-title" aria-live="polite"></p>
+          <button class="cal-nav" type="button" id="cal-next" aria-label="Następny miesiąc">›</button>
+        </div>
+        <div class="cal-dow" aria-hidden="true"><span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>So</span><span>Nd</span></div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <p class="caps slots-label" id="slots-label">Wybierz dzień</p>
+        <div class="slots" id="slots"><p class="slots-empty">Kliknij dzień z kropką, aby zobaczyć wolne godziny.</p></div>
+        <p class="cal-legend"><span>wolne terminy</span><span>brak wolnych godzin</span></p>
+      </div>
+
       <form class="form" id="form" novalidate>
-        <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" name="name" autocomplete="name" required></div>
-        <div class="field"><label for="f-company">Firma</label><input id="f-company" name="company" autocomplete="organization"></div>
-        <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="f-phone">Telefon</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
-        <div class="field field--full"><label for="f-service">Usługa</label>
+        <div class="picked is-empty" id="picked"><span class="caps">Termin</span><b id="picked-text">Wybierz w kalendarzu</b></div>
+        <input type="hidden" name="date" id="f-date">
+        <input type="hidden" name="time" id="f-time">
+        <div class="field"><label for="f-service">Usługa</label>
           <select id="f-service" name="service">
             <option>Studio podcastowe</option>
             <option>Studio wideo</option>
@@ -450,28 +548,48 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
             <option>Polish Women Chamber TV</option>
           </select>
         </div>
-        <div class="field"><label for="f-date">Preferowany termin</label><input id="f-date" name="date" type="date"></div>
-        <div class="field"><label for="f-hours">Liczba godzin</label><input id="f-hours" name="hours" type="number" min="1" max="12" value="2"></div>
+        <div class="field"><label for="f-hours">Czas nagrania</label>
+          <select id="f-hours" name="hours">
+            <option value="1">1 godzina</option><option value="2" selected>2 godziny</option><option value="3">3 godziny</option><option value="4">4 godziny</option><option value="6">6 godzin</option><option value="8">8 godzin</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="f-company">Firma</label><input id="f-company" name="company" autocomplete="organization"></div>
+        <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-phone">Telefon</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
         <div class="field field--full"><label for="f-notes">Co nagrywamy?</label><textarea id="f-notes" name="notes" placeholder="Np. podcast z dwojgiem gości, wersja wideo i trzy rolki."></textarea></div>
         <label class="consent"><input id="f-consent" name="consent" type="checkbox"> Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi zapytania przez Polish Women Chamber of Commerce.</label>
         <div class="form-foot">
-          <button class="btn btn--solid" type="submit">Wyślij zapytanie</button>
+          <button class="btn btn--solid" type="submit">Zarezerwuj termin</button>
           <p class="error" id="f-error" hidden></p>
         </div>
       </form>
 
       <div class="done" id="done" hidden>
-        <p class="caps">Zapytanie gotowe</p>
+        <p class="caps">Zgłoszenie gotowe</p>
         <h3>Dziękujemy</h3>
         <p id="done-msg"></p>
         <pre id="done-text"></pre>
         <div class="done-actions">
           <button class="btn btn--solid" type="button" id="copy">Kopiuj treść</button>
-          <button class="link" type="button" id="again">Nowe zapytanie</button>
+          <button class="link" type="button" id="again">Nowa rezerwacja</button>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="reel" aria-labelledby="reel-title">
+    <div class="wrap reel-head">
+      <div><p class="caps">Kadry z nagrań</p><h2 id="reel-title">Tak wyglądasz w naszym studiu</h2></div>
+      <p>Przeciągnij pasek lub kliknij kadr, aby go powiększyć.</p>
+    </div>
+    <div class="reel-track" id="reel-track"><div class="reel-list" id="reel-list"></div></div>
+  </section>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Powiększony kadr" hidden>
+    <button class="lb-close" type="button" id="lb-close" aria-label="Zamknij">×</button>
+    <figure><img id="lb-img" alt=""><figcaption><b id="lb-title"></b><button class="btn btn--solid" type="button" id="lb-book">Zarezerwuj to studio</button></figcaption></figure>
+  </div>
 </main>
 
 <footer class="foot">
@@ -487,40 +605,178 @@ const CONFIG = {
   email: "studio@twoja-domena.pl",
   phone: "+48 000 000 000",
   address: "Warszawa, adres do uzupełnienia",
-  formEndpoint: ""
+  formEndpoint: "",
+  // Godziny otwarcia studia: [otwarcie, zamknięcie] dla pn–nd; null = zamknięte.
+  hours: [[9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [10, 16], null],
+  // Zajęte terminy, np. { "2026-11-04": [10, 11, 15] }. Po podłączeniu kalendarza studia (Google Calendar, Calendly) dane przyjdą stąd.
+  booked: {},
+  // Dopóki studio nie poda prawdziwego kalendarza, część godzin jest oznaczana jako zajęta poglądowo.
+  demoBusy: true,
+  bookAheadDays: 90
 };
 
-document.querySelectorAll("[data-cfg]").forEach(el => { el.textContent = CONFIG[el.dataset.cfg]; });
-document.getElementById("year").textContent = new Date().getFullYear();
+// Kadry do paska na dole strony. Dodaj tu zdjęcia z prawdziwych nagrań: { src, title, note, service }.
+const FRAMES = [
+  { src: "assets/frames/forum-salon.jpg", title: "Global Women Forum", note: "Panel dyskusyjny", service: "Studio wideo" },
+  { src: "assets/frames/ivory-mic.jpg", title: "Ivory Sculpture", note: "Wywiad ekspercki", service: "Studio podcastowe" },
+  { src: "assets/frames/terra-set.jpg", title: "Terra Botanica", note: "Rozmowa w duecie", service: "Studio podcastowe" },
+  { src: "assets/frames/forum-logo.jpg", title: "Global Women Forum", note: "Otwarcie odcinka", service: "Studio wideo" },
+  { src: "assets/frames/ivory-chair.jpg", title: "Ivory Sculpture", note: "Ujęcie detalu", service: "Studio podcastowe" },
+  { src: "assets/frames/terra-plants.jpg", title: "Terra Botanica", note: "Kamera boczna", service: "Studio podcastowe" },
+  { src: "assets/frames/forum-sofa.jpg", title: "Global Women Forum", note: "Plan szeroki", service: "Studio wideo" },
+  { src: "assets/frames/ivory-set.jpg", title: "Ivory Sculpture", note: "Podcast wideo", service: "Studio podcastowe" },
+  { src: "assets/frames/terra-chair.jpg", title: "Terra Botanica", note: "Rolka pionowa", service: "Studio podcastowe" },
+  { src: "assets/frames/forum-velvet.jpg", title: "Global Women Forum", note: "Talk-show", service: "Studio wideo" },
+  { src: "assets/frames/ivory-wall.jpg", title: "Ivory Sculpture", note: "Plan główny", service: "Studio podcastowe" },
+  { src: "assets/frames/terra-mic.jpg", title: "Terra Botanica", note: "Mikrofon lektorski", service: "Studio podcastowe" },
+  { src: "assets/frames/forum-table.jpg", title: "Global Women Forum", note: "Przerywnik", service: "Studio wideo" }
+];
 
-const form = document.getElementById("form");
-const done = document.getElementById("done");
-const err = document.getElementById("f-error");
-const booking = document.getElementById("rezerwacja");
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = id => document.getElementById(id);
+document.querySelectorAll("[data-cfg]").forEach(el => { el.textContent = CONFIG[el.dataset.cfg]; });
+$("year").textContent = new Date().getFullYear();
+
+/* Hero slideshow with story bars */
+(() => {
+  const hero = $("hero");
+  const slides = [...hero.querySelectorAll(".slide")];
+  const stories = [...hero.querySelectorAll(".story")];
+  const DUR = 6000;
+  let i = 0, timer = null;
+  hero.style.setProperty("--dur", DUR + "ms");
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
+    stories.forEach((b, k) => {
+      b.classList.remove("is-active", "is-done");
+      void b.offsetWidth; // restart the bar animation
+      if (k < i) b.classList.add("is-done");
+      if (k === i) b.classList.add("is-active");
+    });
+    clearTimeout(timer);
+    if (!reduced) timer = setTimeout(() => show(i + 1), DUR);
+  }
+  stories.forEach(b => b.addEventListener("click", () => show(+b.dataset.slide)));
+  document.addEventListener("visibilitychange", () => { if (document.hidden) clearTimeout(timer); else show(i); });
+  show(0);
+})();
+
+/* Booking calendar */
+const form = $("form"), done = $("done"), err = $("f-error");
+const MONTHS = ["styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień"];
+const MONTHS_GEN = ["stycznia","lutego","marca","kwietnia","maja","czerwca","lipca","sierpnia","września","października","listopada","grudnia"];
+const DAYS = ["niedziela","poniedziałek","wtorek","środa","czwartek","piątek","sobota"];
+const pad = n => String(n).padStart(2, "0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const lastDay = new Date(today); lastDay.setDate(lastDay.getDate() + CONFIG.bookAheadDays);
+let view = new Date(today.getFullYear(), today.getMonth(), 1);
+let pickedDate = null, pickedTime = null;
+
+function busyHours(key) {
+  const set = new Set(CONFIG.booked[key] || []);
+  if (CONFIG.demoBusy) {
+    let h = 0; for (const c of key) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    for (let t = 8; t < 21; t++) if (((h >> (t % 16)) ^ t * 7) % 5 === 0) set.add(t);
+  }
+  return set;
+}
+function freeStarts(date) {
+  const open = CONFIG.hours[(date.getDay() + 6) % 7];
+  if (!open || date < today || date > lastDay) return [];
+  const len = +$("f-hours").value, busy = busyHours(iso(date));
+  const now = new Date(), out = [];
+  for (let t = open[0]; t + len <= open[1]; t++) {
+    let ok = true;
+    for (let k = t; k < t + len; k++) if (busy.has(k)) ok = false;
+    const start = new Date(date); start.setHours(t);
+    if (start - now < 2 * 3600e3) ok = false;
+    out.push({ t, ok });
+  }
+  return out;
+}
+function renderCal() {
+  $("cal-title").textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
+  $("cal-prev").disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+  $("cal-next").disabled = new Date(view.getFullYear(), view.getMonth() + 1, 1) > lastDay;
+  const grid = $("cal-grid"); grid.textContent = "";
+  const lead = (view.getDay() + 6) % 7;
+  for (let k = 0; k < lead; k++) { const b = document.createElement("span"); b.className = "day is-blank"; grid.append(b); }
+  const days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+  for (let d = 1; d <= days; d++) {
+    const date = new Date(view.getFullYear(), view.getMonth(), d);
+    const starts = freeStarts(date), any = starts.some(s => s.ok);
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "day"; b.textContent = d;
+    b.setAttribute("aria-label", `${d} ${MONTHS_GEN[view.getMonth()]}, ${starts.length ? (any ? "są wolne terminy" : "brak wolnych godzin") : "nieczynne"}`);
+    if (!starts.length) b.disabled = true;
+    else if (!any) b.classList.add("is-full");
+    if (pickedDate && iso(date) === iso(pickedDate)) b.classList.add("is-selected");
+    b.addEventListener("click", () => { pickedDate = date; pickedTime = null; renderCal(); renderSlots(); updatePicked(); });
+    grid.append(b);
+  }
+}
+function renderSlots() {
+  const box = $("slots"); box.textContent = "";
+  if (!pickedDate) return;
+  $("slots-label").textContent = `${DAYS[pickedDate.getDay()]}, ${pickedDate.getDate()} ${MONTHS_GEN[pickedDate.getMonth()]}`;
+  const starts = freeStarts(pickedDate);
+  if (!starts.some(s => s.ok)) {
+    const p = document.createElement("p"); p.className = "slots-empty";
+    p.textContent = "Ten dzień jest już zajęty. Wybierz inny lub skróć czas nagrania.";
+    box.append(p); return;
+  }
+  for (const { t, ok } of starts) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "slot"; b.textContent = `${pad(t)}:00`; b.disabled = !ok;
+    if (pickedTime === t) b.classList.add("is-selected");
+    b.addEventListener("click", () => { pickedTime = t; renderSlots(); updatePicked(); });
+    box.append(b);
+  }
+}
+function updatePicked() {
+  const ready = pickedDate && pickedTime != null, len = +$("f-hours").value;
+  $("picked").classList.toggle("is-empty", !ready);
+  $("picked-text").textContent = ready
+    ? `${DAYS[pickedDate.getDay()]}, ${pickedDate.getDate()} ${MONTHS_GEN[pickedDate.getMonth()]}, ${pad(pickedTime)}:00–${pad(pickedTime + len)}:00`
+    : (pickedDate ? "Wybierz godzinę" : "Wybierz w kalendarzu");
+  $("f-date").value = ready ? iso(pickedDate) : "";
+  $("f-time").value = ready ? `${pad(pickedTime)}:00–${pad(pickedTime + len)}:00` : "";
+}
+$("cal-prev").addEventListener("click", () => { view.setMonth(view.getMonth() - 1); renderCal(); });
+$("cal-next").addEventListener("click", () => { view.setMonth(view.getMonth() + 1); renderCal(); });
+$("f-hours").addEventListener("change", () => {
+  if (pickedDate && pickedTime != null && !freeStarts(pickedDate).some(s => s.ok && s.t === pickedTime)) pickedTime = null;
+  renderCal(); renderSlots(); updatePicked();
+});
+renderCal();
 
 function goToForm(service) {
-  if (service) document.getElementById("f-service").value = service;
+  if (service) $("f-service").value = service;
   form.hidden = false; done.hidden = true;
-  booking.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-  setTimeout(() => document.getElementById("f-name").focus({ preventScroll: true }), 500);
+  $("rezerwacja").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
 }
 document.querySelectorAll("[data-service]").forEach(b => b.addEventListener("click", () => goToForm(b.dataset.service)));
-
-// Same deep link as the reference page: ?openModal=true
 if (new URLSearchParams(location.search).get("openModal") === "true") goToForm();
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
   err.hidden = true;
   const d = Object.fromEntries(new FormData(form));
-  if (!d.name.trim() || !/^\S+@\S+\.\S+$/.test(d.email) || !d.consent) {
-    err.textContent = "Uzupełnij imię i nazwisko, poprawny e-mail i zaznacz zgodę.";
+  const problems = [];
+  if (!d.date) problems.push("wybierz termin w kalendarzu");
+  if (!d.name.trim()) problems.push("podaj imię i nazwisko");
+  if (!/^\S+@\S+\.\S+$/.test(d.email)) problems.push("podaj poprawny e-mail");
+  if (!d.consent) problems.push("zaznacz zgodę");
+  if (problems.length) {
+    err.textContent = "Aby wysłać: " + problems.join(", ") + ".";
     err.hidden = false;
     return;
   }
   const text = [
     `Usługa: ${d.service}`,
-    `Termin: ${d.date || "do ustalenia"}, ${d.hours} h`,
+    `Termin: ${$("picked-text").textContent}`,
     `Imię i nazwisko: ${d.name}`,
     d.company && `Firma: ${d.company}`,
     `E-mail: ${d.email}`,
@@ -535,22 +791,87 @@ form.addEventListener("submit", async e => {
       sent = r.ok;
     } catch (_) { sent = false; }
   }
-  document.getElementById("done-msg").textContent = sent
-    ? "Zapytanie trafiło do zespołu studia. Odpowiemy w ciągu jednego dnia roboczego."
-    : `Skopiuj treść zapytania i wyślij ją na adres ${CONFIG.email}. Odpowiemy w ciągu jednego dnia roboczego.`;
-  document.getElementById("done-text").textContent = text;
-  document.getElementById("copy").hidden = sent;
+  $("done-msg").textContent = sent
+    ? "Zgłoszenie trafiło do zespołu studia. Potwierdzimy termin w ciągu jednego dnia roboczego."
+    : `Skopiuj treść zgłoszenia i wyślij ją na adres ${CONFIG.email}. Potwierdzimy termin w ciągu jednego dnia roboczego.`;
+  $("done-text").textContent = text;
+  $("copy").hidden = sent;
   form.hidden = true; done.hidden = false;
 });
-
-document.getElementById("again").addEventListener("click", () => { form.reset(); form.hidden = false; done.hidden = true; });
-document.getElementById("copy").addEventListener("click", e => {
-  const pre = document.getElementById("done-text");
-  const btn = e.currentTarget;
+$("again").addEventListener("click", () => { form.reset(); pickedDate = null; pickedTime = null; renderCal(); renderSlots(); updatePicked(); form.hidden = false; done.hidden = true; });
+$("copy").addEventListener("click", e => {
+  const pre = $("done-text"), btn = e.currentTarget;
   navigator.clipboard.writeText(pre.textContent)
     .then(() => { btn.textContent = "Skopiowano"; })
     .catch(() => { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
 });
+
+/* Reel of frames: drifts on its own, pauses on hover, drags with the mouse, swipes on touch */
+(() => {
+  const track = $("reel-track"), list = $("reel-list");
+  const tc = k => { const s = 300 + k * 487; return `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`; };
+  const make = (f, k) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "frame"; b.dataset.k = k % FRAMES.length;
+    b.setAttribute("aria-label", `${f.title}, ${f.note}. Powiększ kadr`);
+    b.innerHTML = `<img alt="" loading="lazy" width="800" height="450"><span class="frame-top"><span class="rec">REC</span><span>${tc(k % FRAMES.length)}</span></span><span class="frame-cap"><b></b><span></span></span>`;
+    b.querySelector("img").src = f.src;
+    b.querySelector(".frame-cap b").textContent = f.title;
+    b.querySelector(".frame-cap span").textContent = f.note;
+    if (k >= FRAMES.length) { b.tabIndex = -1; b.setAttribute("aria-hidden", "true"); }
+    return b;
+  };
+  [...FRAMES, ...FRAMES].forEach((f, k) => list.append(make(f, k)));
+
+  let paused = false, drag = null, moved = 0, last = performance.now(), pos = 0;
+  const half = () => list.scrollWidth / 2;
+  function tick(now) {
+    const dt = Math.min(64, now - last); last = now;
+    if (!paused && !drag && !reduced && !document.hidden) {
+      pos += dt * 0.045;
+      if (pos >= half()) pos -= half();
+      track.scrollLeft = pos;
+    } else pos = track.scrollLeft;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  track.addEventListener("scroll", () => { if (paused || drag) { pos = track.scrollLeft; if (pos >= half()) { pos -= half(); track.scrollLeft = pos; } } }, { passive: true });
+  track.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") paused = true; });
+  track.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") paused = false; });
+  track.addEventListener("touchstart", () => { paused = true; }, { passive: true });
+  track.addEventListener("touchend", () => { setTimeout(() => { paused = false; }, 2500); }, { passive: true });
+  track.addEventListener("focusin", () => { paused = true; });
+  track.addEventListener("focusout", () => { paused = false; });
+  track.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse") return;
+    drag = { x: e.clientX, left: track.scrollLeft }; moved = 0;
+    track.classList.add("is-dragging");
+  });
+  window.addEventListener("pointermove", e => {
+    if (!drag) return;
+    moved = Math.max(moved, Math.abs(e.clientX - drag.x));
+    track.scrollLeft = drag.left - (e.clientX - drag.x);
+  });
+  window.addEventListener("pointerup", () => { if (drag) { drag = null; track.classList.remove("is-dragging"); } });
+
+  const lb = $("lightbox");
+  let current = null, opener = null;
+  list.addEventListener("click", e => {
+    const b = e.target.closest(".frame");
+    if (!b || moved > 6) { moved = 0; return; }
+    current = FRAMES[+b.dataset.k]; opener = b;
+    $("lb-img").src = current.src;
+    $("lb-img").alt = `${current.title}, ${current.note}`;
+    $("lb-title").textContent = `${current.title} · ${current.note}`;
+    lb.hidden = false; paused = true;
+    $("lb-close").focus();
+  });
+  const close = () => { lb.hidden = true; paused = false; if (opener) opener.focus({ preventScroll: true }); };
+  $("lb-close").addEventListener("click", close);
+  lb.addEventListener("click", e => { if (e.target === lb) close(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !lb.hidden) close(); });
+  $("lb-book").addEventListener("click", () => { close(); goToForm(current.service); });
+})();
 </script>
 </body>
 </html>
