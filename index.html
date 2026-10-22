@@ -23,6 +23,7 @@
   --orange: #A6370A;     /* pomarańczowy aksamit */
   --orange-lit: #C4511B; /* aksamit w świetle LED */
   --peach: #F2B48C;      /* poświata LED na ścianie */
+  --bordo: #5E1E17;      /* ściana Global Women Forum */
   --terra: var(--orange);
   --gold: var(--orange-lit);
   --gold-soft: var(--peach);
@@ -115,7 +116,59 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .tone-teal, .tone-orange { color: var(--ink); background: var(--tone); }
 .tone-teal { --tone: var(--teal); --ink: #F7EEE7; --ink-soft: rgba(247,238,231,.8); --terra: var(--peach); --gold: var(--peach); --rule: rgba(247,238,231,.25); }
 .tone-orange { --tone: var(--orange); --ink: #FFF4EA; --ink-soft: rgba(255,244,234,.86); --terra: var(--peach); --gold: var(--peach); --rule: rgba(255,244,234,.32); }
-.tone-teal .btn:hover, .tone-orange .btn:hover { background: var(--ink); color: var(--tone); }
+.tone-bordo { --tone: var(--bordo); --ink: #F7EEE7; --ink-soft: rgba(247,238,231,.8); --terra: var(--peach); --gold: var(--peach); --rule: rgba(247,238,231,.25); }
+.tone-bordo, .tone-teal, .tone-orange { color: var(--ink); background: var(--tone); }
+.studio[class*="tone-"] .studio-text .caps { color: var(--peach); }
+.tone-bordo .btn:hover, .tone-teal .btn:hover, .tone-orange .btn:hover { background: var(--ink); color: var(--tone); }
+
+/* Botanical line drawings */
+.has-plants { position: relative; overflow: clip; }
+.has-plants > .wrap { position: relative; z-index: 1; }
+.botanic { position: absolute; z-index: 0; pointer-events: none; width: var(--w, clamp(170px, 22vw, 340px)); color: var(--plant, #114141); opacity: var(--op, .32); transform-origin: 50% 100%; transform: translateY(var(--py, 0px)) rotate(calc(var(--rot, 0deg) + var(--lean, 0deg))); transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+.botanic svg { display: block; width: 100%; height: auto; overflow: visible; }
+.botanic svg > g { transform-origin: 50% 100%; animation: sway var(--sway, 9s) ease-in-out infinite alternate; }
+.botanic path { fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.botanic path.fill { fill: currentColor; fill-opacity: .07; }
+.botanic.is-drawing path { animation: draw 2.6s cubic-bezier(.5,0,.2,1) both; animation-delay: calc(var(--i, 0) * 18ms); }
+.tone-bordo .botanic, .tone-teal .botanic, .tone-orange .botanic, .menu .botanic, .booking .botanic, .feature .botanic { --plant: var(--peach); --op: .4; }
+@keyframes sway { from { transform: rotate(-2.2deg); } to { transform: rotate(2.2deg); } }
+@keyframes draw { from { stroke-dasharray: 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1; stroke-dashoffset: 0; } }
+
+/* Cursor-following LED glow on the hero */
+.hero-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 40%), rgba(242,180,140,.22), transparent 70%); mix-blend-mode: screen; transition: opacity .6s; }
+
+/* Hotspots on studio photos */
+.studio figure { position: relative; }
+.hotspot { position: absolute; left: var(--x); top: var(--y); z-index: 2; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0; border-radius: 50%; background: #FFF4EA; color: #17221F; font: 400 1.1rem/30px var(--f-body); text-align: center; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,.3); transition: transform .25s, background .25s; }
+.hotspot::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(255,244,234,.8); animation: ping 2.4s ease-out infinite; }
+.hotspot:hover, .hotspot.is-open { transform: scale(1.12); background: var(--orange-lit); color: #FFF4EA; }
+.hotspot.is-open { transform: rotate(45deg) scale(1.12); }
+@keyframes ping { from { transform: scale(.8); opacity: 1; } to { transform: scale(1.8); opacity: 0; } }
+.hot-tip { position: absolute; z-index: 3; width: min(260px, 80%); padding: 16px 18px; background: #FFF4EA; color: #17221F; box-shadow: 0 12px 40px rgba(0,0,0,.28); display: grid; gap: 4px; }
+.hot-tip b { font: 400 1.05rem/1.25 var(--f-display); }
+.hot-tip span { font-size: .85rem; line-height: 1.5; color: #4C5450; }
+.hot-hint { position: absolute; left: 14px; top: 12px; z-index: 2; font-size: .62rem; letter-spacing: .24em; text-transform: uppercase; color: #FFF4EA; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+
+/* Price calculator */
+.calc { grid-column: 2; margin-top: 56px; padding: clamp(24px, 3.5vw, 40px); border: 1px solid var(--rule-light); display: grid; gap: 26px; }
+.calc h3 { font-size: var(--t-lg); }
+.calc-row { display: grid; gap: 12px; }
+.calc-row > span { font-size: var(--t-xs); letter-spacing: .26em; text-transform: uppercase; color: rgba(247,238,231,.65); }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; }
+.seg label span { display: block; padding: 12px 16px; border: 1px solid var(--rule-light); font-size: var(--t-sm); cursor: pointer; transition: background .2s, border-color .2s; }
+.seg input:checked + span { background: var(--orange); border-color: var(--orange); color: #FFF4EA; }
+.seg input:focus-visible + span { outline: 1px solid var(--peach); outline-offset: 3px; }
+.range { display: flex; align-items: center; gap: 18px; }
+.range input { flex: 1; accent-color: var(--orange-lit); }
+.range output, .stepper output { font: 400 var(--t-lg)/1 var(--f-display); min-width: 3.5ch; font-variant-numeric: tabular-nums; }
+.stepper { display: flex; align-items: center; gap: 14px; }
+.stepper button { width: 40px; height: 40px; border: 1px solid var(--rule-light); background: none; color: inherit; font-size: 1.2rem; cursor: pointer; }
+.stepper button:hover { border-color: var(--peach); color: var(--peach); }
+.calc-total { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 18px; border-top: 1px solid var(--rule-light); padding-top: 22px; }
+.calc-total p { font-size: var(--t-xs); letter-spacing: .26em; text-transform: uppercase; color: rgba(247,238,231,.65); }
+.calc-total strong { display: block; margin-top: 8px; font: 400 clamp(2rem, 1.4rem + 2vw, 3rem)/1 var(--f-display); color: var(--peach); font-variant-numeric: tabular-nums; }
 
 /* Intro */
 .intro { padding-block: clamp(80px, 11vw, 150px); }
@@ -141,7 +194,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .spec dd { margin: 0; }
 
 /* Price list on the teal wall */
-.menu { background: var(--teal); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
+.menu { background: var(--ink); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
 .menu .wrap { display: grid; grid-template-columns: 4fr 8fr; gap: clamp(32px, 6vw, 96px); }
 .menu-head { display: grid; gap: 22px; align-content: start; }
 .menu-head .caps { color: var(--peach); }
@@ -305,6 +358,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .nav.is-open ul li:last-child { display: block; }
   .nav.is-open ul a { display: block; padding-block: 16px; border-top: 1px solid rgba(255,244,234,.14); font-size: .85rem; opacity: 1; }
   .booking-head { grid-column: auto; }
+  .calc { grid-column: auto; }
+  .botanic { --w: clamp(130px, 34vw, 220px); --op: .2; }
+  .tone-bordo .botanic, .tone-teal .botanic, .tone-orange .botanic, .menu .botanic, .booking .botanic { --op: .26; }
   .intro .wrap, .studio .wrap, .studio--flip .wrap, .menu .wrap, .sec-head, .faq-sec .wrap, .booking .wrap { grid-template-columns: minmax(0, 1fr); }
   .studio--flip figure { order: 0; }
   .plans { grid-template-columns: minmax(0, 1fr); }
@@ -330,6 +386,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .menu .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .botanic svg > g, .botanic.is-drawing path, .hotspot::before { animation: none; }
+  .botanic { transition: none; }
   .slide { transition: opacity .01s; transform: none; }
   .story.is-active .bar i { animation: none; transform: scaleX(1); }
   .frame img { transition: none; }
@@ -363,6 +421,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <img class="slide" src="assets/studio-teal-sunset.jpg" alt="Studio Teal Sunset: dwa pomarańczowe aksamitne fotele, morska ściana z roślinami i mikrofony na ramionach" width="1600" height="1067">
     </div>
     <div class="wrap">
+      <div class="hero-glow" id="hero-glow"></div>
       <div class="hero-center">
         <h1>Dom produkcji podcastów i wideo dla kobiet biznesu</h1>
         <p>Studio Polish Women Chamber of Commerce. Trzy wnętrza, realizator na każdej sesji i gotowy materiał do publikacji.</p>
@@ -379,7 +438,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="intro">
+  <section class="reel" aria-labelledby="reel-title">
+    <div class="wrap reel-head">
+      <div><p class="caps">Kadry z nagrań</p><h2 id="reel-title">Tak wyglądasz w naszym studiu</h2></div>
+      <p>Przeciągnij pasek lub kliknij kadr, aby go powiększyć.</p>
+    </div>
+    <div class="reel-track" id="reel-track"><div class="reel-list" id="reel-list"></div></div>
+  </section>
+
+  <section class="intro has-plants">
+    <span class="botanic" data-plant="fern" style="left:-60px; bottom:-40px; --rot:28deg"></span>
+    <span class="botanic" data-plant="banana" style="right:-90px; top:-110px; --rot:-34deg; --w: clamp(160px, 18vw, 280px)"></span>
     <div class="wrap">
       <h2>Trzy wnętrza zaprojektowane do rozmów, które <em>budują zaufanie</em>. Przychodzisz na nagranie, wychodzisz z gotowym materiałem.</h2>
       <div class="intro-side">
@@ -390,9 +459,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   </section>
 
   <div id="studia">
-    <section class="studio">
+    <section class="studio tone-bordo has-plants">
+      <span class="botanic" data-plant="sprig" style="right:-30px; top:-20px; --rot:-150deg; --w: clamp(150px, 16vw, 250px)"></span>
       <div class="wrap">
-        <figure><img src="assets/studio-forum.jpg" alt="Plan Global Women Forum z dwiema sofami i sześcioma mikrofonami" width="1600" height="1067" loading="lazy"></figure>
+        <figure data-hotspots="forum"><img src="assets/studio-forum.jpg" alt="Plan Global Women Forum z dwiema sofami i sześcioma mikrofonami" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
           <p class="caps">Plan główny</p>
           <h3>Global Women Forum</h3>
@@ -406,9 +476,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
     </section>
 
-    <section class="studio studio--flip">
+    <section class="studio studio--flip tone-orange has-plants">
+      <span class="botanic" data-plant="fern" style="left:-50px; bottom:-60px; --rot:24deg"></span>
       <div class="wrap">
-        <figure><img src="assets/studio-ivory-sculpture.jpg" alt="Studio Ivory Sculpture: kremowy stół na żłobionych kolumnach i dwa bordowe fotele z mikrofonami" width="1600" height="1067" loading="lazy"></figure>
+        <figure data-hotspots="ivory"><img src="assets/studio-ivory-sculpture.jpg" alt="Studio Ivory Sculpture: kremowy stół na żłobionych kolumnach i dwa bordowe fotele z mikrofonami" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
           <p class="caps">Studio 05</p>
           <h3>Ivory Sculpture</h3>
@@ -422,9 +493,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
     </section>
 
-    <section class="studio tone-teal">
+    <section class="studio tone-teal has-plants">
+      <span class="botanic" data-plant="banana" style="right:-120px; bottom:-150px; --rot:-30deg"></span>
       <div class="wrap">
-        <figure><img src="assets/studio-teal-sunset.jpg" alt="Studio Teal Sunset: pomarańczowe aksamitne fotele, srebrny stolik i ściana z roślin w ciepłym świetle" width="1600" height="1067" loading="lazy"></figure>
+        <figure data-hotspots="teal"><img src="assets/studio-teal-sunset.jpg" alt="Studio Teal Sunset: pomarańczowe aksamitne fotele, srebrny stolik i ściana z roślin w ciepłym świetle" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
           <p class="caps">Studio 09</p>
           <h3>Teal Sunset</h3>
@@ -439,7 +511,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </section>
   </div>
 
-  <section class="menu" id="cennik">
+  <section class="menu has-plants" id="cennik">
+    <span class="botanic" data-plant="fern" style="right:-70px; top:40px; --rot:-32deg; --w: clamp(180px, 24vw, 360px)"></span>
     <div class="wrap">
       <div class="menu-head">
         <p class="caps">Cennik</p>
@@ -452,10 +525,31 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <li><h3>Sala konferencyjna</h3><p>Do 40 osób. Ekran, nagłośnienie, możliwość nagrania i transmisji wydarzenia.</p><span class="price">250 zł<small>za godzinę</small></span></li>
         <li><h3>Montaż i postprodukcja</h3><p>Montaż odcinka, napisy, miniatury i rolki pionowe. Gotowe pliki w 72 godziny.</p><span class="price">od 450 zł<small>za odcinek</small></span></li>
       </ul>
+      <form class="calc" id="calc" aria-labelledby="calc-title">
+        <h3 id="calc-title">Policz koszt nagrania</h3>
+        <div class="calc-row"><span>Przestrzeń</span>
+          <div class="seg">
+            <label><input type="radio" name="space" value="Studio podcastowe" data-rate="290" checked><span>Studio podcastowe</span></label>
+            <label><input type="radio" name="space" value="Studio wideo" data-rate="390"><span>Studio wideo</span></label>
+            <label><input type="radio" name="space" value="Sala konferencyjna" data-rate="250"><span>Sala konferencyjna</span></label>
+          </div>
+        </div>
+        <div class="calc-row"><span>Czas nagrania</span>
+          <div class="range"><input type="range" id="calc-hours" min="1" max="8" value="2" aria-label="Liczba godzin"><output id="calc-hours-out">2 h</output></div>
+        </div>
+        <div class="calc-row"><span>Zmontowane odcinki</span>
+          <div class="stepper"><button type="button" id="ep-minus" aria-label="Mniej odcinków">−</button><output id="calc-ep">1</output><button type="button" id="ep-plus" aria-label="Więcej odcinków">+</button></div>
+        </div>
+        <div class="calc-total">
+          <div><p>Szacunkowo, netto</p><strong id="calc-total">1 030 zł</strong></div>
+          <button class="btn btn--solid" type="button" id="calc-book">Zarezerwuj ten zakres</button>
+        </div>
+      </form>
     </div>
   </section>
 
-  <section class="plans-sec" id="abonament">
+  <section class="plans-sec has-plants" id="abonament">
+    <span class="botanic" data-plant="sprig" style="left:-40px; bottom:-30px; --rot:35deg"></span>
     <div class="wrap">
       <div class="sec-head">
         <div><p class="caps">Abonament dla firm</p><h2>Stała obecność w mediach, co miesiąc</h2></div>
@@ -498,7 +592,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="process">
+  <section class="process has-plants">
+    <span class="botanic" data-plant="banana" style="left:-60px; top:-40px; --rot:155deg; --w: clamp(150px, 16vw, 240px)"></span>
     <div class="wrap">
       <div class="sec-head">
         <div><p class="caps">Przebieg</p><h2>Od rezerwacji do publikacji</h2></div>
@@ -513,7 +608,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="faq-sec" id="faq">
+  <section class="faq-sec has-plants" id="faq">
+    <span class="botanic" data-plant="fern" style="right:-50px; bottom:-50px; --rot:-26deg"></span>
     <div class="wrap">
       <div><p class="caps">Pytania</p><h2>Warto wiedzieć</h2></div>
       <div class="faq">
@@ -525,7 +621,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="booking" id="rezerwacja">
+  <section class="booking has-plants" id="rezerwacja">
+    <span class="botanic" data-plant="sprig" style="right:-40px; top:-20px; --rot:-140deg; --w: clamp(140px, 15vw, 230px)"></span>
     <div class="wrap">
       <div class="booking-head">
         <p class="caps">Rezerwacja</p>
@@ -596,13 +693,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="reel" aria-labelledby="reel-title">
-    <div class="wrap reel-head">
-      <div><p class="caps">Kadry z nagrań</p><h2 id="reel-title">Tak wyglądasz w naszym studiu</h2></div>
-      <p>Przeciągnij pasek lub kliknij kadr, aby go powiększyć.</p>
-    </div>
-    <div class="reel-track" id="reel-track"><div class="reel-list" id="reel-list"></div></div>
-  </section>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Powiększony kadr" hidden>
     <button class="lb-close" type="button" id="lb-close" aria-label="Zamknij">×</button>
@@ -898,6 +988,171 @@ $("copy").addEventListener("click", e => {
   lb.addEventListener("click", e => { if (e.target === lb) close(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !lb.hidden) close(); });
   $("lb-book").addEventListener("click", () => { close(); goToForm(current.service); });
+})();
+
+/* Botanical drawings, generated as line art */
+(() => {
+  const P = n => Math.round(n * 10) / 10;
+  const leaf = (bx, by, ang, len, wid) => {
+    const tx = bx + Math.cos(ang) * len, ty = by + Math.sin(ang) * len;
+    const mx = (bx + tx) / 2, my = (by + ty) / 2, nx = -Math.sin(ang) * wid, ny = Math.cos(ang) * wid;
+    return `M${P(bx)} ${P(by)}Q${P(mx + nx)} ${P(my + ny)} ${P(tx)} ${P(ty)}Q${P(mx - nx)} ${P(my - ny)} ${P(bx)} ${P(by)}`;
+  };
+  const q = (a, c, b, t) => (1 - t) * (1 - t) * a + 2 * (1 - t) * t * c + t * t * b;
+  function fern() {
+    const out = [`<path pathLength="1" d="M100 400Q70 220 128 20"/>`];
+    for (let k = 1; k <= 15; k++) {
+      const t = k / 16, x = q(100, 70, 128, t), y = q(400, 220, 20, t);
+      const dx = 2 * (1 - t) * (70 - 100) + 2 * t * (128 - 70), dy = 2 * (1 - t) * (220 - 400) + 2 * t * (20 - 220);
+      const a = Math.atan2(dy, dx), len = 78 * (1 - t * 0.78);
+      out.push(`<path class="fill" pathLength="1" d="${leaf(x, y, a - 0.95, len, len * 0.2)}"/>`, `<path class="fill" pathLength="1" d="${leaf(x, y, a + 0.95, len, len * 0.2)}"/>`);
+    }
+    return { vb: "0 0 220 410", paths: out };
+  }
+  function banana() {
+    const out = [`<path class="fill" pathLength="1" d="M110 400C40 300 20 150 96 10C190 120 190 290 110 400Z"/>`, `<path pathLength="1" d="M110 400Q100 200 96 10"/>`];
+    for (let k = 1; k < 16; k++) {
+      const t = k / 16, x = q(110, 100, 96, t), y = q(400, 200, 10, t);
+      out.push(`<path pathLength="1" d="M${P(x)} ${P(y)}Q${P(x - 30)} ${P(y - 18)} ${P(x - 58 * Math.sin(Math.PI * t) - 6)} ${P(y - 30)}"/>`);
+      out.push(`<path pathLength="1" d="M${P(x)} ${P(y)}Q${P(x + 30)} ${P(y - 18)} ${P(x + 64 * Math.sin(Math.PI * t) + 6)} ${P(y - 30)}"/>`);
+    }
+    return { vb: "0 0 210 410", paths: out };
+  }
+  function sprig() {
+    const out = [`<path pathLength="1" d="M100 400C90 300 130 180 96 20"/>`];
+    for (let k = 1; k <= 11; k++) {
+      const t = k / 12, y = 400 - t * 380, x = 100 + Math.sin(t * 5) * 14, side = k % 2 ? 1 : -1, r = 26 * (1 - t * 0.5);
+      const cx = x + side * r * 1.1, cy = y - r * 0.4;
+      out.push(`<path class="fill" pathLength="1" d="M${P(x)} ${P(y)}Q${P(cx)} ${P(cy - r)} ${P(cx + side * r * .2)} ${P(cy)}Q${P(cx)} ${P(cy + r * .9)} ${P(x)} ${P(y)}"/>`);
+    }
+    return { vb: "0 0 200 410", paths: out };
+  }
+  const kinds = { fern, banana, sprig };
+  const plants = [...document.querySelectorAll(".botanic")];
+  plants.forEach((el, n) => {
+    const { vb, paths } = kinds[el.dataset.plant]();
+    el.setAttribute("aria-hidden", "true");
+    el.style.setProperty("--sway", (7 + (n % 4) * 1.7) + "s");
+    el.innerHTML = `<svg viewBox="${vb}"><g>${paths.map((d, i) => d.replace("<path ", `<path style="--i:${i}" `)).join("")}</g></svg>`;
+  });
+  if (reduced) return;
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.drawn) { e.target.dataset.drawn = 1; e.target.classList.add("is-drawing"); }
+  }), { threshold: 0.15 });
+  plants.forEach(el => io.observe(el));
+  let mx = innerWidth / 2, raf = 0;
+  const update = () => {
+    raf = 0;
+    for (const el of plants) {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > innerHeight + 200) continue;
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      el.style.setProperty("--lean", `${Math.max(-1, Math.min(1, (mx - cx) / 700)) * 7}deg`);
+      el.style.setProperty("--py", `${Math.round((cy - innerHeight / 2) * -0.08)}px`);
+    }
+  };
+  const queue = () => { if (!raf) raf = requestAnimationFrame(update); };
+  addEventListener("pointermove", e => { if (e.pointerType === "mouse") { mx = e.clientX; queue(); } }, { passive: true });
+  addEventListener("scroll", queue, { passive: true });
+  update();
+})();
+
+/* Hero glow follows the cursor like the studio's LED light */
+(() => {
+  const hero = $("hero"), glow = $("hero-glow");
+  if (reduced) { glow.hidden = true; return; }
+  hero.addEventListener("pointermove", e => {
+    const r = hero.getBoundingClientRect();
+    glow.style.setProperty("--gx", `${e.clientX - r.left}px`);
+    glow.style.setProperty("--gy", `${e.clientY - r.top}px`);
+  });
+})();
+
+/* Hotspots on studio photos */
+(() => {
+  const SPOTS = {
+    forum: [
+      { x: 29, y: 47, t: "Sześć mikrofonów", d: "Mikrofony lektorskie na ramionach przy obu sofach. Każdy gość ma własną ścieżkę." },
+      { x: 50, y: 33, t: "Ściana z logo", d: "Podświetlona ściana Global Women Forum. W tle każdego ujęcia głównego." },
+      { x: 50, y: 65, t: "Stolik na rekwizyty", d: "Miejsce na produkty, książki i materiały marki widoczne w kadrze." },
+      { x: 15, y: 28, t: "Regały z oświetleniem", d: "Ciepłe światło LED na półkach daje głębię w planie szerokim." }
+    ],
+    ivory: [
+      { x: 41, y: 34, t: "Mikrofony na ramionach", d: "Dwa mikrofony lektorskie ustawione do rozmowy twarzą w twarz." },
+      { x: 52, y: 50, t: "Stół z żywicą", d: "Rzeźbiarski blat z bursztynową żywicą. Miejsce na notatki i wodę." },
+      { x: 69, y: 35, t: "Ciepłe światło", d: "Lampa i łuk LED dają miękkie światło na twarz rozmówczyni." },
+      { x: 24, y: 56, t: "Fotele obrotowe", d: "Wygodne fotele do długich nagrań, w kolorze bordo." }
+    ],
+    teal: [
+      { x: 58, y: 22, t: "Żywa ściana roślin", d: "Prawdziwa zieleń w kadrze. Wygląda świetnie w rolkach pionowych." },
+      { x: 72, y: 46, t: "Mikrofony ścienne", d: "Ramiona montowane do ściany nie zasłaniają kadru." },
+      { x: 28, y: 64, t: "Aksamitne fotele", d: "Pomarańczowy aksamit na tle morskiej zieleni." },
+      { x: 69, y: 14, t: "Listwy LED", d: "Pionowe światło buduje nastrój wieczornej rozmowy." }
+    ]
+  };
+  document.querySelectorAll("[data-hotspots]").forEach(fig => {
+    const tip = document.createElement("div"); tip.className = "hot-tip"; tip.hidden = true;
+    tip.innerHTML = "<b></b><span></span>";
+    const hint = document.createElement("span"); hint.className = "hot-hint"; hint.textContent = "Kliknij punkty na zdjęciu";
+    fig.append(tip, hint);
+    let open = null;
+    const close = () => { if (open) open.classList.remove("is-open"); open = null; tip.hidden = true; };
+    SPOTS[fig.dataset.hotspots].forEach(s => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "hotspot"; b.textContent = "+";
+      b.style.setProperty("--x", s.x + "%"); b.style.setProperty("--y", s.y + "%");
+      b.setAttribute("aria-label", s.t);
+      b.addEventListener("click", e => {
+        e.stopPropagation();
+        if (open === b) return close();
+        close(); open = b; b.classList.add("is-open");
+        tip.querySelector("b").textContent = s.t;
+        tip.querySelector("span").textContent = s.d;
+        tip.hidden = false;
+        const fw = fig.clientWidth, fh = fig.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight;
+        let left = fw * s.x / 100 + 24, top = fh * s.y / 100 - th / 2;
+        if (left + tw > fw - 8) left = fw * s.x / 100 - tw - 24;
+        tip.style.left = Math.max(8, left) + "px";
+        tip.style.top = Math.max(8, Math.min(fh - th - 8, top)) + "px";
+        hint.hidden = true;
+      });
+      fig.append(b);
+    });
+    document.addEventListener("click", e => { if (!fig.contains(e.target)) close(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  });
+})();
+
+/* Price calculator */
+(() => {
+  const calc = $("calc"), hours = $("calc-hours"), out = $("calc-hours-out"), ep = $("calc-ep"), total = $("calc-total");
+  let episodes = 1, shown = 0;
+  const fmt = n => n.toLocaleString("pl-PL").replace(/\u00a0/g, " ") + " zł";
+  function compute() {
+    const space = calc.querySelector("input[name=space]:checked");
+    out.textContent = hours.value + " h"; ep.textContent = episodes;
+    const target = +space.dataset.rate * +hours.value + episodes * 450;
+    const start = shown, t0 = performance.now();
+    const step = now => {
+      const k = reduced ? 1 : Math.min(1, (now - t0) / 350);
+      shown = Math.round(start + (target - start) * (1 - Math.pow(1 - k, 3)));
+      total.textContent = fmt(shown);
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  calc.addEventListener("input", compute);
+  $("ep-minus").addEventListener("click", () => { episodes = Math.max(0, episodes - 1); compute(); });
+  $("ep-plus").addEventListener("click", () => { episodes = Math.min(12, episodes + 1); compute(); });
+  calc.addEventListener("submit", e => e.preventDefault());
+  $("calc-book").addEventListener("click", () => {
+    const sel = $("f-hours"), h = +hours.value;
+    const opts = [...sel.options].map(o => +o.value);
+    sel.value = opts.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
+    sel.dispatchEvent(new Event("change"));
+    goToForm(calc.querySelector("input[name=space]:checked").value);
+  });
+  compute();
 })();
 </script>
 </body>
