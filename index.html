@@ -222,6 +222,45 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plan:not(.plan--hot) .btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 .fine { margin-top: 28px; color: var(--ink-soft); font-size: var(--t-sm); }
 
+/* Company packages */
+.plans--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.plan-for { font-size: var(--t-sm); color: var(--ink-soft); }
+.plan--hot .plan-for { color: rgba(255,244,234,.7); }
+
+/* Programs */
+.programs { background: var(--bordo); color: var(--cream); padding-block: clamp(90px, 11vw, 150px); position: relative; overflow: clip; }
+.programs-head { display: grid; gap: 18px; max-width: 760px; margin-bottom: 56px; }
+.programs-head .label { color: var(--peach); }
+.programs-head h2 { font-size: var(--t-h2); }
+.programs-head > p:last-child { color: rgba(255,244,234,.8); max-width: 60ch; }
+.programs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.program { border-radius: 6px; padding: clamp(24px, 2.6vw, 34px); display: grid; gap: 18px; align-content: start; color: var(--cream); transition: transform .35s ease, box-shadow .35s ease; }
+.program:hover { transform: translateY(-4px); box-shadow: 0 24px 50px rgba(0,0,0,.25); }
+.program--premium { background: var(--ink); }
+.program--biznes { background: var(--orange); }
+.program--entre { background: var(--teal); }
+.program-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.seats { font: 500 .8rem/1 var(--f-body); padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(255,244,234,.4); }
+.program-price { font: 400 1.9rem/1 var(--f-display); }
+.program h3 { font-size: clamp(2rem, 1.5rem + 1.4vw, 2.8rem); }
+.program-for { color: rgba(255,244,234,.82); }
+.program ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; font-size: .95rem; }
+.program li { padding-left: 22px; position: relative; }
+.program li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--peach); }
+.persona { border-top: 1px solid rgba(255,244,234,.22); border-bottom: 1px solid rgba(255,244,234,.22); }
+.persona summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; padding-block: 14px; font-weight: 500; }
+.persona summary::-webkit-details-marker { display: none; }
+.persona summary::after { content: "+"; font-size: 1.3rem; line-height: 1; color: var(--peach); transition: transform .25s; }
+.persona[open] summary::after { transform: rotate(45deg); }
+.persona-body { display: grid; gap: 12px; padding-bottom: 18px; font-size: .92rem; color: rgba(255,244,234,.85); }
+.persona-name { font: 400 1.5rem/1.1 var(--f-display); color: var(--cream); }
+.persona-name span { font: 500 .72rem/1 var(--f-body); padding: 4px 8px; border-radius: 999px; background: rgba(255,244,234,.15); vertical-align: middle; margin-left: 6px; }
+.persona dl { margin: 0; display: grid; gap: 8px; }
+.persona dt { font-weight: 600; color: var(--peach); }
+.persona dd { margin: 0; }
+.program .btn { justify-self: start; }
+.programs-note { margin-top: 28px; font-size: var(--t-sm); color: rgba(255,244,234,.65); }
+
 /* Chamber */
 .chamber { background: var(--teal-deep); color: var(--cream); }
 .chamber-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 640px; }
@@ -343,7 +382,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .studio-info .btn { grid-column: 1 / -1; justify-self: start; }
   .menu .wrap, .booking .wrap, .faq-sec .wrap { grid-template-columns: minmax(0, 1fr); }
   .menu-head { position: static; }
-  .plans { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+  .plans, .plans--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+  .programs-grid { grid-template-columns: minmax(0, 1fr); max-width: 620px; }
   .chamber-grid { grid-template-columns: minmax(0, 1fr); }
   .chamber-text { padding-left: var(--gutter); }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
@@ -359,7 +399,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .studio--ivory .studio-top { flex-direction: row; text-align: left; }
   .studio-info { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .studio-info dl:last-of-type { grid-column: 1 / -1; }
-  .steps, .form { grid-template-columns: minmax(0, 1fr); }
+  .steps, .form, .plans, .plans--4 { grid-template-columns: minmax(0, 1fr); }
   .price-list li { grid-template-columns: minmax(0, 1fr); }
   .price-list .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
@@ -368,7 +408,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .slide { transition: opacity .01s; transform: none; }
   .story.is-active .bar i { animation: none; transform: scaleX(1); }
   .botanic svg > g, .botanic.is-drawing path, .hotspot::before { animation: none; }
-  .botanic, .frame img, .frame-cap { transition: none; }
+  .botanic, .frame img, .frame-cap, .program { transition: none; }
 }
 </style>
 </head>
@@ -380,7 +420,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <ul id="nav-links">
       <li><a href="#studia">Studia</a></li>
       <li><a href="#cennik">Cennik</a></li>
-      <li><a href="#abonament">Abonament</a></li>
+      <li><a href="#pakiety">Dla firm</a></li>
+      <li><a href="#programy">Programy</a></li>
       <li><a href="#izba">O Izbie</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#rezerwacja">Rezerwacja</a></li>
@@ -439,8 +480,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <p>Salon z dwiema sofami i podświetloną ścianą z logo. Na talk-show, panele i rozmowy z kilkoma gośćmi.</p>
           <dl><dt>Goście</dt><dd>do 6 osób</dd></dl>
           <dl><dt>Format</dt><dd>wideo, live</dd></dl>
-          <dl><dt>Cena</dt><dd>od 390 zł / h</dd></dl>
-          <button class="btn btn--cream" type="button" data-service="Studio wideo">Rezerwuj <span class="arrow">→</span></button>
+          <dl><dt>Cena</dt><dd>od 1000 zł / h</dd></dl>
+          <button class="btn btn--cream" type="button" data-studio="Global Women Forum">Rezerwuj <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
@@ -454,8 +495,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <p>Jasne wnętrze z terakotową ścianą i rzeźbiarskim stołem. Do rozmowy w cztery oczy.</p>
           <dl><dt>Goście</dt><dd>2 osoby</dd></dl>
           <dl><dt>Format</dt><dd>podcast, wywiad</dd></dl>
-          <dl><dt>Cena</dt><dd>od 290 zł / h</dd></dl>
-          <button class="btn btn--cream" type="button" data-service="Studio podcastowe">Rezerwuj <span class="arrow">→</span></button>
+          <dl><dt>Cena</dt><dd>od 1000 zł / h</dd></dl>
+          <button class="btn btn--cream" type="button" data-studio="Ivory Sculpture">Rezerwuj <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
@@ -469,8 +510,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <p>Morska zieleń, pomarańczowy aksamit i ściana z roślin. Na rozmowy w duecie i nagrania do social mediów.</p>
           <dl><dt>Goście</dt><dd>2 osoby</dd></dl>
           <dl><dt>Format</dt><dd>podcast, rolki</dd></dl>
-          <dl><dt>Cena</dt><dd>od 290 zł / h</dd></dl>
-          <button class="btn btn--cream" type="button" data-service="Studio podcastowe">Rezerwuj <span class="arrow">→</span></button>
+          <dl><dt>Cena</dt><dd>od 1000 zł / h</dd></dl>
+          <button class="btn btn--cream" type="button" data-studio="Teal Sunset">Rezerwuj <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
@@ -481,32 +522,29 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="wrap">
       <div class="menu-head">
         <h2>Cennik</h2>
-        <p>Ceny netto za godzinę. Realizator jest w cenie każdej sesji. Minimalna rezerwacja to 1 godzina.</p>
+        <p>Ceny netto. Realizator i obsługa techniczna są w cenie każdej sesji. Każde nagranie wycenimy dokładnie po krótkiej rozmowie.</p>
       </div>
       <div>
         <ul class="price-list">
-          <li><h3>Studio podcastowe</h3><p>Ivory Sculpture lub Teal Sunset. Nagranie wielościeżkowe, trzy kamery.</p><span class="price">290 zł<small>za godzinę</small></span></li>
-          <li><h3>Studio wideo</h3><p>Global Women Forum. Kamery 4K, światło studyjne, prompter, operator.</p><span class="price">390 zł<small>za godzinę</small></span></li>
-          <li><h3>Sala konferencyjna</h3><p>Do 40 osób. Ekran, nagłośnienie, nagranie lub transmisja.</p><span class="price">250 zł<small>za godzinę</small></span></li>
-          <li><h3>Montaż</h3><p>Montaż odcinka, napisy, miniatury i rolki pionowe.</p><span class="price">od 450 zł<small>za odcinek</small></span></li>
+          <li><h3>Nagranie wideo</h3><p>Godzina w wybranym studiu z realizatorem. Dostajesz surowy materiał wideo i audio.</p><span class="price">od 1000 zł<small>za godzinę</small></span></li>
+          <li><h3>Zmontowany odcinek</h3><p>Nagranie, montaż, korekta dźwięku i koloru, napisy. Gotowy do publikacji.</p><span class="price">od 1500 zł<small>za odcinek</small></span></li>
+          <li><h3>Odcinek i 3 rolki</h3><p>Gotowe, zmontowane wideo oraz 3 rolki promocyjne do mediów społecznościowych.</p><span class="price">od 2500 zł<small>za odcinek</small></span></li>
+          <li><h3>Wydarzenia i sala konferencyjna</h3><p>Nagranie lub transmisja konferencji, szkolenia, panelu. Do 40 osób.</p><span class="price">wycena<small>indywidualna</small></span></li>
         </ul>
         <form class="calc" id="calc" aria-labelledby="calc-title">
           <h3 id="calc-title">Policz swoje nagranie</h3>
-          <div class="calc-row"><span>Przestrzeń</span>
+          <div class="calc-row"><span>Co potrzebujesz</span>
             <div class="seg">
-              <label><input type="radio" name="space" value="Studio podcastowe" data-rate="290" checked><span>Studio podcastowe</span></label>
-              <label><input type="radio" name="space" value="Studio wideo" data-rate="390"><span>Studio wideo</span></label>
-              <label><input type="radio" name="space" value="Sala konferencyjna" data-rate="250"><span>Sala konferencyjna</span></label>
+              <label><input type="radio" name="variant" value="Nagranie wideo (surowy materiał)" data-rate="1000" data-unit="h" checked><span>Surowe nagranie</span></label>
+              <label><input type="radio" name="variant" value="Zmontowany odcinek" data-rate="1500" data-unit="odc"><span>Zmontowany odcinek</span></label>
+              <label><input type="radio" name="variant" value="Odcinek i 3 rolki" data-rate="2500" data-unit="odc"><span>Odcinek i 3 rolki</span></label>
             </div>
           </div>
-          <div class="calc-row"><span>Czas nagrania</span>
-            <div class="range"><input type="range" id="calc-hours" min="1" max="8" value="2" aria-label="Liczba godzin"><output id="calc-hours-out">2 h</output></div>
-          </div>
-          <div class="calc-row"><span>Zmontowane odcinki</span>
-            <div class="stepper"><button type="button" id="ep-minus" aria-label="Mniej odcinków">−</button><output id="calc-ep">1</output><button type="button" id="ep-plus" aria-label="Więcej odcinków">+</button></div>
+          <div class="calc-row"><span id="calc-qty-label">Liczba godzin</span>
+            <div class="range"><input type="range" id="calc-qty" min="1" max="10" value="2" aria-labelledby="calc-qty-label"><output id="calc-qty-out">2 h</output></div>
           </div>
           <div class="calc-total">
-            <div><p>Szacunkowo, netto</p><strong id="calc-total">1030 zł</strong></div>
+            <div><p>Szacunkowo, od (netto)</p><strong id="calc-total">2000 zł</strong></div>
             <button class="btn btn--fill" type="button" id="calc-book">Zarezerwuj termin <span class="arrow">→</span></button>
           </div>
         </form>
@@ -514,35 +552,136 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="plans-sec has-plants" id="abonament">
+  <section class="plans-sec has-plants" id="pakiety">
     <span class="botanic" data-plant="sprig" style="left:-40px; bottom:-30px; --rot:35deg"></span>
     <div class="wrap">
       <div class="plans-head">
-        <h2>Abonament <em>dla firm</em></h2>
-        <p>Stały pakiet godzin w studiu i montażu. Publikujesz regularnie, my zajmujemy się produkcją. Niewykorzystane godziny przechodzą na kolejny miesiąc.</p>
+        <h2>Pakiety <em>dla firm</em></h2>
+        <p>Dla firm, które chcą publikować regularnie albo potrzebują jednej dużej produkcji. Każdy pakiet obejmuje realizatora, montaż i opiekę jednej osoby z naszego zespołu.</p>
       </div>
-      <div class="plans">
+      <div class="plans plans--4">
         <article class="plan">
-          <h3>Start</h3>
-          <p class="amount">1 900 zł<small>netto / mies.</small></p>
-          <ul><li>4 godziny w studiu</li><li>2 odcinki do 30 minut</li><li>4 rolki z napisami</li><li>Miniatury</li></ul>
-          <button class="btn" type="button" data-service="Abonament Start">Wybieram Start</button>
+          <p class="plan-for">Dla ekspertek i zarządów</p>
+          <h3>Ekspert</h3>
+          <p class="amount">od 4500 zł<small>netto / mies.</small></p>
+          <ul><li>2 zmontowane odcinki wideo</li><li>6 rolek promocyjnych</li><li>Miniatury i opisy do publikacji</li><li>Termin co dwa tygodnie</li></ul>
+          <button class="btn" type="button" data-service="Pakiet Ekspert">Zapytaj o pakiet</button>
         </article>
         <article class="plan plan--hot">
           <span class="plan-tag">Najczęściej wybierany</span>
-          <h3>Biznes</h3>
-          <p class="amount">3 900 zł<small>netto / mies.</small></p>
-          <ul><li>10 godzin w studiu</li><li>4 odcinki do 45 minut</li><li>12 rolek z napisami</li><li>2 godziny sali konferencyjnej</li><li>Konsultacja scenariusza</li></ul>
-          <button class="btn btn--cream" type="button" data-service="Abonament Biznes">Wybieram Biznes</button>
+          <p class="plan-for">Dla marek budujących zasięg</p>
+          <h3>Marka</h3>
+          <p class="amount">od 8500 zł<small>netto / mies.</small></p>
+          <ul><li>4 zmontowane odcinki wideo</li><li>12 rolek promocyjnych</li><li>Konsultacja scenariusza i gości</li><li>Stały dzień nagrań w kalendarzu</li></ul>
+          <button class="btn btn--cream" type="button" data-service="Pakiet Marka">Zapytaj o pakiet</button>
         </article>
         <article class="plan">
-          <h3>Premium</h3>
-          <p class="amount">7 900 zł<small>netto / mies.</small></p>
-          <ul><li>20 godzin studia i sali</li><li>8 odcinków</li><li>24 rolki i grafiki</li><li>Transmisja live wydarzenia</li><li>Opiekunka projektu</li></ul>
-          <button class="btn" type="button" data-service="Abonament Premium">Wybieram Premium</button>
+          <p class="plan-for">Dla firm z kilkoma działami</p>
+          <h3>Korporacja</h3>
+          <p class="amount">od 16 000 zł<small>netto / mies.</small></p>
+          <ul><li>8 zmontowanych odcinków</li><li>24 rolki i grafiki do kampanii</li><li>Wszystkie trzy studia</li><li>Transmisja live jednego wydarzenia</li></ul>
+          <button class="btn" type="button" data-service="Pakiet Korporacja">Zapytaj o pakiet</button>
+        </article>
+        <article class="plan">
+          <p class="plan-for">Jednorazowo, na premierę</p>
+          <h3>Kampania</h3>
+          <p class="amount">od 9000 zł<small>netto, jednorazowo</small></p>
+          <ul><li>3 odcinki nagrane jednego dnia</li><li>9 rolek na start kampanii</li><li>Zdjęcia zza kulis</li><li>Gotowe w 5 dni roboczych</li></ul>
+          <button class="btn" type="button" data-service="Pakiet Kampania">Zapytaj o pakiet</button>
         </article>
       </div>
-      <p class="fine">Członkinie i członkowie Polish Women Chamber of Commerce mają preferencyjne stawki. Umowa od 3 miesięcy, faktura VAT.</p>
+      <p class="fine">Członkinie i członkowie Polish Women Chamber of Commerce mają preferencyjne stawki. Pakiety miesięczne od 3 miesięcy, faktura VAT.</p>
+    </div>
+  </section>
+
+  <section class="programs" id="programy">
+    <div class="wrap">
+      <div class="programs-head">
+        <p class="label">Zaproszenie</p>
+        <h2>Programy dla <em>kobiet biznesu</em></h2>
+        <p>Zapraszamy przedsiębiorczynie do trzech programów Polish Women Chamber of Commerce. W każdym jest 25 miejsc. Uczestniczki nagrywają w naszym studiu, pokazujemy je w kanałach Izby i łączymy ze sobą w zamkniętej grupie.</p>
+      </div>
+      <div class="programs-grid">
+        <article class="program program--premium">
+          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">10 000 zł</span></div>
+          <h3>Global Women <em>Premium</em></h3>
+          <p class="program-for">Dla doświadczonych przedsiębiorczyń, które działają globalnie.</p>
+          <ul>
+            <li>Wywiad wideo w studiu Global Women Forum, zmontowany, z 3 rolkami</li>
+            <li>Profil w magazynie Business Women IMPACT</li>
+            <li>Promocja w sieci Izby w 16 krajach</li>
+            <li>Zamknięte spotkania grupy 25 liderek</li>
+            <li>Wprowadzenie do PWCC Investment Club</li>
+          </ul>
+          <details class="persona">
+            <summary>Kim jest uczestniczka?</summary>
+            <div class="persona-body">
+              <p class="persona-name">Katarzyna, 46 lat <span>persona</span></p>
+              <p>Prezeska firmy z oddziałami w trzech krajach, eksport usług lub produktów premium. Zespół powyżej 50 osób, kontakty z inwestorami i partnerami zagranicznymi.</p>
+              <dl>
+                <dt>Chce</dt><dd>być widoczna jako ekspertka na rynkach międzynarodowych, poznać partnerki do ekspansji i inwestorów.</dd>
+                <dt>Blokuje ją</dt><dd>brak czasu na marketing osobisty i rozproszone działania PR.</dd>
+                <dt>Przekonuje ją</dt><dd>selekcja do 25 osób, prestiż Izby i gotowy materiał w jeden dzień nagrań.</dd>
+                <dt>Gdzie jest</dt><dd>LinkedIn, konferencje branżowe, rady nadzorcze, misje gospodarcze.</dd>
+              </dl>
+            </div>
+          </details>
+          <button class="btn btn--cream" type="button" data-service="Program Global Women Premium">Zgłaszam się <span class="arrow">→</span></button>
+        </article>
+
+        <article class="program program--biznes">
+          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">5000 zł</span></div>
+          <h3>Polish Women <em>Biznes</em></h3>
+          <p class="program-for">Dla Polek, które prowadzą firmy z sukcesami.</p>
+          <ul>
+            <li>Wywiad wideo w studiu, zmontowany, z 3 rolkami</li>
+            <li>Odcinek w Polish Women Chamber TV</li>
+            <li>Wzmianka w magazynie Business Women IMPACT</li>
+            <li>Spotkania networkingowe grupy</li>
+          </ul>
+          <details class="persona">
+            <summary>Kim jest uczestniczka?</summary>
+            <div class="persona-body">
+              <p class="persona-name">Magdalena, 38 lat <span>persona</span></p>
+              <p>Właścicielka rozwijającej się firmy w Polsce: sieci salonów beauty, biura nieruchomości albo sklepu internetowego. Zatrudnia od 10 do 50 osób.</p>
+              <dl>
+                <dt>Chce</dt><dd>zbudować markę osobistą, pozyskać klientów i przygotować firmę do wyjścia za granicę.</dd>
+                <dt>Blokuje ją</dt><dd>trema przed kamerą i brak działu marketingu.</dd>
+                <dt>Przekonuje ją</dt><dd>realizator, który prowadzi przez nagranie, i społeczność kobiet na podobnym etapie.</dd>
+                <dt>Gdzie jest</dt><dd>Instagram, Facebook, LinkedIn, lokalne wydarzenia biznesowe.</dd>
+              </dl>
+            </div>
+          </details>
+          <button class="btn btn--cream" type="button" data-service="Program Polish Women Biznes">Zgłaszam się <span class="arrow">→</span></button>
+        </article>
+
+        <article class="program program--entre">
+          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">2500 zł</span></div>
+          <h3>Women <em>Entrepreneurs</em></h3>
+          <p class="program-for">Dla przedsiębiorczyń z jednej branży, w tematycznych edycjach.</p>
+          <ul>
+            <li>Udział w tematycznym odcinku podcastu wideo</li>
+            <li>3 rolki promocyjne z Twoją wypowiedzią</li>
+            <li>Publikacja w kanałach Izby</li>
+            <li>Spotkanie grupy tematycznej</li>
+          </ul>
+          <details class="persona">
+            <summary>Kim jest uczestniczka?</summary>
+            <div class="persona-body">
+              <p class="persona-name">Aleksandra, 31 lat <span>persona</span></p>
+              <p>Założycielka młodej firmy usługowej: architektka wnętrz, prawniczka, trenerka albo kosmetolożka. Działa sama lub z małym zespołem.</p>
+              <dl>
+                <dt>Chce</dt><dd>mieć pierwszy profesjonalny materiał wideo i dotrzeć do klientów w swojej niszy.</dd>
+                <dt>Blokuje ją</dt><dd>budżet i stres przed występem w pojedynkę.</dd>
+                <dt>Przekonuje ją</dt><dd>niski próg wejścia i nagranie razem z innymi kobietami z branży.</dd>
+                <dt>Gdzie jest</dt><dd>Instagram, TikTok, grupy branżowe na Facebooku.</dd>
+              </dl>
+            </div>
+          </details>
+          <button class="btn btn--cream" type="button" data-service="Program Women Entrepreneurs">Zgłaszam się <span class="arrow">→</span></button>
+        </article>
+      </div>
+      <p class="programs-note">Ceny netto za udział. O zakwalifikowaniu decyduje kolejność zgłoszeń i krótka rozmowa.</p>
     </div>
   </section>
 
@@ -583,7 +722,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="faq">
         <details><summary>Czy realizator jest w cenie?</summary><p>Tak. Każda sesja w studiu odbywa się z realizatorem, który ustawia dźwięk, światło i kamery.</p></details>
         <details><summary>Mogę przyjść tylko z pomysłem?</summary><p>Tak. Przed nagraniem pomagamy ułożyć scenariusz, pytania do gościa i plan odcinków.</p></details>
-        <details><summary>Jak się rozliczamy?</summary><p>Wynajem godzinowy rozliczamy po sesji, na fakturę VAT. Abonament z góry za każdy miesiąc.</p></details>
+        <details><summary>Jak się rozliczamy?</summary><p>Wynajem godzinowy rozliczamy po sesji, na fakturę VAT. Pakiety miesięczne z góry za każdy miesiąc.</p></details>
         <details><summary>Czy mogę przenieść termin?</summary><p>Tak, bezpłatnie do 48 godzin przed sesją.</p></details>
       </div>
     </div>
@@ -616,16 +755,37 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <input type="hidden" name="time" id="f-time">
         <div class="field"><label for="f-service">Usługa</label>
           <select id="f-service" name="service">
-            <option>Studio podcastowe</option>
-            <option>Studio wideo</option>
-            <option>Sala konferencyjna</option>
-            <option>Abonament Start</option>
-            <option>Abonament Biznes</option>
-            <option>Abonament Premium</option>
-            <option>Polish Women Chamber TV</option>
+            <optgroup label="Nagranie">
+              <option>Nagranie wideo (surowy materiał)</option>
+              <option>Zmontowany odcinek</option>
+              <option>Odcinek i 3 rolki</option>
+              <option>Wydarzenie lub sala konferencyjna</option>
+            </optgroup>
+            <optgroup label="Pakiety dla firm">
+              <option>Pakiet Ekspert</option>
+              <option>Pakiet Marka</option>
+              <option>Pakiet Korporacja</option>
+              <option>Pakiet Kampania</option>
+            </optgroup>
+            <optgroup label="Programy dla kobiet">
+              <option>Program Global Women Premium</option>
+              <option>Program Polish Women Biznes</option>
+              <option>Program Women Entrepreneurs</option>
+            </optgroup>
+            <optgroup label="Inne">
+              <option>Polish Women Chamber TV</option>
+            </optgroup>
           </select>
         </div>
-        <div class="field"><label for="f-hours">Czas nagrania</label>
+        <div class="field"><label for="f-studio">Studio</label>
+          <select id="f-studio" name="studio">
+            <option>Bez preferencji</option>
+            <option>Global Women Forum</option>
+            <option>Ivory Sculpture</option>
+            <option>Teal Sunset</option>
+          </select>
+        </div>
+        <div class="field field--full"><label for="f-hours">Czas nagrania</label>
           <select id="f-hours" name="hours">
             <option value="1">1 godzina</option><option value="2" selected>2 godziny</option><option value="3">3 godziny</option><option value="4">4 godziny</option><option value="6">6 godzin</option><option value="8">8 godzin</option>
           </select>
@@ -693,22 +853,22 @@ const CONFIG = {
   bookAheadDays: 90
 };
 
-// Kadry do paska na dole strony. Dodaj tu zdjęcia z prawdziwych nagrań: { src, title, note, service }.
+// Kadry do paska na dole strony. Dodaj tu zdjęcia z prawdziwych nagrań: { src, title, note }.
 const FRAMES = [
-  { src: "assets/frames/forum-salon.jpg", title: "Global Women Forum", note: "Panel dyskusyjny", service: "Studio wideo" },
-  { src: "assets/frames/ivory-mic.jpg", title: "Ivory Sculpture", note: "Wywiad ekspercki", service: "Studio podcastowe" },
-  { src: "assets/frames/teal-set.jpg", title: "Teal Sunset", note: "Rozmowa w duecie", service: "Studio podcastowe" },
-  { src: "assets/frames/forum-logo.jpg", title: "Global Women Forum", note: "Otwarcie odcinka", service: "Studio wideo" },
-  { src: "assets/frames/ivory-chair.jpg", title: "Ivory Sculpture", note: "Ujęcie detalu", service: "Studio podcastowe" },
-  { src: "assets/frames/teal-plants.jpg", title: "Teal Sunset", note: "Kamera boczna", service: "Studio podcastowe" },
-  { src: "assets/frames/forum-sofa.jpg", title: "Global Women Forum", note: "Plan szeroki", service: "Studio wideo" },
-  { src: "assets/frames/ivory-set.jpg", title: "Ivory Sculpture", note: "Podcast wideo", service: "Studio podcastowe" },
-  { src: "assets/frames/teal-chair.jpg", title: "Teal Sunset", note: "Rolka pionowa", service: "Studio podcastowe" },
-  { src: "assets/frames/forum-velvet.jpg", title: "Global Women Forum", note: "Talk-show", service: "Studio wideo" },
-  { src: "assets/frames/ivory-wall.jpg", title: "Ivory Sculpture", note: "Plan główny", service: "Studio podcastowe" },
-  { src: "assets/frames/teal-logo.jpg", title: "Teal Sunset", note: "Ujęcie na logo", service: "Studio podcastowe" },
-  { src: "assets/frames/teal-mic.jpg", title: "Teal Sunset", note: "Mikrofon lektorski", service: "Studio podcastowe" },
-  { src: "assets/frames/forum-table.jpg", title: "Global Women Forum", note: "Przerywnik", service: "Studio wideo" }
+  { src: "assets/frames/forum-salon.jpg", title: "Global Women Forum", note: "Panel dyskusyjny" },
+  { src: "assets/frames/ivory-mic.jpg", title: "Ivory Sculpture", note: "Wywiad ekspercki" },
+  { src: "assets/frames/teal-set.jpg", title: "Teal Sunset", note: "Rozmowa w duecie" },
+  { src: "assets/frames/forum-logo.jpg", title: "Global Women Forum", note: "Otwarcie odcinka" },
+  { src: "assets/frames/ivory-chair.jpg", title: "Ivory Sculpture", note: "Ujęcie detalu" },
+  { src: "assets/frames/teal-plants.jpg", title: "Teal Sunset", note: "Kamera boczna" },
+  { src: "assets/frames/forum-sofa.jpg", title: "Global Women Forum", note: "Plan szeroki" },
+  { src: "assets/frames/ivory-set.jpg", title: "Ivory Sculpture", note: "Podcast wideo" },
+  { src: "assets/frames/teal-chair.jpg", title: "Teal Sunset", note: "Rolka pionowa" },
+  { src: "assets/frames/forum-velvet.jpg", title: "Global Women Forum", note: "Talk-show" },
+  { src: "assets/frames/ivory-wall.jpg", title: "Ivory Sculpture", note: "Plan główny" },
+  { src: "assets/frames/teal-logo.jpg", title: "Teal Sunset", note: "Ujęcie na logo" },
+  { src: "assets/frames/teal-mic.jpg", title: "Teal Sunset", note: "Mikrofon lektorski" },
+  { src: "assets/frames/forum-table.jpg", title: "Global Women Forum", note: "Przerywnik" }
 ];
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -839,12 +999,14 @@ $("f-hours").addEventListener("change", () => {
 });
 renderCal();
 
-function goToForm(service) {
+function goToForm(service, studio) {
   if (service) $("f-service").value = service;
+  if (studio) $("f-studio").value = studio;
   form.hidden = false; done.hidden = true;
   $("rezerwacja").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
 }
 document.querySelectorAll("[data-service]").forEach(b => b.addEventListener("click", () => goToForm(b.dataset.service)));
+document.querySelectorAll("[data-studio]").forEach(b => b.addEventListener("click", () => goToForm(null, b.dataset.studio)));
 if (new URLSearchParams(location.search).get("openModal") === "true") goToForm();
 
 form.addEventListener("submit", async e => {
@@ -852,7 +1014,7 @@ form.addEventListener("submit", async e => {
   err.hidden = true;
   const d = Object.fromEntries(new FormData(form));
   const problems = [];
-  if (!d.date) problems.push("wybierz termin w kalendarzu");
+  if (!d.date && !/^(Program|Pakiet)/.test(d.service)) problems.push("wybierz termin w kalendarzu");
   if (!d.name.trim()) problems.push("podaj imię i nazwisko");
   if (!/^\S+@\S+\.\S+$/.test(d.email)) problems.push("podaj poprawny e-mail");
   if (!d.consent) problems.push("zaznacz zgodę");
@@ -863,7 +1025,8 @@ form.addEventListener("submit", async e => {
   }
   const text = [
     `Usługa: ${d.service}`,
-    `Termin: ${$("picked-text").textContent}`,
+    `Studio: ${d.studio}`,
+    `Termin: ${d.date ? $("picked-text").textContent : "do ustalenia"}`,
     `Imię i nazwisko: ${d.name}`,
     d.company && `Firma: ${d.company}`,
     `E-mail: ${d.email}`,
@@ -956,7 +1119,7 @@ $("copy").addEventListener("click", e => {
   $("lb-close").addEventListener("click", close);
   lb.addEventListener("click", e => { if (e.target === lb) close(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !lb.hidden) close(); });
-  $("lb-book").addEventListener("click", () => { close(); goToForm(current.service); });
+  $("lb-book").addEventListener("click", () => { close(); goToForm(null, current.title); });
 })();
 
 /* Botanical drawings, generated as line art */
@@ -1092,13 +1255,14 @@ $("copy").addEventListener("click", e => {
 
 /* Price calculator */
 (() => {
-  const calc = $("calc"), hours = $("calc-hours"), out = $("calc-hours-out"), ep = $("calc-ep"), total = $("calc-total");
-  let episodes = 1, shown = 0;
-  const fmt = n => n.toLocaleString("pl-PL").replace(/\u00a0/g, " ") + " zł";
+  const calc = $("calc"), qty = $("calc-qty"), out = $("calc-qty-out"), label = $("calc-qty-label"), total = $("calc-total");
+  let shown = 0;
+  const fmt = n => (n >= 10000 ? n.toLocaleString("pl-PL").replace(/\s/g, " ") : String(n)) + " zł";
   function compute() {
-    const space = calc.querySelector("input[name=space]:checked");
-    out.textContent = hours.value + " h"; ep.textContent = episodes;
-    const target = +space.dataset.rate * +hours.value + episodes * 450;
+    const v = calc.querySelector("input[name=variant]:checked"), n = +qty.value, hours = v.dataset.unit === "h";
+    label.textContent = hours ? "Liczba godzin" : "Liczba odcinków";
+    out.textContent = hours ? `${n} h` : `${n} odc.`;
+    const target = +v.dataset.rate * n;
     const start = shown, t0 = performance.now();
     const step = now => {
       const k = reduced ? 1 : Math.min(1, (now - t0) / 350);
@@ -1109,15 +1273,15 @@ $("copy").addEventListener("click", e => {
     requestAnimationFrame(step);
   }
   calc.addEventListener("input", compute);
-  $("ep-minus").addEventListener("click", () => { episodes = Math.max(0, episodes - 1); compute(); });
-  $("ep-plus").addEventListener("click", () => { episodes = Math.min(12, episodes + 1); compute(); });
   calc.addEventListener("submit", e => e.preventDefault());
   $("calc-book").addEventListener("click", () => {
-    const sel = $("f-hours"), h = +hours.value;
-    const opts = [...sel.options].map(o => +o.value);
-    sel.value = opts.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
-    sel.dispatchEvent(new Event("change"));
-    goToForm(calc.querySelector("input[name=space]:checked").value);
+    const v = calc.querySelector("input[name=variant]:checked");
+    if (v.dataset.unit === "h") {
+      const sel = $("f-hours"), h = +qty.value, opts = [...sel.options].map(o => +o.value);
+      sel.value = opts.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
+      sel.dispatchEvent(new Event("change"));
+    }
+    goToForm(v.value);
   });
   compute();
 })();
