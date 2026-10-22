@@ -269,6 +269,23 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .program .btn { justify-self: start; }
 .programs-note { margin-top: 28px; font-size: var(--t-sm); color: rgba(255,244,234,.65); }
 
+/* Host */
+.host { padding-block: clamp(90px, 11vw, 150px); background: var(--paper); }
+.host .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(36px, 6vw, 96px); align-items: start; }
+.host-photo { margin: 0; position: sticky; top: 40px; display: grid; gap: 12px; }
+.host-photo img, .host-mono { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; }
+.host-mono { display: grid; place-items: center; background: var(--bordo); color: var(--peach); font: 400 clamp(4rem, 3rem + 4vw, 7rem)/1 var(--f-display); font-style: italic; }
+.host-photo figcaption { font-size: var(--t-sm); color: var(--ink-soft); }
+.host-text { display: grid; gap: 18px; max-width: 64ch; }
+.host-text .label { color: var(--orange); }
+.host-text h2 { font-size: var(--t-h2); }
+.host-lead { font: 400 clamp(1.4rem, 1.1rem + 1vw, 1.9rem)/1.3 var(--f-display); }
+.host-text > p:not(.label):not(.host-lead) { color: var(--ink-soft); }
+.host-facts { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; border-top: 1px solid var(--line); padding-top: 22px; }
+.host-facts li { display: grid; gap: 6px; font-size: var(--t-sm); color: var(--ink-soft); }
+.host-facts b { font: 400 2.4rem/1 var(--f-display); color: var(--orange); }
+.host-more { font-size: var(--t-sm); }
+
 /* Chamber */
 .chamber { background: var(--teal-deep); color: var(--cream); }
 .chamber-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 640px; }
@@ -425,6 +442,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .mag { grid-template-columns: minmax(0, 1fr); }
   .mag .btn { justify-self: start; }
   .chamber-grid { grid-template-columns: minmax(0, 1fr); }
+  .host .wrap { grid-template-columns: minmax(0, 1fr); }
+  .host-photo { position: static; max-width: 420px; }
   .chamber-text { padding-left: var(--gutter); }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
   .botanic { --w: clamp(130px, 34vw, 220px); --op: .18; }
@@ -432,7 +451,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 @media (max-width: 600px) {
   .nav .btn { display: none; }
-  .hero .wrap { padding-block: 96px 24px; }
+  .hero { min-height: 0; display: block; background: var(--teal); }
+  .slides { position: relative; aspect-ratio: 3 / 2; }
+  .slide { object-position: 50% 50%; }
+  .hero::after { inset: 0 0 auto; height: 34vw; background: linear-gradient(180deg, rgba(6,26,26,.6), rgba(6,26,26,0)); }
+  .hero-glow { display: none; }
+  .hero .wrap { padding-block: 28px 22px; }
+  .hero-center { padding-bottom: 26px; }
+  .hero-center p { text-shadow: none; }
   .hero-ctas { width: 100%; flex-direction: column; }
   .story { font-size: .7rem; }
   .studio-top { margin-bottom: 14px; }
@@ -441,6 +467,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .studio-info dl:last-of-type { grid-column: 1 / -1; }
   .steps, .form, .plans { grid-template-columns: minmax(0, 1fr); }
   .price-list li { grid-template-columns: minmax(0, 1fr); }
+  .host-facts { grid-template-columns: minmax(0, 1fr); }
   .price-list .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -462,7 +489,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <li><a href="#cennik">Cennik</a></li>
       <li><a href="#pakiety">Pakiety TV</a></li>
       <li><a href="#programy">Programy</a></li>
-      <li><a href="#izba">O Izbie</a></li>
+      <li><a href="#prowadzaca">Prowadząca</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#rezerwacja">Rezerwacja</a></li>
     </ul>
@@ -474,9 +501,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <main id="top">
   <section class="hero" id="hero">
     <div class="slides">
-      <img class="slide is-active" src="assets/studio-teal-sunset.jpg" alt="Studio Oasis: dwa pomarańczowe aksamitne fotele i morska ściana z roślinami" width="1600" height="1067" fetchpriority="high">
-      <img class="slide" src="assets/studio-forum.jpg" alt="Studio Bordeaux: kremowa i rdzawa sofa z mikrofonami, okrągły stolik z orzecha i bordowa ściana" width="1600" height="1067">
-      <img class="slide" src="assets/studio-ivory-sculpture.jpg" alt="Studio Amber: kremowy stół i dwa bordowe fotele z mikrofonami" width="1600" height="1067">
+      <img class="slide is-active" src="assets/studio-teal-sunset.jpg" alt="Studio Lounge: dwa pomarańczowe aksamitne fotele i morska ściana z roślinami" width="1600" height="1067" fetchpriority="high">
+      <img class="slide" src="assets/studio-forum.jpg" alt="Studio Boardroom: kremowa i rdzawa sofa z mikrofonami, okrągły stolik z orzecha i bordowa ściana z logo" width="1600" height="1067">
+      <img class="slide" src="assets/studio-ivory-sculpture.jpg" alt="Studio Executive: kremowy stół i dwa bordowe fotele z mikrofonami" width="1600" height="1067">
     </div>
     <div class="hero-glow" id="hero-glow"></div>
     <div class="wrap">
@@ -489,9 +516,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         </div>
       </div>
       <div class="stories" aria-label="Studia">
-        <button class="story is-active" type="button" data-slide="0"><span class="bar"><i></i></span><span>Oasis</span></button>
-        <button class="story" type="button" data-slide="1"><span class="bar"><i></i></span><span>Bordeaux</span></button>
-        <button class="story" type="button" data-slide="2"><span class="bar"><i></i></span><span>Amber</span></button>
+        <button class="story is-active" type="button" data-slide="0"><span class="bar"><i></i></span><span>Lounge</span></button>
+        <button class="story" type="button" data-slide="1"><span class="bar"><i></i></span><span>Boardroom</span></button>
+        <button class="story" type="button" data-slide="2"><span class="bar"><i></i></span><span>Executive</span></button>
       </div>
     </div>
   </section>
@@ -514,14 +541,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <section class="studio studio--forum has-plants">
       <span class="botanic" data-plant="sprig" style="right:-30px; top:-20px; --rot:-150deg; --w: clamp(150px, 16vw, 250px)"></span>
       <div class="wrap">
-        <div class="studio-top"><h2><em>Bordeaux</em></h2><span class="label">Największe studio · talk-show i panele</span></div>
-        <figure data-hotspots="forum"><img src="assets/studio-forum.jpg" alt="Plan Bordeaux z dwiema sofami i sześcioma mikrofonami" width="1600" height="1067" loading="lazy"></figure>
+        <div class="studio-top"><h2><em>Boardroom</em></h2><span class="label">Największe studio · panele i talk-show</span></div>
+        <figure data-hotspots="forum"><img src="assets/studio-forum.jpg" alt="Plan Boardroom z dwiema sofami i sześcioma mikrofonami" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-info">
           <p>Największe studio: dwie sofy, sześć mikrofonów i bordowa ściana w ciepłym świetle. Na talk-show, panele i rozmowy z kilkoma gośćmi.</p>
           <dl><dt>Goście</dt><dd>do 6 osób</dd></dl>
           <dl><dt>Format</dt><dd>wideo, live</dd></dl>
           <dl><dt>Cena</dt><dd>1800 zł / h</dd></dl>
-          <button class="btn btn--cream" type="button" data-studio="Bordeaux">Rezerwuj <span class="arrow">→</span></button>
+          <button class="btn btn--cream" type="button" data-studio="Boardroom">Rezerwuj <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
@@ -529,14 +556,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <section class="studio studio--ivory has-plants">
       <span class="botanic" data-plant="fern" style="left:-50px; bottom:-60px; --rot:24deg"></span>
       <div class="wrap">
-        <div class="studio-top"><h2><em>Amber</em></h2><span class="label">Rozmowa w cztery oczy</span></div>
-        <figure data-hotspots="ivory"><img src="assets/studio-ivory-sculpture.jpg" alt="Studio Amber: kremowy stół na żłobionych kolumnach i dwa bordowe fotele z mikrofonami" width="1600" height="1067" loading="lazy"></figure>
+        <div class="studio-top"><h2><em>Executive</em></h2><span class="label">Rozmowa w cztery oczy</span></div>
+        <figure data-hotspots="ivory"><img src="assets/studio-ivory-sculpture.jpg" alt="Studio Executive: kremowy stół na żłobionych kolumnach i dwa bordowe fotele z mikrofonami" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-info">
           <p>Jasne wnętrze z terakotową ścianą i rzeźbiarskim stołem. Do rozmowy w cztery oczy.</p>
           <dl><dt>Goście</dt><dd>2 osoby</dd></dl>
           <dl><dt>Format</dt><dd>podcast, wywiad</dd></dl>
           <dl><dt>Cena</dt><dd>od 1000 zł / h</dd></dl>
-          <button class="btn btn--cream" type="button" data-studio="Amber">Rezerwuj <span class="arrow">→</span></button>
+          <button class="btn btn--cream" type="button" data-studio="Executive">Rezerwuj <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
@@ -544,14 +571,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <section class="studio studio--teal has-plants">
       <span class="botanic" data-plant="banana" style="right:-120px; bottom:-150px; --rot:-30deg"></span>
       <div class="wrap">
-        <div class="studio-top"><h2><em>Oasis</em></h2><span class="label">Zielona oaza rozmów</span></div>
-        <figure data-hotspots="teal"><img src="assets/studio-teal-sunset.jpg" alt="Studio Oasis: pomarańczowe aksamitne fotele, srebrny stolik i ściana z roślin w ciepłym świetle" width="1600" height="1067" loading="lazy"></figure>
+        <div class="studio-top"><h2><em>Lounge</em></h2><span class="label">Swobodne rozmowy i rolki</span></div>
+        <figure data-hotspots="teal"><img src="assets/studio-teal-sunset.jpg" alt="Studio Lounge: pomarańczowe aksamitne fotele, srebrny stolik i ściana z roślin w ciepłym świetle" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-info">
           <p>Morska zieleń, pomarańczowy aksamit i ściana z roślin. Na rozmowy w duecie i nagrania do social mediów.</p>
           <dl><dt>Goście</dt><dd>2 osoby</dd></dl>
           <dl><dt>Format</dt><dd>podcast, rolki</dd></dl>
           <dl><dt>Cena</dt><dd>od 1000 zł / h</dd></dl>
-          <button class="btn btn--cream" type="button" data-studio="Oasis">Rezerwuj <span class="arrow">→</span></button>
+          <button class="btn btn--cream" type="button" data-studio="Lounge">Rezerwuj <span class="arrow">→</span></button>
         </div>
       </div>
     </section>
@@ -566,8 +593,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
       <div>
         <ul class="price-list">
-          <li><h3>Nagranie wideo</h3><p>Godzina w studiu Amber lub Oasis z realizatorem. Dostajesz surowy materiał wideo i audio.</p><span class="price">od 1000 zł<small>za godzinę</small></span></li>
-          <li><h3>Studio Bordeaux</h3><p>Nasze największe studio: dwie sofy i sześć mikrofonów. Godzina z realizatorem, surowy materiał wideo i audio.</p><span class="price">1800 zł<small>za godzinę</small></span></li>
+          <li><h3>Nagranie wideo</h3><p>Godzina w studiu Executive lub Lounge z realizatorem. Dostajesz surowy materiał wideo i audio.</p><span class="price">od 1000 zł<small>za godzinę</small></span></li>
+          <li><h3>Studio Boardroom</h3><p>Nasze największe studio: dwie sofy i sześć mikrofonów. Godzina z realizatorem, surowy materiał wideo i audio.</p><span class="price">1800 zł<small>za godzinę</small></span></li>
           <li><h3>Zmontowany odcinek</h3><p>Nagranie, montaż, korekta dźwięku i koloru, napisy. Gotowy do publikacji.</p><span class="price">od 1500 zł<small>za odcinek</small></span></li>
           <li><h3>Odcinek i 3 rolki</h3><p>Gotowe, zmontowane wideo oraz 3 rolki promocyjne do mediów społecznościowych.</p><span class="price">od 2500 zł<small>za odcinek</small></span></li>
           <li><h3>Wydarzenia i sala konferencyjna</h3><p>Nagranie lub transmisja konferencji, szkolenia, panelu. Do 40 osób.</p><span class="price">wycena<small>indywidualna</small></span></li>
@@ -577,7 +604,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <div class="calc-row"><span>Co potrzebujesz</span>
             <div class="seg">
               <label><input type="radio" name="variant" value="Nagranie wideo (surowy materiał)" data-rate="1000" data-unit="h" checked><span>Surowe nagranie</span></label>
-              <label><input type="radio" name="variant" value="Wynajem studia Bordeaux" data-rate="1800" data-unit="h"><span>Bordeaux, godzina</span></label>
+              <label><input type="radio" name="variant" value="Wynajem studia Boardroom" data-rate="1800" data-unit="h"><span>Boardroom, godzina</span></label>
               <label><input type="radio" name="variant" value="Zmontowany odcinek" data-rate="1500" data-unit="odc"><span>Zmontowany odcinek</span></label>
               <label><input type="radio" name="variant" value="Odcinek i 3 rolki" data-rate="2500" data-unit="odc"><span>Odcinek i 3 rolki</span></label>
             </div>
@@ -607,7 +634,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <h3>Start</h3>
           <p class="amount">1900 zł<small>netto</small></p>
           <ul>
-            <li>Wywiad do 20 minut w studiu Amber lub Oasis</li>
+            <li>Wywiad do 20 minut w studiu Executive lub Lounge</li>
             <li>Montaż i napisy</li>
             <li>1 rolka promocyjna</li>
             <li>Publikacja w Global Women TV</li>
@@ -635,7 +662,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <ul>
             <li>60 minut konsultacji online przed nagraniem</li>
             <li>Profesjonalny makijaż przed wejściem na plan</li>
-            <li>Wywiad do 60 minut w studiu Bordeaux</li>
+            <li>Wywiad do 60 minut w studiu Boardroom</li>
             <li>Montaż, napisy i miniatura</li>
             <li>5 rolek promocyjnych</li>
             <li>10 zdjęć portretowych z planu</li>
@@ -671,7 +698,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <h3>Global Women <em>Premium</em></h3>
           <p class="program-for">Dla doświadczonych przedsiębiorczyń, które działają globalnie.</p>
           <ul>
-            <li>Wywiad wideo w studiu Bordeaux, zmontowany, z 3 rolkami</li>
+            <li>Wywiad wideo w studiu Boardroom, zmontowany, z 3 rolkami</li>
             <li>Profil w magazynie Business Women IMPACT</li>
             <li>Promocja w sieci Izby w 16 krajach</li>
             <li>Zamknięte spotkania grupy 25 liderek</li>
@@ -749,6 +776,29 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
+  <section class="host" id="prowadzaca">
+    <div class="wrap">
+      <figure class="host-photo" id="host-photo">
+        <div class="host-mono" aria-hidden="true">PCM</div>
+        <figcaption>Patricia Claudia Mitro</figcaption>
+      </figure>
+      <div class="host-text">
+        <p class="label">Prowadząca programy i Global Women TV</p>
+        <h2>Patricia <em>Claudia Mitro</em></h2>
+        <p class="host-lead">Prawniczka, mentorka Global Women’s Leadership, certyfikowana coachka ICI, doradczyni kariery oraz mentorka w obszarze tradingu i inteligencji finansowej.</p>
+        <p>Od blisko dwudziestu lat tworzy inicjatywy wspierające rozwój gospodarczy kobiet i ich udział w międzynarodowym biznesie. Jako Prezydentka Polish Women Chamber of Commerce reprezentuje przedsiębiorczynie i buduje partnerstwa z administracją, dyplomacją, izbami gospodarczymi i uczelniami. Zainicjowała Global Women Chamber of Commerce, która łączy przedsiębiorczynie, inwestorów i instytucje z wielu krajów.</p>
+        <p>Jest założycielką i redaktorką naczelną magazynu Business Women IMPACT oraz twórczynią Global Women TV. Jako prezeska GLOBAL WOMEN INVESTMENT, MEDIA &amp; INSURANCE GROUP rozwija projekty łączące biznes, media, technologie i komunikację strategiczną, w tym personal branding premium dla ekspertek i liderek.</p>
+        <p>Jako mentorka inwestycyjna promuje odpowiedzialne budowanie kapitału oparte na wiedzy, świadomości ryzyka i myśleniu długoterminowym. Ukończyła seminaria doktoranckie i studia podyplomowe z doradztwa zawodowego w Akademii Nauk Społecznych i Medycznych w Lublinie.</p>
+        <ul class="host-facts">
+          <li><b>150+</b>inicjatyw biznesowych, edukacyjnych i wydawniczych</li>
+          <li><b>100 000+</b>kobiet, do których dotarły jej projekty</li>
+          <li><b>2022</b>wyróżnienie Equality Leaders od Forbes Women i Ambasady Brytyjskiej</li>
+        </ul>
+        <p class="host-more">Członkini Krajowego Prezydium Rad Kobiet. Współautorka krajowych raportów o ESG i obronie cywilnej. Autorka książek „Przestań czekać – zacznij żyć” i „Przewodnik do spełnionego życia: 50 metod i ćwiczeń”. Mówi po polsku, angielsku i słowacku.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="chamber has-plants" id="izba">
     <div class="chamber-grid">
       <div class="chamber-photo"><img src="assets/studio-teal-sunset.jpg" alt="" width="1600" height="1067" loading="lazy"></div>
@@ -821,7 +871,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <select id="f-service" name="service">
             <optgroup label="Nagranie">
               <option>Nagranie wideo (surowy materiał)</option>
-              <option>Wynajem studia Bordeaux</option>
+              <option>Wynajem studia Boardroom</option>
               <option>Zmontowany odcinek</option>
               <option>Odcinek i 3 rolki</option>
               <option>Wydarzenie lub sala konferencyjna</option>
@@ -845,9 +895,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="field"><label for="f-studio">Studio</label>
           <select id="f-studio" name="studio">
             <option>Bez preferencji</option>
-            <option>Bordeaux</option>
-            <option>Amber</option>
-            <option>Oasis</option>
+            <option>Boardroom</option>
+            <option>Executive</option>
+            <option>Lounge</option>
           </select>
         </div>
         <div class="field field--full"><label for="f-hours">Czas nagrania</label>
@@ -976,7 +1026,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           </ol>
           <h3>§2. Usługi</h3>
           <ol>
-            <li>Usługodawca świadczy usługi: nagrania wideo z przekazaniem surowego materiału, wynajmu studia Bordeaux, nagrania z montażem odcinka, nagrania z montażem i rolkami promocyjnymi, obsługi wydarzeń, pakietów Global Women TV oraz programów Global Women Premium, Polish Women Business i Women Entrepreneur.</li>
+            <li>Usługodawca świadczy usługi: nagrania wideo z przekazaniem surowego materiału, wynajmu studia Boardroom, nagrania z montażem odcinka, nagrania z montażem i rolkami promocyjnymi, obsługi wydarzeń, pakietów Global Women TV oraz programów Global Women Premium, Polish Women Business i Women Entrepreneur.</li>
             <li>Ceny podane na stronie są cenami netto, do których dolicza się podatek VAT według obowiązującej stawki. Ceny oznaczone słowem „od” są cenami minimalnymi. Ostateczną cenę Usługodawca podaje w potwierdzeniu rezerwacji.</li>
           </ol>
           <h3>§3. Rezerwacja i zawarcie umowy</h3>
@@ -1089,6 +1139,8 @@ const CONFIG = {
     court: "Sąd Rejonowy dla m.st. Warszawy w Warszawie, Wydział Gospodarczy KRS"
   },
   docsDate: "22 października 2026",
+  // Zdjęcie prowadzącej, np. "assets/patricia-claudia-mitro.jpg". Puste = monogram.
+  hostPhoto: "",
   formEndpoint: "",
   // Godziny otwarcia studia: [otwarcie, zamknięcie] dla pn–nd; null = zamknięte.
   hours: [[9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [10, 16], null],
@@ -1101,20 +1153,20 @@ const CONFIG = {
 
 // Kadry do paska na dole strony. Dodaj tu zdjęcia z prawdziwych nagrań: { src, title, note }.
 const FRAMES = [
-  { src: "assets/frames/forum-salon.jpg", title: "Bordeaux", note: "Panel dyskusyjny" },
-  { src: "assets/frames/ivory-mic.jpg", title: "Amber", note: "Wywiad ekspercki" },
-  { src: "assets/frames/teal-set.jpg", title: "Oasis", note: "Rozmowa w duecie" },
-  { src: "assets/frames/forum-wall.jpg", title: "Bordeaux", note: "Otwarcie odcinka" },
-  { src: "assets/frames/ivory-chair.jpg", title: "Amber", note: "Ujęcie detalu" },
-  { src: "assets/frames/teal-plants.jpg", title: "Oasis", note: "Kamera boczna" },
-  { src: "assets/frames/forum-sofa.jpg", title: "Bordeaux", note: "Plan szeroki" },
-  { src: "assets/frames/ivory-set.jpg", title: "Amber", note: "Podcast wideo" },
-  { src: "assets/frames/teal-chair.jpg", title: "Oasis", note: "Rolka pionowa" },
-  { src: "assets/frames/forum-velvet.jpg", title: "Bordeaux", note: "Talk-show" },
-  { src: "assets/frames/ivory-wall.jpg", title: "Amber", note: "Plan główny" },
-  { src: "assets/frames/teal-wall.jpg", title: "Oasis", note: "Morska ściana" },
-  { src: "assets/frames/teal-mic.jpg", title: "Oasis", note: "Mikrofon lektorski" },
-  { src: "assets/frames/forum-table.jpg", title: "Bordeaux", note: "Przerywnik" }
+  { src: "assets/frames/forum-salon.jpg", title: "Boardroom", note: "Panel dyskusyjny" },
+  { src: "assets/frames/ivory-mic.jpg", title: "Executive", note: "Wywiad ekspercki" },
+  { src: "assets/frames/teal-set.jpg", title: "Lounge", note: "Rozmowa w duecie" },
+  { src: "assets/frames/forum-wall.jpg", title: "Boardroom", note: "Otwarcie odcinka" },
+  { src: "assets/frames/ivory-chair.jpg", title: "Executive", note: "Ujęcie detalu" },
+  { src: "assets/frames/teal-plants.jpg", title: "Lounge", note: "Kamera boczna" },
+  { src: "assets/frames/forum-sofa.jpg", title: "Boardroom", note: "Plan szeroki" },
+  { src: "assets/frames/ivory-set.jpg", title: "Executive", note: "Podcast wideo" },
+  { src: "assets/frames/teal-chair.jpg", title: "Lounge", note: "Rolka pionowa" },
+  { src: "assets/frames/forum-velvet.jpg", title: "Boardroom", note: "Talk-show" },
+  { src: "assets/frames/ivory-wall.jpg", title: "Executive", note: "Plan główny" },
+  { src: "assets/frames/teal-wall.jpg", title: "Lounge", note: "Ujęcie na logo" },
+  { src: "assets/frames/teal-mic.jpg", title: "Lounge", note: "Mikrofon lektorski" },
+  { src: "assets/frames/forum-table.jpg", title: "Boardroom", note: "Przerywnik" }
 ];
 
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1122,6 +1174,11 @@ const $ = id => document.getElementById(id);
 document.querySelectorAll("[data-cfg]").forEach(el => { el.textContent = CONFIG[el.dataset.cfg]; });
 for (const k of Object.keys(CONFIG.company)) document.querySelectorAll(".co-" + k).forEach(el => { el.textContent = CONFIG.company[k]; });
 document.querySelectorAll(".doc-date").forEach(el => { el.textContent = CONFIG.docsDate; });
+if (CONFIG.hostPhoto) {
+  const img = document.createElement("img");
+  img.src = CONFIG.hostPhoto; img.alt = "Patricia Claudia Mitro"; img.loading = "lazy";
+  document.querySelector("#host-photo .host-mono").replaceWith(img);
+}
 $("year").textContent = new Date().getFullYear();
 
 /* Legal documents and cookie notice */
@@ -1484,7 +1541,7 @@ $("copy").addEventListener("click", e => {
   const SPOTS = {
     forum: [
       { x: 29, y: 47, t: "Sześć mikrofonów", d: "Mikrofony lektorskie na ramionach przy obu sofach. Każdy gość ma własną ścieżkę." },
-      { x: 67, y: 30, t: "Bordowa ściana", d: "Głęboki bordo w ciepłym świetle. Tło każdego ujęcia głównego." },
+      { x: 67, y: 30, t: "Ściana z logo", d: "Podświetlona ściana z logo GLOBAL WOMEN FORUM. Tło każdego ujęcia głównego." },
       { x: 50, y: 65, t: "Stolik na rekwizyty", d: "Miejsce na produkty, książki i materiały marki widoczne w kadrze." },
       { x: 15, y: 28, t: "Regały z oświetleniem", d: "Ciepłe światło LED na półkach daje głębię w planie szerokim." }
     ],
