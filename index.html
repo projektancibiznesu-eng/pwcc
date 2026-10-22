@@ -464,14 +464,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 @media (max-width: 600px) {
   .nav .btn { display: none; }
-  .hero { min-height: 0; display: block; background: var(--teal); }
-  .slides { position: relative; aspect-ratio: 3 / 2; }
-  .slide { object-position: 50% 50%; }
-  .hero::after { inset: 0 0 auto; height: 34vw; background: linear-gradient(180deg, rgba(6,26,26,.6), rgba(6,26,26,0)); }
+  .hero .wrap { padding-block: 96px 24px; }
+  .slide { object-position: 50% 45%; }
+  .slide:first-child { object-position: 48% 50%; }
   .hero-glow { display: none; }
-  .hero .wrap { padding-block: 28px 22px; }
-  .hero-center { padding-bottom: 26px; }
-  .hero-center p { text-shadow: none; }
   .hero-ctas { width: 100%; flex-direction: column; }
   .story { font-size: .7rem; }
   .studio-top { margin-bottom: 14px; }
