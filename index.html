@@ -395,6 +395,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .contact dd { margin: 4px 0 0; color: var(--cream); user-select: all; }
 .foot-bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 24px; font-size: var(--t-sm); }
 
+/* Booking info */
+.booking-info { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; border-top: 1px solid var(--line-light); padding-top: 20px; }
+.booking-info li { display: grid; gap: 4px; color: rgba(255,244,234,.8); font-size: var(--t-sm); }
+.booking-info b { font: 400 1.4rem/1.15 var(--f-display); color: var(--cream); }
+
 /* Company data + legal links */
 .foot-company { display: grid; gap: 6px; padding-block: 24px; border-bottom: 1px solid var(--line-light); font-size: var(--t-sm); color: rgba(255,244,234,.62); }
 .foot-company b { color: var(--cream); font-weight: 500; }
@@ -477,6 +482,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .price-list li { grid-template-columns: minmax(0, 1fr); }
   .host-facts { grid-template-columns: minmax(0, 1fr); }
   .host-card { border-radius: 16px; align-items: flex-start; }
+  .booking-info { grid-template-columns: minmax(0, 1fr); }
   .price-list .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -850,6 +856,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <details><summary>Czy realizator jest w cenie?</summary><p>Tak. Każda sesja w studiu odbywa się z realizatorem, który ustawia dźwięk, światło i kamery.</p></details>
         <details><summary>Mogę przyjść tylko z pomysłem?</summary><p>Tak. Przed nagraniem pomagamy ułożyć scenariusz, pytania do gościa i plan odcinków.</p></details>
         <details><summary>Jak się rozliczamy?</summary><p>Wynajem godzinowy rozliczamy po sesji, na fakturę VAT. Pakiety Global Women TV płatne są przed nagraniem.</p></details>
+        <details><summary>Kiedy studio jest czynne?</summary><p>Codziennie, 7 dni w tygodniu, od 09:00 do 20:00. Rezerwacje przyjmujemy na 14–23 grudnia 2026 oraz na terminy od 12 stycznia 2027.</p></details>
         <details><summary>Czy mogę przenieść termin?</summary><p>Tak, bezpłatnie do 48 godzin przed sesją.</p></details>
       </div>
     </div>
@@ -861,6 +868,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="booking-head">
         <h2>Zarezerwuj <em>termin</em></h2>
         <p>Wybierz dzień i godzinę. Potwierdzimy rezerwację w ciągu jednego dnia roboczego.</p>
+        <ul class="booking-info">
+          <li><b>Studio czynne</b>codziennie, 7 dni w tygodniu, 09:00–20:00</li>
+          <li><b>Przedświąteczne terminy</b>14–23 grudnia 2026</li>
+          <li><b>Stałe zapisy</b>od 12 stycznia 2027</li>
+        </ul>
       </div>
 
       <div class="cal" id="cal">
@@ -1154,12 +1166,17 @@ const CONFIG = {
   docsDate: "22 października 2026",
   formEndpoint: "",
   // Godziny otwarcia studia: [otwarcie, zamknięcie] dla pn–nd; null = zamknięte.
-  hours: [[9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [10, 16], null],
+  hours: [[9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [9, 20]],
+  // Okresy, w których przyjmujemy rezerwacje (to: null = bez końca, do granicy bookUntil).
+  windows: [
+    { from: "2026-12-14", to: "2026-12-23" },
+    { from: "2027-01-12", to: null }
+  ],
+  bookUntil: "2027-12-31",
   // Zajęte terminy, np. { "2026-11-04": [10, 11, 15] }. Po podłączeniu kalendarza studia (Google Calendar, Calendly) dane przyjdą stąd.
   booked: {},
   // Dopóki studio nie poda prawdziwego kalendarza, część godzin jest oznaczana jako zajęta poglądowo.
-  demoBusy: true,
-  bookAheadDays: 90
+  demoBusy: true
 };
 
 // Kadry do paska na dole strony. Dodaj tu zdjęcia z prawdziwych nagrań: { src, title, note }.
@@ -1260,8 +1277,12 @@ const DAYS = ["niedziela","poniedziałek","wtorek","środa","czwartek","piątek"
 const pad = n => String(n).padStart(2, "0");
 const iso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const today = new Date(); today.setHours(0, 0, 0, 0);
-const lastDay = new Date(today); lastDay.setDate(lastDay.getDate() + CONFIG.bookAheadDays);
-let view = new Date(today.getFullYear(), today.getMonth(), 1);
+const parse = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const lastDay = parse(CONFIG.bookUntil);
+const windows = CONFIG.windows.map(w => ({ from: parse(w.from), to: w.to ? parse(w.to) : lastDay }));
+const inWindow = d => windows.some(w => d >= w.from && d <= w.to);
+const firstOpen = (() => { for (const w of windows) { const d = w.from < today ? today : w.from; if (d <= w.to) return d; } return today; })();
+let view = new Date(firstOpen.getFullYear(), firstOpen.getMonth(), 1);
 let pickedDate = null, pickedTime = null;
 
 function busyHours(key) {
@@ -1274,7 +1295,7 @@ function busyHours(key) {
 }
 function freeStarts(date) {
   const open = CONFIG.hours[(date.getDay() + 6) % 7];
-  if (!open || date < today || date > lastDay) return [];
+  if (!open || date < today || date > lastDay || !inWindow(date)) return [];
   const len = +$("f-hours").value, busy = busyHours(iso(date));
   const now = new Date(), out = [];
   for (let t = open[0]; t + len <= open[1]; t++) {
@@ -1288,7 +1309,7 @@ function freeStarts(date) {
 }
 function renderCal() {
   $("cal-title").textContent = `${MONTHS[view.getMonth()]} ${view.getFullYear()}`;
-  $("cal-prev").disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+  $("cal-prev").disabled = view <= new Date(firstOpen.getFullYear(), firstOpen.getMonth(), 1);
   $("cal-next").disabled = new Date(view.getFullYear(), view.getMonth() + 1, 1) > lastDay;
   const grid = $("cal-grid"); grid.textContent = "";
   const lead = (view.getDay() + 6) % 7;
