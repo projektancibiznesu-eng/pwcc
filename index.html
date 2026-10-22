@@ -72,15 +72,25 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 34px; }
 .nav ul a { text-decoration: none; font-size: var(--t-xs); letter-spacing: .26em; text-transform: uppercase; opacity: .85; }
 .nav ul a:hover { opacity: 1; }
+.nav ul li:last-child { display: none; }
 .nav .btn { min-height: 42px; padding: 0 20px; }
 .nav .btn:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+.menu-toggle { display: none; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; position: relative; }
+.menu-toggle i, .menu-toggle i::before, .menu-toggle i::after { position: absolute; left: 10px; width: 24px; height: 1.5px; background: currentColor; transition: transform .25s, opacity .25s; }
+.menu-toggle i { top: 21px; }
+.menu-toggle i::before, .menu-toggle i::after { content: ""; left: 0; }
+.menu-toggle i::before { top: -7px; }
+.menu-toggle i::after { top: 7px; }
+.nav.is-open .menu-toggle i { background: transparent; }
+.nav.is-open .menu-toggle i::before { transform: translateY(7px) rotate(45deg); }
+.nav.is-open .menu-toggle i::after { transform: translateY(-7px) rotate(-45deg); }
 
 /* Hero */
-.hero { position: relative; color: var(--cream); background: var(--ink); min-height: min(92vh, 860px); display: grid; align-items: end; }
+.hero { position: relative; color: #FFF4EA; background: var(--ink); min-height: 100vh; min-height: 100svh; display: grid; }
 .slides { position: absolute; inset: 0; overflow: hidden; }
 .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; opacity: 0; transform: scale(1.05); transition: opacity 1.2s ease, transform 7s linear; }
 .slide.is-active { opacity: 1; transform: scale(1); }
-.stories { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.stories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .story { display: grid; gap: 10px; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; opacity: .7; transition: opacity .3s; }
 .story.is-active, .story:hover { opacity: 1; }
 .story .bar { height: 2px; background: rgba(255,243,227,.3); overflow: hidden; }
@@ -89,13 +99,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .story.is-active .bar i { animation: storyfill var(--dur, 6s) linear forwards; }
 .hero.is-paused .story.is-active .bar i { animation-play-state: paused; }
 @keyframes storyfill { to { transform: scaleX(1); } }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,28,28,.55) 0%, rgba(6,28,28,0) 20%, rgba(6,28,28,0) 38%, rgba(6,28,28,.62) 62%, rgba(6,28,28,.9) 100%); }
-.hero h1, .hero-side p { text-shadow: 0 1px 24px rgba(4,20,20,.45); }
-.hero .wrap { position: relative; z-index: 1; width: 100%; padding-block: 140px 56px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
-.hero h1 { font-size: var(--t-2xl); max-width: 14ch; }
-.hero-side { display: grid; gap: 22px; justify-items: start; max-width: 340px; }
-.hero-side p { color: var(--gold-soft); font-size: var(--t-sm); letter-spacing: .04em; }
-.services-line { grid-column: 1 / -1; border-top: 1px solid var(--rule-light); padding-top: 22px; display: flex; flex-wrap: wrap; gap: 10px 40px; color: rgba(241,231,216,.82); }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,28,28,.6) 0%, rgba(6,28,28,.25) 30%, rgba(6,28,28,.45) 60%, rgba(6,28,28,.85) 100%); }
+.hero .wrap { position: relative; z-index: 1; width: 100%; display: grid; grid-template-rows: 1fr auto; padding-block: 120px 36px; }
+.hero-center { align-self: end; justify-self: center; display: grid; justify-items: center; gap: 20px; text-align: center; padding-bottom: clamp(24px, 4vh, 48px); max-width: 1000px; }
+.hero h1 { font-size: clamp(2rem, 1.3rem + 2.8vw, 3.6rem); text-shadow: 0 2px 30px rgba(4,20,20,.55); }
+.hero-center p { font-size: var(--t-base); color: rgba(255,244,234,.88); max-width: 46ch; text-shadow: 0 1px 16px rgba(4,20,20,.6); }
+.hero-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 6px; }
+.hero-ctas .btn { min-width: 260px; min-height: 58px; }
+.btn--light { background: #FFF4EA; border-color: #FFF4EA; color: var(--ink); }
+.btn--light:hover { background: var(--orange); border-color: var(--orange); color: #FFF4EA; }
+.btn--outline-light { border-color: rgba(255,244,234,.85); color: #FFF4EA; }
+.btn--outline-light:hover { background: #FFF4EA; color: var(--ink); border-color: #FFF4EA; }
 
 /* Colour blocks: each tone re-maps the text tokens for its section */
 .tone-teal, .tone-orange { color: var(--ink); background: var(--tone); }
@@ -284,8 +298,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px; }
 
 @media (max-width: 960px) {
+  .menu-toggle { display: block; }
   .nav ul { display: none; }
-  .hero .wrap { grid-template-columns: 1fr; }
+  .nav.is-open { background: var(--teal-deep); }
+  .nav.is-open ul { display: grid; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--teal-deep); padding: 8px var(--gutter-r) 28px var(--gutter); }
+  .nav.is-open ul li:last-child { display: block; }
+  .nav.is-open ul a { display: block; padding-block: 16px; border-top: 1px solid rgba(255,244,234,.14); font-size: .85rem; opacity: 1; }
   .booking-head { grid-column: auto; }
   .intro .wrap, .studio .wrap, .studio--flip .wrap, .menu .wrap, .sec-head, .faq-sec .wrap, .booking .wrap { grid-template-columns: minmax(0, 1fr); }
   .studio--flip figure { order: 0; }
@@ -298,16 +316,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .feature-box { position: relative; left: auto; bottom: auto; width: auto; margin: -80px var(--gutter-r) 0 var(--gutter); }
 }
 @media (max-width: 600px) {
-  .hero { display: block; min-height: 0; }
-  .slides { position: relative; aspect-ratio: 4 / 3.4; }
-  .slide { object-position: 50% 35%; }
+  .slide { object-position: 50% 40%; }
   .stories { gap: 8px; }
   .story .caps { font-size: .6rem; letter-spacing: .18em; }
-  .hero::after { inset: 0 0 auto; height: 120px; background: linear-gradient(180deg, rgba(6,28,28,.6), rgba(6,28,28,0)); }
-  .hero .wrap { padding-block: 36px 40px; background: var(--teal); }
+  .hero .wrap { padding-block: 96px 28px; }
+  .hero-ctas { width: 100%; flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn { min-width: 0; min-height: 52px; }
+  .hero-center { padding-bottom: 20px; gap: 16px; }
+  .hero-center p { font-size: var(--t-sm); }
   .nav .btn { display: none; }
   .steps, .form { grid-template-columns: minmax(0, 1fr); }
-  .services-line { gap: 6px 24px; }
   .menu li { grid-template-columns: minmax(0, 1fr); }
   .menu .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
@@ -325,13 +343,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <header class="nav">
   <div class="wrap">
     <a class="mark" href="#top"><b>GLOBAL WOMEN</b><span>Studio · PWCC</span></a>
-    <ul>
+    <ul id="nav-links">
       <li><a href="#studia">Studia</a></li>
       <li><a href="#cennik">Cennik</a></li>
       <li><a href="#abonament">Abonament</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="#rezerwacja">Rezerwacja</a></li>
     </ul>
     <a class="btn" href="#rezerwacja">Rezerwacja</a>
+    <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i></button>
   </div>
 </header>
 
@@ -343,18 +363,18 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <img class="slide" src="assets/studio-teal-sunset.jpg" alt="Studio Teal Sunset: dwa pomarańczowe aksamitne fotele, morska ściana z roślinami i mikrofony na ramionach" width="1600" height="1067">
     </div>
     <div class="wrap">
+      <div class="hero-center">
+        <h1>Dom produkcji podcastów i wideo dla kobiet biznesu</h1>
+        <p>Studio Polish Women Chamber of Commerce. Trzy wnętrza, realizator na każdej sesji i gotowy materiał do publikacji.</p>
+        <div class="hero-ctas">
+          <a class="btn btn--light" href="#studia">Poznaj ofertę</a>
+          <a class="btn btn--outline-light" href="#rezerwacja">Zarezerwuj nagranie</a>
+        </div>
+      </div>
       <div class="stories" aria-label="Studia">
         <button class="story is-active" type="button" data-slide="0"><span class="bar"><i></i></span><span class="caps">Global Women Forum</span></button>
         <button class="story" type="button" data-slide="1"><span class="bar"><i></i></span><span class="caps">Ivory Sculpture</span></button>
         <button class="story" type="button" data-slide="2"><span class="bar"><i></i></span><span class="caps">Teal Sunset</span></button>
-      </div>
-      <h1>Miejsce, w którym Twoja marka zabiera głos</h1>
-      <div class="hero-side">
-        <p>Studio Polish Women Chamber of Commerce. Nagrania podcastów, wywiadów i wydarzeń dla firm, ekspertek i liderów.</p>
-        <a class="btn btn--solid" href="#rezerwacja">Sprawdź wolne terminy</a>
-      </div>
-      <div class="services-line caps">
-        <span>Studio podcastowe</span><span>Studio wideo</span><span>Sala konferencyjna</span><span>Abonament dla firm</span>
       </div>
     </div>
   </section>
@@ -635,6 +655,14 @@ const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = id => document.getElementById(id);
 document.querySelectorAll("[data-cfg]").forEach(el => { el.textContent = CONFIG[el.dataset.cfg]; });
 $("year").textContent = new Date().getFullYear();
+
+/* Mobile menu */
+(() => {
+  const nav = document.querySelector(".nav"), btn = $("menu-toggle");
+  const set = open => { nav.classList.toggle("is-open", open); btn.setAttribute("aria-expanded", open); };
+  btn.addEventListener("click", () => set(!nav.classList.contains("is-open")));
+  nav.querySelectorAll("ul a").forEach(a => a.addEventListener("click", () => set(false)));
+})();
 
 /* Hero slideshow with story bars */
 (() => {
