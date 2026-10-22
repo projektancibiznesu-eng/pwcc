@@ -13,21 +13,20 @@
 /* Layout: interior-magazine page. Full-bleed photography carries the colour; type and hairlines do the rest. Square corners, no cards, no shadows.
    Kolory pobrane ze zdjęć studia. Aby je zmienić, edytuj tylko tokeny poniżej. */
 :root {
-  /* Żywa paleta ze studia: rubin ściany, pomarańczowa terakota, szafranowe złoto LED, zieleń roślin */
-  --cream: #FFF3E3;
-  --paper: #FFF7EC;
-  --ink: #2A1208;
-  --ink-soft: #6A4130;
-  --ruby: #8C1D2C;       /* ściana Global Women Forum */
-  --wine: #5A1420;
-  --orange: #E2601C;     /* terakota Terra Botanica */
-  --saffron: #F4B23A;    /* złote litery i światło LED */
-  --leaf: #3A5F32;       /* rośliny i fotele Terra Botanica */
-  --forest: #243D20;
-  --oxblood: var(--wine);
-  --terra: #B4471C;
-  --gold: #F4B23A;
-  --gold-soft: #FFD58A;
+  /* Kolory 1:1 z wizualizacji Teal Sunset: ściana, aksamit foteli, dywan, poduszki, światło LED */
+  --paper: #F7EEE7;      /* dywan, rozjaśniony */
+  --cream: #DEBEAB;      /* dywan */
+  --ink: #17221F;        /* ciemnozielone poduszki */
+  --ink-soft: #4C5450;
+  --teal: #114141;       /* ściana Teal Sunset */
+  --teal-deep: #0B2C2C;
+  --orange: #A6370A;     /* pomarańczowy aksamit */
+  --orange-lit: #C4511B; /* aksamit w świetle LED */
+  --peach: #F2B48C;      /* poświata LED na ścianie */
+  --terra: var(--orange);
+  --gold: var(--orange-lit);
+  --gold-soft: var(--peach);
+  --saffron: var(--orange-lit);
   --rule: rgba(42, 26, 16, .18);
   --rule-light: rgba(255, 243, 227, .28);
 
@@ -60,8 +59,8 @@ a { color: inherit; }
 .link:hover::after { width: 44px; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 30px; font: 400 var(--t-xs)/1 var(--f-body); letter-spacing: .3em; text-transform: uppercase; text-decoration: none; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; transition: background .2s, color .2s; }
 .btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.btn--solid { background: var(--gold); border-color: var(--gold); color: var(--ink); }
-.btn--solid:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: var(--ink); }
+.btn--solid { background: var(--orange); border-color: var(--orange); color: #FFF4EA; }
+.btn--solid:hover { background: var(--orange-lit); border-color: var(--orange-lit); color: #FFF4EA; }
 
 /* Navigation over the hero */
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--ink); }
@@ -85,13 +84,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .story { display: grid; gap: 10px; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; opacity: .7; transition: opacity .3s; }
 .story.is-active, .story:hover { opacity: 1; }
 .story .bar { height: 2px; background: rgba(255,243,227,.3); overflow: hidden; }
-.story .bar i { display: block; height: 100%; background: var(--saffron); transform: scaleX(0); transform-origin: left; }
+.story .bar i { display: block; height: 100%; background: var(--peach); transform: scaleX(0); transform-origin: left; }
 .story.is-done .bar i { transform: scaleX(1); }
 .story.is-active .bar i { animation: storyfill var(--dur, 6s) linear forwards; }
 .hero.is-paused .story.is-active .bar i { animation-play-state: paused; }
 @keyframes storyfill { to { transform: scaleX(1); } }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30,15,8,.55) 0%, rgba(30,15,8,0) 20%, rgba(30,15,8,0) 38%, rgba(30,15,8,.62) 62%, rgba(30,15,8,.9) 100%); }
-.hero h1, .hero-side p { text-shadow: 0 1px 24px rgba(20,10,4,.45); }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,28,28,.55) 0%, rgba(6,28,28,0) 20%, rgba(6,28,28,0) 38%, rgba(6,28,28,.62) 62%, rgba(6,28,28,.9) 100%); }
+.hero h1, .hero-side p { text-shadow: 0 1px 24px rgba(4,20,20,.45); }
 .hero .wrap { position: relative; z-index: 1; width: 100%; padding-block: 140px 56px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
 .hero h1 { font-size: var(--t-2xl); max-width: 14ch; }
 .hero-side { display: grid; gap: 22px; justify-items: start; max-width: 340px; }
@@ -99,12 +98,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .services-line { grid-column: 1 / -1; border-top: 1px solid var(--rule-light); padding-top: 22px; display: flex; flex-wrap: wrap; gap: 10px 40px; color: rgba(241,231,216,.82); }
 
 /* Colour blocks: each tone re-maps the text tokens for its section */
-.tone-ruby, .tone-orange, .tone-leaf, .tone-saffron { color: var(--ink); background: var(--tone); }
-.tone-ruby { --tone: var(--ruby); --ink: #FFF3E3; --ink-soft: rgba(255,243,227,.84); --terra: var(--saffron); --gold: var(--saffron); --rule: rgba(255,243,227,.3); }
-.tone-orange { --tone: var(--orange); --ink: #FFF7EC; --ink-soft: rgba(255,247,236,.9); --terra: #3B0B06; --gold: #FFE1A6; --rule: rgba(255,247,236,.38); }
-.tone-leaf { --tone: var(--leaf); --ink: #FFF3E3; --ink-soft: rgba(255,243,227,.84); --terra: var(--saffron); --gold: var(--saffron); --rule: rgba(255,243,227,.3); }
-.tone-saffron { --tone: var(--saffron); --ink: #2A1208; --ink-soft: rgba(42,18,8,.8); --terra: var(--ruby); --gold: var(--ruby); --rule: rgba(42,18,8,.25); }
-.tone-ruby .btn:hover, .tone-orange .btn:hover, .tone-leaf .btn:hover { background: var(--ink); color: var(--tone); }
+.tone-teal, .tone-orange { color: var(--ink); background: var(--tone); }
+.tone-teal { --tone: var(--teal); --ink: #F7EEE7; --ink-soft: rgba(247,238,231,.8); --terra: var(--peach); --gold: var(--peach); --rule: rgba(247,238,231,.25); }
+.tone-orange { --tone: var(--orange); --ink: #FFF4EA; --ink-soft: rgba(255,244,234,.86); --terra: var(--peach); --gold: var(--peach); --rule: rgba(255,244,234,.32); }
+.tone-teal .btn:hover, .tone-orange .btn:hover { background: var(--ink); color: var(--tone); }
 
 /* Intro */
 .intro { padding-block: clamp(80px, 11vw, 150px); }
@@ -121,19 +118,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .studio figure { margin: 0; min-width: 0; }
 .studio img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
 .studio-text { display: grid; gap: 22px; min-width: 0; max-width: 460px; justify-items: start; }
-.studio-text .caps { color: var(--leaf); }
-.tone-leaf .studio-text .caps { color: var(--saffron); }
+.studio-text .caps { color: var(--orange); }
+.tone-teal .studio-text .caps { color: var(--peach); }
 .studio-text h3 { font-size: var(--t-xl); }
 .studio-text p { color: var(--ink-soft); }
 .spec { display: grid; grid-template-columns: auto 1fr; gap: 10px 28px; margin: 0; padding-block: 18px; width: 100%; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: var(--t-sm); }
 .spec dt { letter-spacing: .2em; text-transform: uppercase; font-size: var(--t-xs); color: var(--ink-soft); padding-top: 3px; }
 .spec dd { margin: 0; }
 
-/* Price list on the oxblood wall */
-.menu { background: var(--oxblood); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
+/* Price list on the teal wall */
+.menu { background: var(--teal); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
 .menu .wrap { display: grid; grid-template-columns: 4fr 8fr; gap: clamp(32px, 6vw, 96px); }
 .menu-head { display: grid; gap: 22px; align-content: start; }
-.menu-head .caps { color: var(--gold); }
+.menu-head .caps { color: var(--peach); }
 .menu-head h2 { font-size: var(--t-xl); }
 .menu-head p { color: rgba(241,231,216,.72); }
 .menu ul { list-style: none; margin: 0; padding: 0; }
@@ -153,8 +150,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plans { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
 .plan { padding: 36px 36px 8px; display: grid; gap: 22px; align-content: start; border-left: 1px solid var(--rule); min-width: 0; }
 .plan:first-child { border-left: 0; padding-left: 0; }
-.plan.tone-leaf { border-left: 0; padding-bottom: 36px; }
-.plan.tone-leaf + .plan { border-left: 0; }
+.plan.tone-orange { border-left: 0; padding-bottom: 36px; }
+.plan.tone-orange + .plan { border-left: 0; }
 .plan-label { min-height: 1.4em; color: var(--terra); }
 .plan h3 { font-size: var(--t-xl); }
 .plan .amount { font: 400 var(--t-lg)/1 var(--f-display); font-variant-numeric: tabular-nums; }
@@ -165,11 +162,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plan .link { justify-self: start; margin-top: 6px; }
 .fine { margin-top: 40px; color: var(--ink-soft); font-size: var(--t-sm); max-width: 70ch; }
 
-/* PWCC TV feature on Terra Botanica */
-.feature { position: relative; color: var(--cream); background: var(--orange); }
+/* PWCC TV feature on Teal Sunset */
+.feature { position: relative; color: var(--paper); background: var(--teal); }
 .feature img { width: 100%; height: clamp(420px, 62vw, 760px); object-fit: cover; }
 .feature-box { position: absolute; left: var(--gutter); bottom: clamp(24px, 5vw, 64px); width: min(520px, calc(100% - var(--gutter) - var(--gutter-r))); padding: clamp(28px, 4vw, 48px); display: grid; gap: 20px; justify-items: start; }
-.feature-box .caps { color: var(--terra); }
+.feature-box { background: var(--paper); color: var(--ink); }
+.feature-box .caps { color: var(--orange); }
 .feature-box h2 { font-size: var(--t-xl); }
 .feature-box p { color: var(--ink-soft); }
 
@@ -177,7 +175,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .process { padding-block: clamp(80px, 10vw, 130px); background: var(--cream); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; counter-reset: s; }
 .steps li { counter-increment: s; display: grid; gap: 12px; align-content: start; border-top: 1px solid var(--rule); padding-top: 22px; }
-.steps li::before { content: counter(s, upper-roman); font: 400 1.4rem/1 var(--f-display); color: var(--leaf); }
+.steps li::before { content: counter(s, upper-roman); font: 400 1.4rem/1 var(--f-display); color: var(--orange); }
 .steps h3 { font-size: var(--t-lg); }
 .steps p { color: var(--ink-soft); font-size: var(--t-sm); }
 
@@ -195,7 +193,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .faq details p { padding-bottom: 26px; color: var(--ink-soft); max-width: 64ch; }
 
 /* Booking */
-.booking { background: var(--forest); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
+.booking { background: var(--teal-deep); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
 .booking .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 96px); }
 .booking-head { grid-column: 1 / -1; }
 .booking-head .contact { display: flex; flex-wrap: wrap; gap: 14px 48px; }
@@ -215,15 +213,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .day.is-full::after { background: rgba(255,243,227,.3); }
 .day:disabled { background: none; color: rgba(255,243,227,.25); cursor: default; border-color: transparent; }
 .day:disabled::after { display: none; }
-.day.is-selected { background: var(--saffron); color: var(--ink); }
-.day.is-selected::after { background: var(--ink); }
+.day.is-selected { background: var(--orange-lit); color: #FFF4EA; }
+.day.is-selected::after { background: #FFF4EA; }
 .day.is-blank { visibility: hidden; }
-.slots-label { color: var(--saffron); }
+.slots-label { color: var(--peach); }
 .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; }
 .slot { min-height: 42px; border: 1px solid var(--rule-light); background: none; color: var(--cream); font: 400 var(--t-sm)/1 var(--f-body); font-variant-numeric: tabular-nums; cursor: pointer; }
 .slot:hover { border-color: var(--saffron); }
 .slot:disabled { color: rgba(255,243,227,.3); text-decoration: line-through; cursor: default; border-color: rgba(255,243,227,.1); }
-.slot.is-selected { background: var(--saffron); border-color: var(--saffron); color: var(--ink); }
+.slot.is-selected { background: var(--orange-lit); border-color: var(--orange-lit); color: #FFF4EA; }
 .slots-empty { color: rgba(255,243,227,.6); font-size: var(--t-sm); grid-column: 1 / -1; }
 .cal-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: var(--t-xs); color: rgba(255,243,227,.6); }
 .cal-legend span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; vertical-align: middle; background: var(--saffron); }
@@ -233,9 +231,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .picked.is-empty b { color: rgba(255,243,227,.5); }
 
 /* Reel of podcast frames */
-.reel { background: var(--wine); color: var(--cream); padding-block: clamp(56px, 7vw, 90px) clamp(40px, 5vw, 64px); }
+.reel { background: var(--ink); color: var(--cream); padding-block: clamp(56px, 7vw, 90px) clamp(40px, 5vw, 64px); }
 .reel-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
-.reel-head .caps { color: var(--saffron); margin-bottom: 14px; }
+.reel-head .caps { color: var(--peach); margin-bottom: 14px; }
 .reel-head h2 { font-size: var(--t-xl); }
 .reel-head p { color: rgba(255,243,227,.65); font-size: var(--t-sm); }
 .reel-track { overflow-x: auto; scrollbar-width: none; cursor: grab; touch-action: pan-x pan-y; padding-left: var(--gutter); }
@@ -247,17 +245,17 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frame:hover img, .frame:focus-visible img { transform: scale(1.05); }
 .frame-top { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; justify-content: space-between; font: 500 .68rem/1 var(--f-body); letter-spacing: .14em; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
 .frame-top .rec::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #E2492B; margin-right: 6px; vertical-align: 0; }
-.frame-cap { position: absolute; inset: auto 0 0 0; padding: 26px 12px 10px; text-align: left; background: linear-gradient(180deg, transparent, rgba(20,8,4,.8)); font-size: .78rem; letter-spacing: .06em; }
+.frame-cap { position: absolute; inset: auto 0 0 0; padding: 26px 12px 10px; text-align: left; background: linear-gradient(180deg, transparent, rgba(6,26,26,.8)); font-size: .78rem; letter-spacing: .06em; }
 .frame-cap b { display: block; font: 400 .95rem/1.2 var(--f-display); letter-spacing: .02em; }
 
-.lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(20, 8, 4, .9); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(6, 26, 26, .92); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 .lightbox figure { margin: 0; display: grid; gap: 14px; max-width: min(1100px, 100%); color: var(--cream); }
 .lightbox img { width: 100%; height: auto; max-height: 78vh; object-fit: contain; }
 .lightbox figcaption { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
 .lightbox figcaption b { font: 400 var(--t-lg)/1.2 var(--f-display); }
 .lb-close { position: absolute; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); width: 44px; height: 44px; border: 1px solid rgba(255,243,227,.4); background: none; color: var(--cream); font-size: 1.4rem; cursor: pointer; }
 .booking-head { display: grid; gap: 26px; align-content: start; }
-.booking-head .caps { color: var(--gold); }
+.booking-head .caps { color: var(--peach); }
 .booking-head h2 { font-size: var(--t-2xl); }
 .booking-head > p { color: rgba(241,231,216,.72); max-width: 40ch; }
 .contact { display: grid; gap: 18px; margin: 12px 0 0; }
@@ -282,7 +280,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .done pre { white-space: pre-wrap; margin: 0; padding: 20px 0; border-top: 1px solid var(--rule-light); border-bottom: 1px solid var(--rule-light); font: 300 var(--t-sm)/1.7 var(--f-body); color: var(--cream); }
 .done-actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
 
-.foot { background: #1B2E18; color: rgba(241,231,216,.6); border-top: 1px solid var(--rule-light); font-size: var(--t-xs); letter-spacing: .2em; text-transform: uppercase; }
+.foot { background: #082222; color: rgba(241,231,216,.6); border-top: 1px solid var(--rule-light); font-size: var(--t-xs); letter-spacing: .2em; text-transform: uppercase; }
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px; }
 
 @media (max-width: 960px) {
@@ -294,9 +292,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .plans { grid-template-columns: minmax(0, 1fr); }
   .plan, .plan:first-child { border-left: 0; padding: 32px 0 28px; border-top: 1px solid var(--rule); }
   .plans .plan:first-child { border-top: 0; }
-  .plan.tone-leaf { padding: 32px 24px; margin-inline: calc(-1 * var(--gutter)) calc(-1 * var(--gutter-r)); padding-inline: var(--gutter) var(--gutter-r); }
+  .plan.tone-orange { padding: 32px 24px; margin-inline: calc(-1 * var(--gutter)) calc(-1 * var(--gutter-r)); padding-inline: var(--gutter) var(--gutter-r); }
   .steps { grid-template-columns: 1fr 1fr; }
-  .feature { padding-bottom: 40px; background: var(--orange); }
+  .feature { padding-bottom: 40px; background: var(--teal); }
   .feature-box { position: relative; left: auto; bottom: auto; width: auto; margin: -80px var(--gutter-r) 0 var(--gutter); }
 }
 @media (max-width: 600px) {
@@ -305,8 +303,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .slide { object-position: 50% 35%; }
   .stories { gap: 8px; }
   .story .caps { font-size: .6rem; letter-spacing: .18em; }
-  .hero::after { inset: 0 0 auto; height: 120px; background: linear-gradient(180deg, rgba(30,15,8,.6), rgba(30,15,8,0)); }
-  .hero .wrap { padding-block: 36px 40px; background: var(--wine); }
+  .hero::after { inset: 0 0 auto; height: 120px; background: linear-gradient(180deg, rgba(6,28,28,.6), rgba(6,28,28,0)); }
+  .hero .wrap { padding-block: 36px 40px; background: var(--teal); }
   .nav .btn { display: none; }
   .steps, .form { grid-template-columns: minmax(0, 1fr); }
   .services-line { gap: 6px 24px; }
@@ -342,13 +340,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="slides">
       <img class="slide is-active" src="assets/studio-forum.jpg" alt="Studio Global Women Forum: kremowa i rdzawa sofa z mikrofonami, okrągły stolik z orzecha i bordowa ściana z logo" width="1600" height="1067" fetchpriority="high">
       <img class="slide" src="assets/studio-ivory-sculpture.jpg" alt="Studio Ivory Sculpture: kremowy stół i dwa bordowe fotele z mikrofonami" width="1600" height="1067">
-      <img class="slide" src="assets/studio-terra-botanica.jpg" alt="Studio Terra Botanica: oliwkowe fotele, terakotowy stolik i ściana z roślin" width="1600" height="1067">
+      <img class="slide" src="assets/studio-teal-sunset.jpg" alt="Studio Teal Sunset: dwa pomarańczowe aksamitne fotele, morska ściana z roślinami i mikrofony na ramionach" width="1600" height="1067">
     </div>
     <div class="wrap">
       <div class="stories" aria-label="Studia">
         <button class="story is-active" type="button" data-slide="0"><span class="bar"><i></i></span><span class="caps">Global Women Forum</span></button>
         <button class="story" type="button" data-slide="1"><span class="bar"><i></i></span><span class="caps">Ivory Sculpture</span></button>
-        <button class="story" type="button" data-slide="2"><span class="bar"><i></i></span><span class="caps">Terra Botanica</span></button>
+        <button class="story" type="button" data-slide="2"><span class="bar"><i></i></span><span class="caps">Teal Sunset</span></button>
       </div>
       <h1>Miejsce, w którym Twoja marka zabiera głos</h1>
       <div class="hero-side">
@@ -404,13 +402,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
     </section>
 
-    <section class="studio tone-leaf">
+    <section class="studio tone-teal">
       <div class="wrap">
-        <figure><img src="assets/studio-terra-botanica.jpg" alt="Studio Terra Botanica: dwa oliwkowe fotele, terakotowy stolik i ściana z roślin" width="1600" height="1067" loading="lazy"></figure>
+        <figure><img src="assets/studio-teal-sunset.jpg" alt="Studio Teal Sunset: pomarańczowe aksamitne fotele, srebrny stolik i ściana z roślin w ciepłym świetle" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
-          <p class="caps">Studio 04</p>
-          <h3>Terra Botanica</h3>
-          <p>Ciepła terakota, zieleń i miękkie światło. Kameralna przestrzeń na swobodne rozmowy, serie wywiadów i nagrania lifestyle.</p>
+          <p class="caps">Studio 09</p>
+          <h3>Teal Sunset</h3>
+          <p>Głęboka morska zieleń, pomarańczowy aksamit i ściana z roślin w ciepłym świetle LED. Na rozmowy w duecie, serie wywiadów i nagrania lifestyle.</p>
           <dl class="spec">
             <dt>Goście</dt><dd>2 osoby</dd>
             <dt>Format</dt><dd>podcast wideo, rolki pionowe</dd>
@@ -429,7 +427,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <p>Ceny netto. Realizator jest w cenie każdej sesji w studiu. Minimalny czas rezerwacji to 1 godzina.</p>
       </div>
       <ul>
-        <li><h3>Studio podcastowe</h3><p>Ivory Sculpture lub Terra Botanica. Nagranie wielościeżkowe, zapis z trzech kamer.</p><span class="price">290 zł<small>za godzinę</small></span></li>
+        <li><h3>Studio podcastowe</h3><p>Ivory Sculpture lub Teal Sunset. Nagranie wielościeżkowe, zapis z trzech kamer.</p><span class="price">290 zł<small>za godzinę</small></span></li>
         <li><h3>Studio wideo</h3><p>Plan Global Women Forum. Kamery 4K, światło studyjne, prompter i operator.</p><span class="price">390 zł<small>za godzinę</small></span></li>
         <li><h3>Sala konferencyjna</h3><p>Do 40 osób. Ekran, nagłośnienie, możliwość nagrania i transmisji wydarzenia.</p><span class="price">250 zł<small>za godzinę</small></span></li>
         <li><h3>Montaż i postprodukcja</h3><p>Montaż odcinka, napisy, miniatury i rolki pionowe. Gotowe pliki w 72 godziny.</p><span class="price">od 450 zł<small>za odcinek</small></span></li>
@@ -451,7 +449,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <ul><li>4 godziny w studiu</li><li>2 odcinki do 30 minut</li><li>4 rolki pionowe z napisami</li><li>Miniatury do publikacji</li></ul>
           <button class="link" type="button" data-service="Abonament Start">Wybieram</button>
         </article>
-        <article class="plan tone-leaf">
+        <article class="plan tone-orange">
           <p class="plan-label caps">Najczęściej wybierany</p>
           <h3>Biznes</h3>
           <p class="amount">3 900 zł<small>netto / mies.</small></p>
@@ -471,8 +469,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   </section>
 
   <section class="feature">
-    <img src="assets/studio-terra-botanica.jpg" alt="" width="1600" height="1067" loading="lazy">
-    <div class="feature-box tone-saffron">
+    <img src="assets/studio-teal-sunset.jpg" alt="" width="1600" height="1067" loading="lazy">
+    <div class="feature-box">
       <p class="caps">Polish Women Chamber TV</p>
       <h2>Twoja rozmowa w kanałach Izby</h2>
       <p>Nagrania ze studia mogą trafić do Polish Women Chamber TV, podcastów Izby i magazynu Business Women IMPACT. To zasięg w sieci przedsiębiorczyń w Polsce i w 16 krajach.</p>
@@ -619,16 +617,17 @@ const CONFIG = {
 const FRAMES = [
   { src: "assets/frames/forum-salon.jpg", title: "Global Women Forum", note: "Panel dyskusyjny", service: "Studio wideo" },
   { src: "assets/frames/ivory-mic.jpg", title: "Ivory Sculpture", note: "Wywiad ekspercki", service: "Studio podcastowe" },
-  { src: "assets/frames/terra-set.jpg", title: "Terra Botanica", note: "Rozmowa w duecie", service: "Studio podcastowe" },
+  { src: "assets/frames/teal-set.jpg", title: "Teal Sunset", note: "Rozmowa w duecie", service: "Studio podcastowe" },
   { src: "assets/frames/forum-logo.jpg", title: "Global Women Forum", note: "Otwarcie odcinka", service: "Studio wideo" },
   { src: "assets/frames/ivory-chair.jpg", title: "Ivory Sculpture", note: "Ujęcie detalu", service: "Studio podcastowe" },
-  { src: "assets/frames/terra-plants.jpg", title: "Terra Botanica", note: "Kamera boczna", service: "Studio podcastowe" },
+  { src: "assets/frames/teal-plants.jpg", title: "Teal Sunset", note: "Kamera boczna", service: "Studio podcastowe" },
   { src: "assets/frames/forum-sofa.jpg", title: "Global Women Forum", note: "Plan szeroki", service: "Studio wideo" },
   { src: "assets/frames/ivory-set.jpg", title: "Ivory Sculpture", note: "Podcast wideo", service: "Studio podcastowe" },
-  { src: "assets/frames/terra-chair.jpg", title: "Terra Botanica", note: "Rolka pionowa", service: "Studio podcastowe" },
+  { src: "assets/frames/teal-chair.jpg", title: "Teal Sunset", note: "Rolka pionowa", service: "Studio podcastowe" },
   { src: "assets/frames/forum-velvet.jpg", title: "Global Women Forum", note: "Talk-show", service: "Studio wideo" },
   { src: "assets/frames/ivory-wall.jpg", title: "Ivory Sculpture", note: "Plan główny", service: "Studio podcastowe" },
-  { src: "assets/frames/terra-mic.jpg", title: "Terra Botanica", note: "Mikrofon lektorski", service: "Studio podcastowe" },
+  { src: "assets/frames/teal-logo.jpg", title: "Teal Sunset", note: "Ujęcie na logo", service: "Studio podcastowe" },
+  { src: "assets/frames/teal-mic.jpg", title: "Teal Sunset", note: "Mikrofon lektorski", service: "Studio podcastowe" },
   { src: "assets/frames/forum-table.jpg", title: "Global Women Forum", note: "Przerywnik", service: "Studio wideo" }
 ];
 
