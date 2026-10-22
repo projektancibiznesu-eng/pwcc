@@ -13,16 +13,22 @@
 /* Layout: interior-magazine page. Full-bleed photography carries the colour; type and hairlines do the rest. Square corners, no cards, no shadows.
    Kolory pobrane ze zdjęć studia. Aby je zmienić, edytuj tylko tokeny poniżej. */
 :root {
-  --cream: #F1E7D8;      /* sofa, dywan */
-  --paper: #F8F2E9;
-  --ink: #2A1A10;        /* orzech */
-  --ink-soft: #6B5442;
-  --oxblood: #521B13;    /* ściana Global Women Forum */
-  --terra: #8B4022;      /* ściana Ivory Sculpture */
-  --gold: #C99A55;       /* litery logo, światło LED */
-  --gold-soft: #E3C79A;
+  /* Żywa paleta ze studia: rubin ściany, pomarańczowa terakota, szafranowe złoto LED, zieleń roślin */
+  --cream: #FFF3E3;
+  --paper: #FFF7EC;
+  --ink: #2A1208;
+  --ink-soft: #6A4130;
+  --ruby: #A3172F;       /* ściana Global Women Forum */
+  --wine: #6E0A1F;
+  --orange: #E2601C;     /* terakota Terra Botanica */
+  --saffron: #F4B23A;    /* złote litery i światło LED */
+  --leaf: #2E6B37;       /* rośliny Terra Botanica */
+  --oxblood: var(--wine);
+  --terra: #C2410F;
+  --gold: #F4B23A;
+  --gold-soft: #FFD58A;
   --rule: rgba(42, 26, 16, .18);
-  --rule-light: rgba(241, 231, 216, .22);
+  --rule-light: rgba(255, 243, 227, .28);
 
   --f-display: "Marcellus", "Trajan Pro", "Optima", Georgia, serif;
   --f-body: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
@@ -57,7 +63,7 @@ a { color: inherit; }
 .btn--solid:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: var(--ink); }
 
 /* Navigation over the hero */
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--ink); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--wine); }
 .nav { position: absolute; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 20; color: var(--cream); }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 26px; }
 .mark { text-decoration: none; display: grid; gap: 6px; }
@@ -80,15 +86,23 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .hero-side p { color: var(--gold-soft); font-size: var(--t-sm); letter-spacing: .04em; }
 .services-line { grid-column: 1 / -1; border-top: 1px solid var(--rule-light); padding-top: 22px; display: flex; flex-wrap: wrap; gap: 10px 40px; color: rgba(241,231,216,.82); }
 
+/* Colour blocks: each tone re-maps the text tokens for its section */
+.tone-ruby, .tone-orange, .tone-leaf, .tone-saffron { color: var(--ink); background: var(--tone); }
+.tone-ruby { --tone: var(--ruby); --ink: #FFF3E3; --ink-soft: rgba(255,243,227,.84); --terra: var(--saffron); --gold: var(--saffron); --rule: rgba(255,243,227,.3); }
+.tone-orange { --tone: var(--orange); --ink: #FFF7EC; --ink-soft: rgba(255,247,236,.9); --terra: #3B0B06; --gold: #FFE1A6; --rule: rgba(255,247,236,.38); }
+.tone-leaf { --tone: var(--leaf); --ink: #FFF3E3; --ink-soft: rgba(255,243,227,.84); --terra: var(--saffron); --gold: var(--saffron); --rule: rgba(255,243,227,.3); }
+.tone-saffron { --tone: var(--saffron); --ink: #2A1208; --ink-soft: rgba(42,18,8,.8); --terra: var(--ruby); --gold: var(--ruby); --rule: rgba(42,18,8,.25); }
+.tone-ruby .btn:hover, .tone-orange .btn:hover, .tone-leaf .btn:hover { background: var(--ink); color: var(--tone); }
+
 /* Intro */
 .intro { padding-block: clamp(80px, 11vw, 150px); }
 .intro .wrap { display: grid; grid-template-columns: 7fr 4fr; gap: clamp(32px, 7vw, 120px); align-items: end; }
 .intro h2 { font-size: var(--t-xl); line-height: 1.25; }
-.intro h2 em { font-style: normal; color: var(--terra); }
+.intro h2 em { font-style: normal; color: var(--gold); }
 .intro-side { display: grid; gap: 28px; color: var(--ink-soft); justify-items: start; }
 
 /* Studios: alternating image and text */
-.studio { padding-block: clamp(40px, 6vw, 80px); }
+.studio { padding-block: clamp(56px, 8vw, 110px); }
 .studio .wrap { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(28px, 6vw, 96px); align-items: center; }
 .studio--flip .wrap { grid-template-columns: 5fr 7fr; }
 .studio--flip figure { order: 2; }
@@ -103,7 +117,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .spec dd { margin: 0; }
 
 /* Price list on the oxblood wall */
-.menu { background: var(--oxblood); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); margin-top: clamp(60px, 8vw, 110px); }
+.menu { background: var(--oxblood); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
 .menu .wrap { display: grid; grid-template-columns: 4fr 8fr; gap: clamp(32px, 6vw, 96px); }
 .menu-head { display: grid; gap: 22px; align-content: start; }
 .menu-head .caps { color: var(--gold); }
@@ -126,6 +140,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plans { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
 .plan { padding: 36px 36px 8px; display: grid; gap: 22px; align-content: start; border-left: 1px solid var(--rule); min-width: 0; }
 .plan:first-child { border-left: 0; padding-left: 0; }
+.plan.tone-ruby { border-left: 0; padding-bottom: 36px; }
+.plan.tone-ruby + .plan { border-left: 0; }
 .plan-label { min-height: 1.4em; color: var(--terra); }
 .plan h3 { font-size: var(--t-xl); }
 .plan .amount { font: 400 var(--t-lg)/1 var(--f-display); font-variant-numeric: tabular-nums; }
@@ -137,15 +153,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fine { margin-top: 40px; color: var(--ink-soft); font-size: var(--t-sm); max-width: 70ch; }
 
 /* PWCC TV feature on Terra Botanica */
-.feature { position: relative; color: var(--cream); background: var(--terra); }
+.feature { position: relative; color: var(--cream); background: var(--orange); }
 .feature img { width: 100%; height: clamp(420px, 62vw, 760px); object-fit: cover; }
-.feature-box { position: absolute; left: var(--gutter); bottom: clamp(24px, 5vw, 64px); width: min(520px, calc(100% - var(--gutter) - var(--gutter-r))); background: var(--paper); color: var(--ink); padding: clamp(28px, 4vw, 48px); display: grid; gap: 20px; justify-items: start; }
+.feature-box { position: absolute; left: var(--gutter); bottom: clamp(24px, 5vw, 64px); width: min(520px, calc(100% - var(--gutter) - var(--gutter-r))); padding: clamp(28px, 4vw, 48px); display: grid; gap: 20px; justify-items: start; }
 .feature-box .caps { color: var(--terra); }
 .feature-box h2 { font-size: var(--t-xl); }
 .feature-box p { color: var(--ink-soft); }
 
 /* Process */
-.process { padding-block: clamp(80px, 10vw, 130px); background: var(--cream); }
+.process { padding-block: clamp(80px, 10vw, 130px); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; counter-reset: s; }
 .steps li { counter-increment: s; display: grid; gap: 12px; align-content: start; border-top: 1px solid var(--rule); padding-top: 22px; }
 .steps li::before { content: counter(s, upper-roman); font: 400 1.4rem/1 var(--f-display); color: var(--gold); }
@@ -166,7 +182,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .faq details p { padding-bottom: 26px; color: var(--ink-soft); max-width: 64ch; }
 
 /* Booking */
-.booking { background: var(--ink); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
+.booking { background: var(--wine); color: var(--cream); padding-block: clamp(80px, 10vw, 140px); }
 .booking .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 7vw, 110px); }
 .booking-head { display: grid; gap: 26px; align-content: start; }
 .booking-head .caps { color: var(--gold); }
@@ -194,7 +210,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .done pre { white-space: pre-wrap; margin: 0; padding: 20px 0; border-top: 1px solid var(--rule-light); border-bottom: 1px solid var(--rule-light); font: 300 var(--t-sm)/1.7 var(--f-body); color: var(--cream); }
 .done-actions { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
 
-.foot { background: var(--ink); color: rgba(241,231,216,.6); border-top: 1px solid var(--rule-light); font-size: var(--t-xs); letter-spacing: .2em; text-transform: uppercase; }
+.foot { background: #4E0716; color: rgba(241,231,216,.6); border-top: 1px solid var(--rule-light); font-size: var(--t-xs); letter-spacing: .2em; text-transform: uppercase; }
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 28px; }
 
 @media (max-width: 960px) {
@@ -205,8 +221,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .plans { grid-template-columns: minmax(0, 1fr); }
   .plan, .plan:first-child { border-left: 0; padding: 32px 0 28px; border-top: 1px solid var(--rule); }
   .plans .plan:first-child { border-top: 0; }
+  .plan.tone-ruby { padding: 32px 24px; margin-inline: calc(-1 * var(--gutter)) calc(-1 * var(--gutter-r)); padding-inline: var(--gutter) var(--gutter-r); }
   .steps { grid-template-columns: 1fr 1fr; }
-  .feature { padding-bottom: 40px; background: var(--paper); }
+  .feature { padding-bottom: 40px; background: var(--orange); }
   .feature-box { position: relative; left: auto; bottom: auto; width: auto; margin: -80px var(--gutter-r) 0 var(--gutter); }
 }
 @media (max-width: 600px) {
@@ -252,7 +269,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="intro">
+  <section class="intro tone-orange">
     <div class="wrap">
       <h2>Trzy wnętrza zaprojektowane do rozmów, które <em>budują zaufanie</em>. Przychodzisz na nagranie, wychodzisz z gotowym materiałem.</h2>
       <div class="intro-side">
@@ -263,7 +280,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   </section>
 
   <div id="studia">
-    <section class="studio">
+    <section class="studio tone-ruby">
       <div class="wrap">
         <figure><img src="assets/studio-forum.jpg" alt="Plan Global Women Forum z dwiema sofami i sześcioma mikrofonami" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
@@ -279,7 +296,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
     </section>
 
-    <section class="studio studio--flip">
+    <section class="studio studio--flip tone-saffron">
       <div class="wrap">
         <figure><img src="assets/studio-ivory-sculpture.jpg" alt="Studio Ivory Sculpture: kremowy stół na żłobionych kolumnach i dwa bordowe fotele z mikrofonami" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
@@ -295,7 +312,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       </div>
     </section>
 
-    <section class="studio">
+    <section class="studio tone-leaf">
       <div class="wrap">
         <figure><img src="assets/studio-terra-botanica.jpg" alt="Studio Terra Botanica: dwa oliwkowe fotele, terakotowy stolik i ściana z roślin" width="1600" height="1067" loading="lazy"></figure>
         <div class="studio-text">
@@ -342,7 +359,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <ul><li>4 godziny w studiu</li><li>2 odcinki do 30 minut</li><li>4 rolki pionowe z napisami</li><li>Miniatury do publikacji</li></ul>
           <button class="link" type="button" data-service="Abonament Start">Wybieram</button>
         </article>
-        <article class="plan">
+        <article class="plan tone-ruby">
           <p class="plan-label caps">Najczęściej wybierany</p>
           <h3>Biznes</h3>
           <p class="amount">3 900 zł<small>netto / mies.</small></p>
@@ -363,7 +380,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
   <section class="feature">
     <img src="assets/studio-terra-botanica.jpg" alt="" width="1600" height="1067" loading="lazy">
-    <div class="feature-box">
+    <div class="feature-box tone-saffron">
       <p class="caps">Polish Women Chamber TV</p>
       <h2>Twoja rozmowa w kanałach Izby</h2>
       <p>Nagrania ze studia mogą trafić do Polish Women Chamber TV, podcastów Izby i magazynu Business Women IMPACT. To zasięg w sieci przedsiębiorczyń w Polsce i w 16 krajach.</p>
@@ -371,7 +388,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="process">
+  <section class="process tone-orange">
     <div class="wrap">
       <div class="sec-head">
         <div><p class="caps">Przebieg</p><h2>Od rezerwacji do publikacji</h2></div>
