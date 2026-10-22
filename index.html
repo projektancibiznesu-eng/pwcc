@@ -224,9 +224,16 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fine { margin-top: 28px; color: var(--ink-soft); font-size: var(--t-sm); }
 
 /* Company packages */
-.plans--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .plan-for { font-size: var(--t-sm); color: var(--ink-soft); }
 .plan--hot .plan-for { color: rgba(255,244,234,.7); }
+
+/* Magazine promo */
+.mag { margin-top: 56px; display: grid; grid-template-columns: auto 1fr auto; gap: 28px 48px; align-items: center; padding: clamp(26px, 4vw, 48px); background: var(--teal); color: var(--cream); border-radius: 6px; position: relative; z-index: 1; }
+.mag-num { font: 400 clamp(4rem, 2.6rem + 5vw, 8rem)/.85 var(--f-display); color: var(--peach); font-style: italic; letter-spacing: -.03em; }
+.mag-text { display: grid; gap: 10px; max-width: 56ch; }
+.mag-text .label { color: var(--peach); }
+.mag-text h3 { font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem); }
+.mag-text p:last-child { color: rgba(255,244,234,.8); }
 
 /* Programs */
 .programs { background: var(--bordo); color: var(--cream); padding-block: clamp(90px, 11vw, 150px); position: relative; overflow: clip; }
@@ -413,8 +420,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .studio-info .btn { grid-column: 1 / -1; justify-self: start; }
   .menu .wrap, .booking .wrap, .faq-sec .wrap { grid-template-columns: minmax(0, 1fr); }
   .menu-head { position: static; }
-  .plans, .plans--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+  .plans { grid-template-columns: minmax(0, 1fr); max-width: 620px; }
   .programs-grid { grid-template-columns: minmax(0, 1fr); max-width: 620px; }
+  .mag { grid-template-columns: minmax(0, 1fr); }
+  .mag .btn { justify-self: start; }
   .chamber-grid { grid-template-columns: minmax(0, 1fr); }
   .chamber-text { padding-left: var(--gutter); }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
@@ -430,7 +439,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .studio--ivory .studio-top { flex-direction: row; text-align: left; }
   .studio-info { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .studio-info dl:last-of-type { grid-column: 1 / -1; }
-  .steps, .form, .plans, .plans--4 { grid-template-columns: minmax(0, 1fr); }
+  .steps, .form, .plans { grid-template-columns: minmax(0, 1fr); }
   .price-list li { grid-template-columns: minmax(0, 1fr); }
   .price-list .price { grid-column: 1; grid-row: auto; text-align: left; }
 }
@@ -451,7 +460,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <ul id="nav-links">
       <li><a href="#studia">Studia</a></li>
       <li><a href="#cennik">Cennik</a></li>
-      <li><a href="#pakiety">Dla firm</a></li>
+      <li><a href="#pakiety">Pakiety TV</a></li>
       <li><a href="#programy">Programy</a></li>
       <li><a href="#izba">O Izbie</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -589,41 +598,63 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <span class="botanic" data-plant="sprig" style="left:-40px; bottom:-30px; --rot:35deg"></span>
     <div class="wrap">
       <div class="plans-head">
-        <h2>Pakiety <em>dla firm</em></h2>
-        <p>Dla firm, które chcą publikować regularnie albo potrzebują jednej dużej produkcji. Każdy pakiet obejmuje realizatora, montaż i opiekę jednej osoby z naszego zespołu.</p>
+        <h2>Pakiety <em>Global Women TV</em></h2>
+        <p>Wywiad nagrany w naszym studiu i opublikowany w Global Women TV. Każdy pakiet obejmuje realizatora, montaż, napisy i publikację. Wybierz, ile przygotowania i materiałów potrzebujesz.</p>
       </div>
-      <div class="plans plans--4">
+      <div class="plans">
         <article class="plan">
-          <p class="plan-for">Dla ekspertek i zarządów</p>
-          <h3>Ekspert</h3>
-          <p class="amount">od 4500 zł<small>netto / mies.</small></p>
-          <ul><li>2 zmontowane odcinki wideo</li><li>6 rolek promocyjnych</li><li>Miniatury i opisy do publikacji</li><li>Termin co dwa tygodnie</li></ul>
-          <button class="btn" type="button" data-service="Pakiet Ekspert">Zapytaj o pakiet</button>
+          <p class="plan-for">Pierwszy wywiad, szybko i prosto</p>
+          <h3>Start</h3>
+          <p class="amount">1900 zł<small>netto</small></p>
+          <ul>
+            <li>Wywiad do 20 minut w studiu Amber lub Oasis</li>
+            <li>Montaż i napisy</li>
+            <li>1 rolka promocyjna</li>
+            <li>Publikacja w Global Women TV</li>
+          </ul>
+          <button class="btn" type="button" data-service="Pakiet TV Start">Wybieram Start</button>
         </article>
         <article class="plan plan--hot">
           <span class="plan-tag">Najczęściej wybierany</span>
-          <p class="plan-for">Dla marek budujących zasięg</p>
-          <h3>Marka</h3>
-          <p class="amount">od 8500 zł<small>netto / mies.</small></p>
-          <ul><li>4 zmontowane odcinki wideo</li><li>12 rolek promocyjnych</li><li>Konsultacja scenariusza i gości</li><li>Stały dzień nagrań w kalendarzu</li></ul>
-          <button class="btn btn--cream" type="button" data-service="Pakiet Marka">Zapytaj o pakiet</button>
+          <p class="plan-for">Dla ekspertek, które chcą dobrze wypaść</p>
+          <h3>Ekspert</h3>
+          <p class="amount">2900 zł<small>netto</small></p>
+          <ul>
+            <li>60 minut konsultacji online przed nagraniem: temat, pytania, kluczowe przekazy</li>
+            <li>Wywiad do 40 minut</li>
+            <li>Montaż, napisy i miniatura</li>
+            <li>3 rolki promocyjne</li>
+            <li>Publikacja w Global Women TV</li>
+          </ul>
+          <button class="btn btn--cream" type="button" data-service="Pakiet TV Ekspert">Wybieram Ekspert</button>
         </article>
         <article class="plan">
-          <p class="plan-for">Dla firm z kilkoma działami</p>
-          <h3>Korporacja</h3>
-          <p class="amount">od 16 000 zł<small>netto / mies.</small></p>
-          <ul><li>8 zmontowanych odcinków</li><li>24 rolki i grafiki do kampanii</li><li>Wszystkie trzy studia</li><li>Transmisja live jednego wydarzenia</li></ul>
-          <button class="btn" type="button" data-service="Pakiet Korporacja">Zapytaj o pakiet</button>
-        </article>
-        <article class="plan">
-          <p class="plan-for">Jednorazowo, na premierę</p>
-          <h3>Kampania</h3>
-          <p class="amount">od 9000 zł<small>netto, jednorazowo</small></p>
-          <ul><li>3 odcinki nagrane jednego dnia</li><li>9 rolek na start kampanii</li><li>Zdjęcia zza kulis</li><li>Gotowe w 5 dni roboczych</li></ul>
-          <button class="btn" type="button" data-service="Pakiet Kampania">Zapytaj o pakiet</button>
+          <p class="plan-for">Pełna produkcja z magazynem</p>
+          <h3>Premium</h3>
+          <p class="amount">4900 zł<small>netto</small></p>
+          <ul>
+            <li>60 minut konsultacji online przed nagraniem</li>
+            <li>Profesjonalny makijaż przed wejściem na plan</li>
+            <li>Wywiad do 60 minut w studiu Bordeaux</li>
+            <li>Montaż, napisy i miniatura</li>
+            <li>5 rolek promocyjnych</li>
+            <li>10 zdjęć portretowych z planu</li>
+            <li>Publikacja w Global Women TV i wywiad w magazynie Business Women IMPACT</li>
+          </ul>
+          <button class="btn" type="button" data-service="Pakiet TV Premium">Wybieram Premium</button>
         </article>
       </div>
-      <p class="fine">Członkinie i członkowie Polish Women Chamber of Commerce mają preferencyjne stawki. Pakiety miesięczne od 3 miesięcy, faktura VAT.</p>
+      <p class="fine">Ceny netto za jeden wywiad, płatne przed nagraniem. Dla firm, które chcą nagrywać regularnie, przygotujemy ofertę miesięczną.</p>
+
+      <aside class="mag" id="magazyn">
+        <div class="mag-num" aria-hidden="true">−25%</div>
+        <div class="mag-text">
+          <p class="label">Business Women IMPACT</p>
+          <h3>Nasi klienci mają <em>25% zniżki</em> na ofertę magazynu</h3>
+          <p>Business Women IMPACT to magazyn gospodarczy o przywództwie, inwestycjach i biznesie kobiet. Jeśli nagrywasz w naszym studiu, reklama i publikacje w magazynie kosztują Cię o 25% mniej.</p>
+        </div>
+        <button class="btn btn--fill" type="button" data-service="Oferta magazynu Business Women IMPACT (−25%)">Zapytaj o ofertę magazynu <span class="arrow">→</span></button>
+      </aside>
     </div>
   </section>
 
@@ -668,7 +699,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <p class="program-for">Dla Polek, które prowadzą firmy z sukcesami.</p>
           <ul>
             <li>Wywiad wideo w studiu, zmontowany, z 3 rolkami</li>
-            <li>Odcinek w Polish Women Chamber TV</li>
+            <li>Odcinek w Global Women TV</li>
             <li>Wzmianka w magazynie Business Women IMPACT</li>
             <li>Spotkania networkingowe grupy</li>
           </ul>
@@ -728,10 +759,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <ul>
           <li><b>16 krajów</b>przedstawicielstwa i partnerzy Izby</li>
           <li><b>Wszystkie województwa</b>regionalne struktury w Polsce</li>
-          <li><b>Polish Women Chamber TV</b>wywiady z przedsiębiorczyniami i inwestorami</li>
+          <li><b>Global Women TV</b>wywiady z przedsiębiorczyniami i inwestorami</li>
           <li><b>Business Women IMPACT</b>magazyn biznesowy Izby</li>
         </ul>
-        <button class="btn btn--cream" type="button" data-service="Polish Women Chamber TV">Zapytaj o występ <span class="arrow">→</span></button>
+        <button class="btn btn--cream" type="button" data-service="Global Women TV">Zapytaj o występ <span class="arrow">→</span></button>
       </div>
     </div>
   </section>
@@ -755,7 +786,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="faq">
         <details><summary>Czy realizator jest w cenie?</summary><p>Tak. Każda sesja w studiu odbywa się z realizatorem, który ustawia dźwięk, światło i kamery.</p></details>
         <details><summary>Mogę przyjść tylko z pomysłem?</summary><p>Tak. Przed nagraniem pomagamy ułożyć scenariusz, pytania do gościa i plan odcinków.</p></details>
-        <details><summary>Jak się rozliczamy?</summary><p>Wynajem godzinowy rozliczamy po sesji, na fakturę VAT. Pakiety miesięczne z góry za każdy miesiąc.</p></details>
+        <details><summary>Jak się rozliczamy?</summary><p>Wynajem godzinowy rozliczamy po sesji, na fakturę VAT. Pakiety Global Women TV płatne są przed nagraniem.</p></details>
         <details><summary>Czy mogę przenieść termin?</summary><p>Tak, bezpłatnie do 48 godzin przed sesją.</p></details>
       </div>
     </div>
@@ -795,11 +826,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <option>Odcinek i 3 rolki</option>
               <option>Wydarzenie lub sala konferencyjna</option>
             </optgroup>
-            <optgroup label="Pakiety dla firm">
-              <option>Pakiet Ekspert</option>
-              <option>Pakiet Marka</option>
-              <option>Pakiet Korporacja</option>
-              <option>Pakiet Kampania</option>
+            <optgroup label="Pakiety Global Women TV">
+              <option>Pakiet TV Start</option>
+              <option>Pakiet TV Ekspert</option>
+              <option>Pakiet TV Premium</option>
             </optgroup>
             <optgroup label="Programy dla kobiet">
               <option>Program Global Women Premium</option>
@@ -807,7 +837,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
               <option>Program Women Entrepreneur</option>
             </optgroup>
             <optgroup label="Inne">
-              <option>Polish Women Chamber TV</option>
+              <option>Global Women TV</option>
+              <option>Oferta magazynu Business Women IMPACT (−25%)</option>
             </optgroup>
           </select>
         </div>
@@ -939,13 +970,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <p class="doc-meta">Obowiązuje od <span class="doc-date"></span>.</p>
           <h3>§1. Postanowienia ogólne</h3>
           <ol>
-            <li>Regulamin określa zasady rezerwacji i korzystania ze studia nagrań IMPACT Studio Podcastowe oraz świadczenia usług produkcji materiałów audio i wideo, pakietów dla firm i programów dla kobiet.</li>
+            <li>Regulamin określa zasady rezerwacji i korzystania ze studia nagrań IMPACT Studio Podcastowe oraz świadczenia usług produkcji materiałów audio i wideo, pakietów Global Women TV i programów dla kobiet.</li>
             <li>Usługodawcą jest <span class="co-name"></span>, <span class="co-address"></span>, wpisana do rejestru przedsiębiorców KRS pod numerem <span class="co-krs"></span>, NIP <span class="co-nip"></span>, REGON <span class="co-regon"></span>, kapitał zakładowy <span class="co-capital"></span> (dalej: Usługodawca).</li>
             <li>Klientem jest osoba fizyczna, osoba prawna lub jednostka organizacyjna, która składa zapytanie lub zawiera umowę z Usługodawcą.</li>
           </ol>
           <h3>§2. Usługi</h3>
           <ol>
-            <li>Usługodawca świadczy usługi: nagrania wideo z przekazaniem surowego materiału, wynajmu studia Bordeaux, nagrania z montażem odcinka, nagrania z montażem i rolkami promocyjnymi, obsługi wydarzeń, pakietów miesięcznych dla firm oraz programów Global Women Premium, Polish Women Business i Women Entrepreneur.</li>
+            <li>Usługodawca świadczy usługi: nagrania wideo z przekazaniem surowego materiału, wynajmu studia Bordeaux, nagrania z montażem odcinka, nagrania z montażem i rolkami promocyjnymi, obsługi wydarzeń, pakietów Global Women TV oraz programów Global Women Premium, Polish Women Business i Women Entrepreneur.</li>
             <li>Ceny podane na stronie są cenami netto, do których dolicza się podatek VAT według obowiązującej stawki. Ceny oznaczone słowem „od” są cenami minimalnymi. Ostateczną cenę Usługodawca podaje w potwierdzeniu rezerwacji.</li>
           </ol>
           <h3>§3. Rezerwacja i zawarcie umowy</h3>
@@ -957,7 +988,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <h3>§4. Płatności</h3>
           <ol>
             <li>Rozliczenie następuje na podstawie faktury VAT, w terminie wskazanym na fakturze.</li>
-            <li>Pakiety miesięczne są płatne z góry za każdy miesiąc. Udział w programach jest płatny z góry, przed rozpoczęciem programu.</li>
+            <li>Pakiety Global Women TV są płatne przed nagraniem. Udział w programach jest płatny z góry, przed rozpoczęciem programu.</li>
+            <li>Klientom, którzy zrealizowali u Usługodawcy co najmniej jedną usługę, przysługuje rabat 25% na ofertę reklamową i publikacje w magazynie Business Women IMPACT, na zasadach podanych w ofercie magazynu.</li>
           </ol>
           <h3>§5. Zmiana i odwołanie terminu</h3>
           <ol>
