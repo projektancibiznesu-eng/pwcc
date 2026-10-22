@@ -14,24 +14,24 @@
    KOLORYSTYKA: aby podmienić barwy marki, zmień wyłącznie tokeny poniżej (trzy bloki: jasny, ciemny systemowy, ciemny wymuszony). */
 :root {
   /* Paleta ze studia Global Women: bordowa ściana, kość słoniowa, orzech, terakota, złote litery, oliwka */
-  --bg: #F6EEE3;          /* kość słoniowa (sofa, dywan) */
-  --surface: #FFFBF5;
-  --surface-2: #ECDCC6;   /* piaskowy beż */
-  --fg: #2E1A14;          /* ciemny orzech */
-  --muted: #6F5848;
-  --line: rgba(46, 26, 20, .15);
-  --accent: #7A2230;      /* bordo ściany */
-  --accent-fg: #FFF8EE;
-  --signal: #B5562F;      /* terakota */
-  --hero-bg: #5C1A22;     /* bordowa ściana studia */
-  --hero-deep: #3E1116;
-  --walnut: #4A2B1C;      /* drewno orzechowe */
-  --terra: #A9502C;       /* ściana Terra Botanica */
-  --olive: #5F6436;       /* fotele Terra Botanica */
-  --hero-fg: #F8EFE3;
-  --hero-muted: #E2CDB8;
-  --hero-accent: #D9B377; /* złote litery logo */
-  --hero-ink: #2E1A14;
+  --bg: #F2E8DA;          /* kość słoniowa (sofa, dywan) */
+  --surface: #FBF5EC;
+  --surface-2: #E6D3BB;   /* piaskowy beż */
+  --fg: #2F1C10;          /* ciemny orzech */
+  --muted: #6E5440;
+  --line: rgba(68, 41, 19, .16);
+  --accent: #7A2A1A;      /* bordo ściany */
+  --accent-fg: #FBF2E4;
+  --signal: #A9471F;      /* terakota */
+  --hero-bg: #561D14;     /* bordowa ściana studia */
+  --hero-deep: #38130C;
+  --walnut: #442913;      /* drewno orzechowe */
+  --terra: #8B4022;       /* ściana Terra Botanica */
+  --olive: #5E6233;       /* fotele Terra Botanica */
+  --hero-fg: #F7EBDB;
+  --hero-muted: #DCC3A6;
+  --hero-accent: #D6A961; /* złote litery logo */
+  --hero-ink: #2F1C10;
   color-scheme: light;
 
   --f-display: "Bodoni Moda", "Didot", "Times New Roman", serif;
@@ -82,7 +82,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Hero */
 .hero { background: linear-gradient(180deg, var(--hero-bg), var(--hero-deep)); color: var(--hero-fg); position: relative; overflow: hidden; }
-.hero::after { content: ""; position: absolute; inset: auto -10% -40% 40%; height: 80%; background: radial-gradient(closest-side, rgba(210,171,110,.16), transparent); pointer-events: none; }
+.hero::after { content: ""; position: absolute; inset: auto -10% -40% 40%; height: 80%; background: radial-gradient(closest-side, rgba(230,160,80,.22), transparent); pointer-events: none; }
 .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(56px, 8vw, 104px); position: relative; z-index: 1; }
 .hero h1 { font-size: var(--step-4); }
 .hero h1 em { font-style: italic; color: var(--hero-accent); }
@@ -103,7 +103,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .frame::before, .frame::after { content: ""; position: absolute; width: 22px; height: 22px; border: 2px solid rgba(246,238,241,.55); }
 .frame::before { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
 .frame::after { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
-.lower-third { background: rgba(28,9,12,.8); border-left: 3px solid var(--hero-accent); padding: 10px 14px; border-radius: 4px; display: grid; gap: 2px; }
+.lower-third { background: rgba(40,18,8,.8); border-left: 3px solid var(--hero-accent); padding: 10px 14px; border-radius: 4px; display: grid; gap: 2px; }
 .lower-third b { font: 500 1.05rem/1.2 var(--f-display); }
 .lower-third small { color: var(--hero-muted); font-size: .78rem; letter-spacing: .04em; }
 .meters { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: center; font: 500 .72rem/1 var(--f-mono); color: var(--hero-muted); }
@@ -180,7 +180,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .member h3 em { color: var(--hero-accent); }
 .member p { color: var(--hero-muted); }
 .member .btn { justify-self: start; }
-.member p { color: #F6E4D2; }
+.member p { color: #F3DEC6; }
 .member h3 em { color: #FFE2B8; }
 .member .eyebrow { color: #FFE2B8 !important; }
 
@@ -206,7 +206,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 24px; }
 
 /* Modal */
-.modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(20, 6, 8, .72); backdrop-filter: blur(4px); }
+.modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(30, 12, 5, .72); backdrop-filter: blur(4px); }
 .dialog { width: min(640px, 100%); max-height: 100%; overflow: auto; background: var(--surface); color: var(--fg); border-radius: 18px; padding: clamp(22px, 4vw, 36px); display: grid; gap: 20px; position: relative; }
 .dialog h2 { font-size: var(--step-3); padding-right: 40px; }
 .close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--fg); font-size: 1.3rem; cursor: pointer; }
