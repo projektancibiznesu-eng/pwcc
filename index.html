@@ -363,6 +363,36 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .contact dd { margin: 4px 0 0; color: var(--cream); user-select: all; }
 .foot-bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 24px; font-size: var(--t-sm); }
 
+/* Company data + legal links */
+.foot-company { display: grid; gap: 6px; padding-block: 24px; border-bottom: 1px solid var(--line-light); font-size: var(--t-sm); color: rgba(255,244,234,.62); }
+.foot-company b { color: var(--cream); font-weight: 500; }
+.foot-legal { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.text-link { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.text-link:hover { color: var(--peach); }
+.consent .text-link:hover { color: var(--cream); }
+
+/* Legal documents */
+.legal { position: fixed; inset: 0; z-index: 70; background: rgba(6,22,20,.7); display: grid; place-items: center; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.legal-panel { width: min(860px, 100%); height: min(88vh, 100%); background: var(--paper); color: var(--ink); border-radius: 8px; display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
+.legal-bar { display: grid; grid-template-columns: 1fr auto; gap: 12px 16px; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.legal-title { font: 400 1.6rem/1 var(--f-display); }
+.legal-tabs { grid-column: 1 / -1; grid-row: 2; display: flex; flex-wrap: wrap; gap: 6px; }
+.legal-tabs button { padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: none; color: var(--ink); font: 500 var(--t-sm)/1 var(--f-body); cursor: pointer; }
+.legal-tabs button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.legal-close { grid-column: 2; grid-row: 1; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: none; color: var(--ink); font-size: 1.3rem; cursor: pointer; }
+.legal-body { overflow-y: auto; padding: clamp(22px, 4vw, 44px); outline: 0; }
+.doc { max-width: 68ch; display: grid; gap: 14px; font-size: .97rem; line-height: 1.65; }
+.doc h2 { font-size: clamp(2rem, 1.6rem + 1.4vw, 2.8rem); }
+.doc h3 { font: 600 1rem/1.4 var(--f-body); margin-top: 10px; }
+.doc-meta { color: var(--ink-soft); font-size: var(--t-sm); }
+.doc ol, .doc ul { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+.doc ol ul { margin-top: 8px; }
+
+/* Cookie notice */
+.cookie-bar { position: fixed; z-index: 50; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: max(12px, env(safe-area-inset-bottom, 0px)); margin: 0 auto; max-width: 720px; display: flex; align-items: center; gap: 16px 24px; flex-wrap: wrap; padding: 16px 20px; background: var(--ink); color: rgba(255,244,234,.85); border-radius: 8px; box-shadow: 0 16px 40px rgba(0,0,0,.3); font-size: var(--t-sm); }
+.cookie-bar p { flex: 1 1 280px; }
+.cookie-bar .btn { min-height: 42px; padding: 0 20px; }
+
 /* Lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(6,22,20,.92); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 .lightbox figure { margin: 0; display: grid; gap: 14px; max-width: min(1100px, 100%); color: var(--cream); }
@@ -796,7 +826,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="f-phone">Telefon</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
         <div class="field field--full"><label for="f-notes">Co nagrywamy?</label><textarea id="f-notes" name="notes" placeholder="Np. podcast z dwojgiem gości, wersja wideo i trzy rolki."></textarea></div>
-        <label class="consent"><input id="f-consent" name="consent" type="checkbox"> Zgadzam się na przetwarzanie moich danych przez Polish Women Chamber of Commerce w celu obsługi rezerwacji.</label>
+        <label class="consent"><input id="f-consent" name="consent" type="checkbox"> <span>Akceptuję <button type="button" class="text-link" data-doc-open="regulamin">Regulamin</button> i zapoznałam/em się z <button type="button" class="text-link" data-doc-open="rodo">klauzulą informacyjną RODO</button>. Administratorem danych jest <span class="co-short"></span>.</span></label>
         <div class="form-foot">
           <button class="btn btn--fill" type="submit">Wyślij rezerwację</button>
           <p class="error" id="f-error" hidden></p>
@@ -819,6 +849,163 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <button class="lb-close" type="button" id="lb-close" aria-label="Zamknij">×</button>
     <figure><img id="lb-img" alt=""><figcaption><b id="lb-title"></b><button class="btn btn--cream" type="button" id="lb-book">Zarezerwuj to studio</button></figcaption></figure>
   </div>
+  <div class="legal" id="legal" role="dialog" aria-modal="true" aria-labelledby="legal-title" hidden>
+    <div class="legal-panel">
+      <div class="legal-bar">
+        <p class="legal-title" id="legal-title">Dokumenty</p>
+        <div class="legal-tabs" role="tablist">
+          <button type="button" role="tab" data-doc="rodo">Klauzula RODO</button>
+          <button type="button" role="tab" data-doc="polityka-prywatnosci">Polityka prywatności</button>
+          <button type="button" role="tab" data-doc="cookies">Cookies</button>
+          <button type="button" role="tab" data-doc="regulamin">Regulamin</button>
+        </div>
+        <button class="legal-close" type="button" id="legal-close" aria-label="Zamknij">×</button>
+      </div>
+      <div class="legal-body" id="legal-body" tabindex="-1">
+
+        <article class="doc" data-doc="rodo">
+          <h2>Klauzula informacyjna RODO</h2>
+          <p class="doc-meta">Dotyczy danych podawanych w formularzu rezerwacji i zgłoszenia do programów.</p>
+          <p>Zgodnie z art. 13 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO) informujemy, że:</p>
+          <ol>
+            <li>Administratorem Twoich danych osobowych jest <span class="co-name"></span>, <span class="co-address"></span>, wpisana do rejestru przedsiębiorców Krajowego Rejestru Sądowego pod numerem KRS <span class="co-krs"></span>, NIP <span class="co-nip"></span>, REGON <span class="co-regon"></span> (dalej: Administrator).</li>
+            <li>Z Administratorem skontaktujesz się pod adresem e-mail <span data-cfg="email"></span> lub pisemnie na adres siedziby.</li>
+            <li>Twoje dane przetwarzamy w celu:
+              <ul>
+                <li>obsługi zapytania i rezerwacji, zawarcia i wykonania umowy (art. 6 ust. 1 lit. b RODO),</li>
+                <li>wystawienia faktur i prowadzenia dokumentacji księgowej (art. 6 ust. 1 lit. c RODO),</li>
+                <li>kontaktu w sprawie zgłoszenia oraz ustalenia, dochodzenia lub obrony roszczeń, co jest naszym prawnie uzasadnionym interesem (art. 6 ust. 1 lit. f RODO).</li>
+              </ul>
+            </li>
+            <li>Odbiorcami danych mogą być podmioty, które świadczą dla nas usługi: hostingu, poczty elektronicznej, księgowe, prawne i informatyczne, wyłącznie na podstawie umów powierzenia.</li>
+            <li>Dane przechowujemy przez czas obsługi zapytania i wykonania umowy, a następnie przez okres przedawnienia roszczeń oraz okres wymagany przepisami podatkowymi (co do zasady 5 lat od końca roku podatkowego).</li>
+            <li>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia danych oraz wniesienia sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie.</li>
+            <li>Masz prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</li>
+            <li>Podanie danych jest dobrowolne, ale niezbędne do obsługi zapytania i zawarcia umowy.</li>
+            <li>Nie podejmujemy decyzji w sposób zautomatyzowany i nie profilujemy Twoich danych.</li>
+          </ol>
+        </article>
+
+        <article class="doc" data-doc="polityka-prywatnosci">
+          <h2>Polityka prywatności</h2>
+          <p class="doc-meta">Obowiązuje od <span class="doc-date"></span>.</p>
+          <h3>1. Administrator danych</h3>
+          <p>Administratorem danych osobowych użytkowników strony IMPACT House jest <span class="co-name"></span> z siedzibą pod adresem <span class="co-address"></span>, KRS <span class="co-krs"></span>, NIP <span class="co-nip"></span>, REGON <span class="co-regon"></span>. Kontakt w sprawach danych osobowych: <span data-cfg="email"></span>.</p>
+          <h3>2. Jakie dane zbieramy</h3>
+          <p>Zbieramy dane, które podajesz w formularzu: imię i nazwisko, nazwę firmy, adres e-mail, numer telefonu, wybrany termin i usługę oraz treść wiadomości. Podczas korzystania ze strony serwer zapisuje także dane techniczne, takie jak adres IP, typ przeglądarki i czas wizyty.</p>
+          <h3>3. Cele i podstawy przetwarzania</h3>
+          <ul>
+            <li>Obsługa zapytań, rezerwacji, zgłoszeń do programów oraz wykonanie umowy (art. 6 ust. 1 lit. b RODO).</li>
+            <li>Rozliczenia i obowiązki podatkowe (art. 6 ust. 1 lit. c RODO).</li>
+            <li>Kontakt z Tobą, zapewnienie bezpieczeństwa strony, statystyka techniczna oraz dochodzenie i obrona roszczeń (art. 6 ust. 1 lit. f RODO).</li>
+            <li>Wykorzystanie wizerunku w materiałach promocyjnych Administratora i Polish Women Chamber of Commerce wyłącznie na podstawie odrębnej zgody (art. 6 ust. 1 lit. a RODO), którą możesz w każdej chwili wycofać.</li>
+          </ul>
+          <h3>4. Odbiorcy danych</h3>
+          <p>Dane mogą otrzymać dostawcy usług hostingowych, poczty e-mail, systemów rezerwacji, biura rachunkowego i kancelarii prawnej. W przypadku programów prowadzonych wspólnie z Polish Women Chamber of Commerce dane uczestniczek mogą zostać przekazane Izbie w zakresie niezbędnym do organizacji programu.</p>
+          <h3>5. Przekazywanie danych poza EOG</h3>
+          <p>Strona korzysta z czcionek Google Fonts. Przy ich ładowaniu przeglądarka łączy się z serwerami Google, które mogą znajdować się poza Europejskim Obszarem Gospodarczym. Google LLC uczestniczy w programie EU-U.S. Data Privacy Framework, na podstawie decyzji Komisji Europejskiej stwierdzającej odpowiedni stopień ochrony.</p>
+          <h3>6. Okres przechowywania</h3>
+          <p>Dane z zapytań, na które nie zawarto umowy, przechowujemy do 12 miesięcy. Dane klientów przechowujemy przez czas trwania umowy, a następnie do upływu okresu przedawnienia roszczeń i okresu wymaganego przez przepisy podatkowe.</p>
+          <h3>7. Twoje prawa</h3>
+          <p>Masz prawo do dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, wniesienia sprzeciwu oraz cofnięcia zgody w dowolnym momencie, bez wpływu na zgodność z prawem przetwarzania dokonanego przed jej cofnięciem. Przysługuje Ci także skarga do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+          <h3>8. Bezpieczeństwo</h3>
+          <p>Stosujemy środki techniczne i organizacyjne chroniące dane, w tym szyfrowane połączenie (SSL) i ograniczony dostęp do danych dla upoważnionych osób.</p>
+          <h3>9. Zmiany polityki</h3>
+          <p>O zmianach polityki prywatności informujemy na tej stronie. Aktualna wersja obowiązuje od dnia publikacji.</p>
+        </article>
+
+        <article class="doc" data-doc="cookies">
+          <h2>Polityka cookies</h2>
+          <p class="doc-meta">Obowiązuje od <span class="doc-date"></span>.</p>
+          <h3>1. Czym są cookies</h3>
+          <p>Cookies to małe pliki tekstowe zapisywane na Twoim urządzeniu przez przeglądarkę. Podobnie działa pamięć lokalna przeglądarki (localStorage).</p>
+          <h3>2. Z czego korzysta ta strona</h3>
+          <ul>
+            <li><b>Niezbędne:</b> zapamiętanie, że zamknięto informację o cookies (pamięć lokalna przeglądarki). Bez nich strona nie zapamięta Twojego wyboru.</li>
+            <li><b>Zewnętrzne zasoby:</b> czcionki Google Fonts. Google może otrzymać Twój adres IP w celu dostarczenia czcionek.</li>
+          </ul>
+          <p>Strona nie używa obecnie cookies analitycznych ani marketingowych. Jeśli je dodamy, poprosimy o zgodę przed ich zapisaniem.</p>
+          <h3>3. Jak zarządzać cookies</h3>
+          <p>Możesz usunąć lub zablokować cookies i dane stron w ustawieniach przeglądarki. Zablokowanie niezbędnych danych może ograniczyć działanie niektórych funkcji strony.</p>
+          <h3>4. Administrator</h3>
+          <p><span class="co-name"></span>, <span class="co-address"></span>. Kontakt: <span data-cfg="email"></span>.</p>
+        </article>
+
+        <article class="doc" data-doc="regulamin">
+          <h2>Regulamin studia IMPACT House</h2>
+          <p class="doc-meta">Obowiązuje od <span class="doc-date"></span>.</p>
+          <h3>§1. Postanowienia ogólne</h3>
+          <ol>
+            <li>Regulamin określa zasady rezerwacji i korzystania ze studia nagrań IMPACT House oraz świadczenia usług produkcji materiałów audio i wideo, pakietów dla firm i programów dla kobiet.</li>
+            <li>Usługodawcą jest <span class="co-name"></span>, <span class="co-address"></span>, wpisana do rejestru przedsiębiorców KRS pod numerem <span class="co-krs"></span>, NIP <span class="co-nip"></span>, REGON <span class="co-regon"></span>, kapitał zakładowy <span class="co-capital"></span> (dalej: Usługodawca).</li>
+            <li>Klientem jest osoba fizyczna, osoba prawna lub jednostka organizacyjna, która składa zapytanie lub zawiera umowę z Usługodawcą.</li>
+          </ol>
+          <h3>§2. Usługi</h3>
+          <ol>
+            <li>Usługodawca świadczy usługi: nagrania wideo z przekazaniem surowego materiału, nagrania z montażem odcinka, nagrania z montażem i rolkami promocyjnymi, obsługi wydarzeń, pakietów miesięcznych dla firm oraz programów Global Women Premium, Polish Women Business i Women Entrepreneur.</li>
+            <li>Ceny podane na stronie są cenami netto, do których dolicza się podatek VAT według obowiązującej stawki. Ceny oznaczone słowem „od” są cenami minimalnymi. Ostateczną cenę Usługodawca podaje w potwierdzeniu rezerwacji.</li>
+          </ol>
+          <h3>§3. Rezerwacja i zawarcie umowy</h3>
+          <ol>
+            <li>Formularz na stronie służy do złożenia zapytania. Wysłanie formularza nie oznacza zawarcia umowy.</li>
+            <li>Umowa zostaje zawarta z chwilą przesłania przez Usługodawcę potwierdzenia rezerwacji na adres e-mail Klienta, zawierającego termin, zakres usługi i cenę.</li>
+            <li>Usługodawca może uzależnić potwierdzenie rezerwacji od wpłaty zaliczki, o czym informuje w potwierdzeniu.</li>
+          </ol>
+          <h3>§4. Płatności</h3>
+          <ol>
+            <li>Rozliczenie następuje na podstawie faktury VAT, w terminie wskazanym na fakturze.</li>
+            <li>Pakiety miesięczne są płatne z góry za każdy miesiąc. Udział w programach jest płatny z góry, przed rozpoczęciem programu.</li>
+          </ol>
+          <h3>§5. Zmiana i odwołanie terminu</h3>
+          <ol>
+            <li>Klient może bezpłatnie przenieść lub odwołać termin nagrania najpóźniej 48 godzin przed jego rozpoczęciem.</li>
+            <li>W przypadku odwołania terminu później niż 48 godzin przed rozpoczęciem Usługodawca może obciążyć Klienta opłatą w wysokości 50% ceny zarezerwowanej usługi.</li>
+            <li>Spóźnienie Klienta nie wydłuża zarezerwowanego czasu nagrania.</li>
+          </ol>
+          <h3>§6. Korzystanie ze studia</h3>
+          <ol>
+            <li>Klient i jego goście korzystają ze studia zgodnie z poleceniami realizatora i przeznaczeniem wyposażenia.</li>
+            <li>Klient odpowiada za szkody wyrządzone w studiu przez siebie i swoich gości.</li>
+            <li>Klient odpowiada za uzyskanie zgód osób występujących w nagraniu na rozpowszechnianie ich wizerunku.</li>
+          </ol>
+          <h3>§7. Materiały i prawa autorskie</h3>
+          <ol>
+            <li>Usługodawca przekazuje materiały w terminie wskazanym w potwierdzeniu rezerwacji, standardowo do 72 godzin roboczych od nagrania dla usług z montażem.</li>
+            <li>Z chwilą zapłaty ceny Klient nabywa licencję niewyłączną, nieograniczoną terytorialnie i czasowo, do korzystania z przekazanych materiałów na wszystkich polach eksploatacji wskazanych w umowie, chyba że strony uzgodnią przeniesienie autorskich praw majątkowych.</li>
+            <li>Usługodawca może wykorzystać fragmenty materiałów w swoim portfolio i kanałach Polish Women Chamber of Commerce wyłącznie za zgodą Klienta.</li>
+          </ol>
+          <h3>§8. Programy dla kobiet</h3>
+          <ol>
+            <li>Każdy program ma ograniczoną liczbę 25 miejsc. O zakwalifikowaniu decyduje kolejność zgłoszeń i rozmowa kwalifikacyjna.</li>
+            <li>Szczegółowy zakres i harmonogram programu Uczestniczka otrzymuje w potwierdzeniu zakwalifikowania.</li>
+            <li>Rezygnacja z udziału jest bezpłatna do 14 dni przed rozpoczęciem programu. Po tym terminie opłata nie podlega zwrotowi, chyba że Uczestniczka wskaże osobę na swoje miejsce.</li>
+          </ol>
+          <h3>§9. Reklamacje</h3>
+          <ol>
+            <li>Reklamacje można składać na adres <span data-cfg="email"></span> w terminie 14 dni od wykonania usługi.</li>
+            <li>Usługodawca rozpatruje reklamację w ciągu 14 dni od jej otrzymania i informuje o wyniku drogą e-mail.</li>
+          </ol>
+          <h3>§10. Konsumenci</h3>
+          <ol>
+            <li>Klient będący konsumentem lub przedsiębiorcą na prawach konsumenta może odstąpić od umowy zawartej na odległość w terminie 14 dni od jej zawarcia, bez podania przyczyny.</li>
+            <li>Prawo odstąpienia nie przysługuje, jeżeli Usługodawca wykonał usługę w pełni za wyraźną zgodą Klienta, który został poinformowany, że po spełnieniu świadczenia utraci prawo odstąpienia od umowy.</li>
+            <li>Jeżeli Klient zażąda rozpoczęcia usługi przed upływem terminu na odstąpienie, zapłaci za świadczenia spełnione do chwili odstąpienia.</li>
+          </ol>
+          <h3>§11. Postanowienia końcowe</h3>
+          <ol>
+            <li>Zasady przetwarzania danych osobowych opisuje Polityka prywatności.</li>
+            <li>W sprawach nieuregulowanych stosuje się przepisy prawa polskiego, w szczególności Kodeksu cywilnego.</li>
+            <li>Spory z Klientami niebędącymi konsumentami rozstrzyga sąd właściwy dla siedziby Usługodawcy.</li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="cookie-bar" id="cookie-bar" hidden>
+    <p>Ta strona korzysta z pamięci przeglądarki i czcionek Google Fonts. Szczegóły w <button type="button" class="text-link" data-doc-open="cookies">polityce cookies</button>.</p>
+    <button class="btn btn--cream" type="button" id="cookie-ok">Rozumiem</button>
+  </div>
 </main>
 
 <footer class="foot">
@@ -831,8 +1018,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <div><dt>Adres</dt><dd data-cfg="address"></dd></div>
       </dl>
     </div>
+    <div class="foot-company">
+      <p><b>Operator studia:</b> <span class="co-name"></span>, <span class="co-address"></span></p>
+      <p>KRS <span class="co-krs"></span> · NIP <span class="co-nip"></span> · REGON <span class="co-regon"></span> · Kapitał zakładowy <span class="co-capital"></span> · <span class="co-court"></span></p>
+      <p>We współpracy z Polish Women Chamber of Commerce</p>
+    </div>
     <div class="foot-bottom">
-      <span>© <span id="year">2026</span> Polish Women Chamber of Commerce</span>
+      <span>© <span id="year">2026</span> <span class="co-short"></span></span>
+      <nav class="foot-legal" aria-label="Dokumenty">
+        <button type="button" class="text-link" data-doc-open="regulamin">Regulamin</button>
+        <button type="button" class="text-link" data-doc-open="polityka-prywatnosci">Polityka prywatności</button>
+        <button type="button" class="text-link" data-doc-open="cookies">Cookies</button>
+        <button type="button" class="text-link" data-doc-open="rodo">Klauzula RODO</button>
+      </nav>
       <a href="#top">Do góry ↑</a>
     </div>
   </div>
@@ -843,7 +1041,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 const CONFIG = {
   email: "studio@twoja-domena.pl",
   phone: "+48 000 000 000",
-  address: "Warszawa, adres do uzupełnienia",
+  address: "Al. Jana Pawła II 27, 00-867 Warszawa",
+  // Dane spółki z KRS (stopka, regulamin, polityka prywatności).
+  company: {
+    name: "GLOBAL WOMEN INVESTMENT, MEDIA & INSURANCE GROUP sp. z o.o.",
+    short: "Global Women Investment, Media & Insurance Group sp. z o.o.",
+    address: "Al. Jana Pawła II 27, 00-867 Warszawa",
+    krs: "0000929711",
+    nip: "1133044391",
+    regon: "520306222",
+    capital: "5 000 zł",
+    court: "Sąd Rejonowy dla m.st. Warszawy w Warszawie, Wydział Gospodarczy KRS"
+  },
+  docsDate: "22 października 2026",
   formEndpoint: "",
   // Godziny otwarcia studia: [otwarcie, zamknięcie] dla pn–nd; null = zamknięte.
   hours: [[9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [10, 16], null],
@@ -875,7 +1085,40 @@ const FRAMES = [
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const $ = id => document.getElementById(id);
 document.querySelectorAll("[data-cfg]").forEach(el => { el.textContent = CONFIG[el.dataset.cfg]; });
+for (const k of Object.keys(CONFIG.company)) document.querySelectorAll(".co-" + k).forEach(el => { el.textContent = CONFIG.company[k]; });
+document.querySelectorAll(".doc-date").forEach(el => { el.textContent = CONFIG.docsDate; });
 $("year").textContent = new Date().getFullYear();
+
+/* Legal documents and cookie notice */
+(() => {
+  const box = $("legal"), body = $("legal-body");
+  const docs = [...box.querySelectorAll(".doc")], tabs = [...box.querySelectorAll("[role=tab]")];
+  let opener = null;
+  function open(name) {
+    opener = document.activeElement;
+    docs.forEach(d => { d.hidden = d.dataset.doc !== name; });
+    tabs.forEach(t => t.setAttribute("aria-selected", t.dataset.doc === name));
+    box.hidden = false; document.body.style.overflow = "hidden";
+    body.scrollTop = 0; body.focus({ preventScroll: true });
+  }
+  function close() { box.hidden = true; document.body.style.overflow = ""; if (opener) opener.focus({ preventScroll: true }); }
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-doc-open]");
+    if (t) { e.preventDefault(); open(t.dataset.docOpen); }
+  });
+  tabs.forEach(t => t.addEventListener("click", () => open(t.dataset.doc)));
+  $("legal-close").addEventListener("click", close);
+  box.addEventListener("click", e => { if (e.target === box) close(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !box.hidden) close(); });
+  const hash = location.hash.slice(1);
+  if (docs.some(d => d.dataset.doc === hash)) open(hash);
+
+  const bar = $("cookie-bar");
+  let seen = false;
+  try { seen = localStorage.getItem("cookie-ok") === "1"; } catch (_) {}
+  if (!seen) bar.hidden = false;
+  $("cookie-ok").addEventListener("click", () => { bar.hidden = true; try { localStorage.setItem("cookie-ok", "1"); } catch (_) {} });
+})();
 
 /* Mobile menu */
 (() => {
