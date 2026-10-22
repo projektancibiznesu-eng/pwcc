@@ -285,6 +285,20 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .host-facts b { font: 400 2.4rem/1 var(--f-display); color: var(--orange); }
 .host-more { font-size: var(--t-sm); }
 
+/* Team */
+.team { padding-block: 0 clamp(90px, 11vw, 150px); background: var(--paper); }
+.team .wrap { border-top: 1px solid var(--line); padding-top: clamp(48px, 6vw, 80px); }
+.team h2 { font-size: var(--t-h3); margin-bottom: 36px; }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 32px; max-width: 760px; }
+.person { display: grid; gap: 10px; align-content: start; }
+.person-photo { aspect-ratio: 4 / 5; border-radius: 6px; overflow: hidden; display: grid; place-items: center; }
+.person-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.person-photo span { font: 400 clamp(3rem, 2.4rem + 2vw, 4.4rem)/1 var(--f-display); font-style: italic; color: var(--peach); }
+.person-photo--bordo { background: var(--bordo); }
+.person-photo--teal { background: var(--teal); }
+.person h3 { font-size: 1.9rem; margin-top: 8px; }
+.person p { color: var(--ink-soft); font-size: .95rem; }
+
 /* Host card in programmes */
 .host-card { display: flex; align-items: center; gap: 18px; margin-top: 10px; padding: 12px 22px 12px 12px; border-radius: 999px; background: rgba(255,244,234,.08); border: 1px solid rgba(255,244,234,.18); text-decoration: none; color: var(--cream); justify-self: start; transition: background .2s; }
 .host-card:hover { background: rgba(255,244,234,.14); }
@@ -500,7 +514,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <li><a href="#cennik">Cennik</a></li>
       <li><a href="#pakiety">Pakiety TV</a></li>
       <li><a href="#programy">Programy</a></li>
-      <li><a href="#prowadzaca">Prowadząca</a></li>
+      <li><a href="#prowadzaca">Zespół</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#rezerwacja">Rezerwacja</a></li>
     </ul>
@@ -810,6 +824,24 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <li><b>2022</b>wyróżnienie Equality Leaders od Forbes Women i Ambasady Brytyjskiej</li>
         </ul>
         <p class="host-more">Członkini Krajowego Prezydium Rad Kobiet. Współautorka krajowych raportów o ESG i obronie cywilnej. Autorka książek „Przestań czekać – zacznij żyć” i „Przewodnik do spełnionego życia: 50 metod i ćwiczeń”. Mówi po polsku, angielsku i słowacku.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team" id="zespol">
+    <div class="wrap">
+      <h2>Zespół <em>Global Women</em></h2>
+      <div class="team-grid">
+        <article class="person">
+          <div class="person-photo person-photo--bordo" aria-hidden="true"><span>UB</span></div>
+          <h3>Urszula Brzozowska</h3>
+          <p>Dyrektorka generalna magazynu gospodarczego Business Women IMPACT</p>
+        </article>
+        <article class="person">
+          <div class="person-photo person-photo--teal" aria-hidden="true"><span>JNR</span></div>
+          <h3>Judyta Niewiadomska-Roein</h3>
+          <p>Dyrektorka</p>
+        </article>
       </div>
     </div>
   </section>
