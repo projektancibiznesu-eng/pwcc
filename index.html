@@ -144,7 +144,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .facts span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); transform: translateY(-2px); }
 
 /* Why us */
-.why { background: var(--ink); color: var(--cream); padding-block: clamp(80px, 10vw, 130px); }
+.why { background: #17221F; color: var(--cream); padding-block: clamp(80px, 10vw, 130px); }
 .why-head { display: flex; justify-content: space-between; align-items: end; gap: 20px 60px; flex-wrap: wrap; margin-bottom: 56px; }
 .why-head h2 { font-size: var(--t-h2); }
 .why-head p { color: rgba(255,244,234,.75); max-width: 46ch; }
@@ -185,7 +185,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .hot-tip span { font-size: .88rem; line-height: 1.5; color: #4C5450; }
 
 /* Prices + calculator */
-.menu { background: var(--ink); color: var(--cream); padding-block: clamp(90px, 11vw, 150px); }
+.menu { background: #17221F; color: var(--cream); padding-block: clamp(90px, 11vw, 150px); }
 .menu .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(40px, 6vw, 100px); align-items: start; }
 .menu h2 { font-size: var(--t-h2); }
 .menu-head { display: grid; gap: 22px; position: sticky; top: 40px; }
@@ -233,7 +233,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plan li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--orange); }
 .plan--hot li::before { border-color: var(--peach); }
 .plan .btn { justify-self: start; margin-top: 6px; }
-.plan:not(.plan--hot) .btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
 .fine { margin-top: 28px; color: var(--ink-soft); font-size: var(--t-sm); }
 
 /* Company packages */
@@ -400,7 +400,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .field label { font-size: var(--t-sm); color: rgba(255,244,234,.65); }
 .field input, .field select, .field textarea { width: 100%; font: 400 var(--t-base)/1.5 var(--f-body); color: var(--cream); background: rgba(255,244,234,.06); border: 1px solid var(--line-light); border-radius: 6px; padding: 12px 14px; }
 .field select { appearance: none; background: rgba(255,244,234,.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23F2B48C' stroke-width='1.5'/%3E%3C/svg%3E") right 14px center no-repeat; }
-.field select option { color: var(--ink); background: var(--paper); }
+.field select option { color: #17221F; background: #FFF4EA; }
 .field textarea { min-height: 96px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: 0; border-color: var(--peach); }
 .consent { grid-column: 1 / -1; display: flex; gap: 12px; align-items: flex-start; font-size: var(--t-sm); color: rgba(255,244,234,.65); }
@@ -465,6 +465,85 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .lightbox figcaption b { font: 400 1.8rem/1.1 var(--f-display); }
 .lb-close { position: absolute; top: max(16px, env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,244,234,.4); background: none; color: var(--cream); font-size: 1.4rem; cursor: pointer; }
 
+/* Zone A: rental — one dark colour for every section below the studios */
+.rent-intro, .why, .menu, .plans-sec, .chamber, .process, .faq-sec, .booking {
+  --ink: #FFF4EA; --ink-soft: rgba(255,244,234,.72); --line: rgba(255,244,234,.16); --paper: #1F2D29;
+  background: #17221F; color: #FFF4EA;
+}
+.rent-intro .botanic, .plans-sec .botanic, .faq-sec .botanic, .process .botanic { --plant: var(--peach); --op: .3; }
+.btn--cream, .btn--cream:hover { color: #17221F; }
+.plan:not(.plan--hot) .btn:hover { background: #FFF4EA; color: #17221F; border-color: #FFF4EA; }
+.cal { background: #1F2D29; }
+.faq-sec { padding-top: clamp(60px, 8vw, 100px); }
+.zone-label { font: 600 .8rem/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase; color: var(--peach); }
+.rent-intro { padding-block: clamp(80px, 10vw, 140px); }
+.rent-intro .wrap { display: grid; gap: 32px; }
+.rent-intro h2 { font-size: var(--t-h2); max-width: 16ch; }
+.rent-intro h2 em { color: var(--peach); }
+.rent-cols { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(32px, 6vw, 90px); align-items: start; }
+.rent-text { display: grid; gap: 18px; }
+.rent-lead { font: 400 clamp(1.4rem, 1.1rem + 1vw, 1.9rem)/1.3 var(--f-display); }
+.rent-text > p:not(.rent-lead) { color: rgba(255,244,234,.75); max-width: 60ch; }
+.rent-ctas { justify-content: flex-start; margin-top: 8px; }
+.rent-list { padding: 26px 28px; background: #1F2D29; border-radius: 6px; }
+.rent-list-title { font: 400 1.6rem/1.1 var(--f-display); margin-bottom: 12px; }
+.rent-list ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.rent-list li { padding: 11px 0 11px 26px; position: relative; border-top: 1px solid rgba(255,244,234,.12); color: rgba(255,244,234,.86); }
+.rent-list li::before { content: ""; position: absolute; left: 0; top: 18px; width: 10px; height: 10px; border-radius: 50%; background: var(--orange-lit); }
+
+/* Zone B: programmes — light paper with bordo accents */
+.btn--bordo { background: var(--bordo); border-color: var(--bordo); color: #FFF4EA; }
+.btn--bordo:hover { background: #7A2A1E; border-color: #7A2A1E; }
+.zone-b { background: var(--bordo); color: #FFF4EA; padding-block: clamp(80px, 10vw, 130px); border-top: 6px solid var(--peach); }
+.zone-b .wrap { display: grid; gap: 24px; justify-items: start; }
+.zone-b h2 { font-size: var(--t-h2); }
+.zone-b .zone-label { color: var(--peach); }
+.zone-b-lead { max-width: 62ch; font-size: 1.1rem; color: rgba(255,244,234,.88); }
+.zone-b .btn--bordo { background: #FFF4EA; border-color: #FFF4EA; color: var(--bordo); }
+.programs, .host, .team, .apply { background: #FBF6F0; color: #17221F; }
+.programs { padding-block: clamp(70px, 9vw, 120px); }
+.programs-head { margin-bottom: 40px; }
+.program, .program--premium, .program--biznes, .program--entre { background: #FFFFFF; color: #17221F; border: 1px solid rgba(94,30,23,.18); border-top: 5px solid var(--bordo); }
+.program:hover { box-shadow: 0 20px 44px rgba(94,30,23,.14); }
+.program-price { color: var(--bordo); }
+.program h3 em { color: var(--bordo); }
+.program-for { color: #4C5450; }
+.program li::before { border-color: var(--bordo); }
+.seats { border-color: rgba(94,30,23,.35); color: var(--bordo); }
+.persona { border-color: rgba(23,34,31,.14); }
+.persona summary::after { color: var(--bordo); }
+.persona-body { color: #4C5450; }
+.persona-name { color: #17221F; }
+.persona-name span { background: rgba(94,30,23,.1); color: var(--bordo); }
+.persona dt { color: var(--bordo); }
+.programs-note { color: #4C5450; }
+.host-card { background: #FFFFFF; border-color: rgba(94,30,23,.18); color: #17221F; }
+.host-card:hover { background: #F4EBE3; }
+.host-card small { color: var(--bordo); }
+.host-card > span > span { color: #4C5450; }
+.host-text .label { color: var(--bordo); }
+.host-facts b { color: var(--bordo); }
+.team .wrap { border-top-color: rgba(23,34,31,.14); }
+.apply { padding-block: clamp(80px, 10vw, 130px); }
+.apply .wrap { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 90px); align-items: start; border-top: 1px solid rgba(23,34,31,.14); padding-top: clamp(48px, 6vw, 80px); }
+.apply-head { display: grid; gap: 16px; }
+.apply-head h2 { font-size: var(--t-h2); }
+.apply-head h2 em { color: var(--bordo); }
+.apply-head p { color: #4C5450; }
+.aform { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
+.aform .field label { color: #4C5450; }
+.aform .field input, .aform .field select, .aform .field textarea { background: #FFFFFF; color: #17221F; border-color: rgba(23,34,31,.2); }
+.aform .field select { background: #FFFFFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235E1E17' stroke-width='1.5'/%3E%3C/svg%3E") right 14px center no-repeat; }
+.aform .field input:focus, .aform .field select:focus, .aform .field textarea:focus { border-color: var(--bordo); }
+.aform .consent { color: #4C5450; }
+.aform .error { color: var(--bordo); }
+.adone p, .adone h3 { color: #17221F; }
+.adone pre { background: #FFFFFF; color: #17221F; border: 1px solid rgba(23,34,31,.14); }
+
+.plan--hot { background: #1F2D29; border: 1px solid var(--orange-lit); color: #FFF4EA; }
+.mag { background: #1F2D29; }
+.chamber-text { background: #17221F; }
+
 @media (max-width: 1000px) {
   .nav ul { display: none; }
   .menu-toggle { display: block; }
@@ -482,6 +561,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .mag { grid-template-columns: minmax(0, 1fr); }
   .mag .btn { justify-self: start; }
   .chamber-grid { grid-template-columns: minmax(0, 1fr); }
+  .rent-cols, .apply .wrap { grid-template-columns: minmax(0, 1fr); }
   .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .host .wrap { grid-template-columns: minmax(0, 1fr); }
   .host-photo { position: static; max-width: 420px; }
@@ -505,6 +585,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .steps, .form, .plans { grid-template-columns: minmax(0, 1fr); }
   .price-list li { grid-template-columns: minmax(0, 1fr); }
   .host-facts { grid-template-columns: minmax(0, 1fr); }
+  .aform { grid-template-columns: minmax(0, 1fr); }
   .why-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .host-card { border-radius: 16px; align-items: flex-start; }
   .booking-info { grid-template-columns: minmax(0, 1fr); }
@@ -525,14 +606,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <div class="wrap">
     <a class="mark" href="#top"><b>IMPACT</b><span>Studio podcastowe</span></a>
     <ul id="nav-links">
-      <li><a href="#dlaczego">Dlaczego my</a></li>
+      <li><a href="#wynajem">Wynajem studia</a></li>
       <li><a href="#studia">Studia</a></li>
       <li><a href="#cennik">Cennik</a></li>
       <li><a href="#pakiety">Pakiety TV</a></li>
-      <li><a href="#programy">Programy</a></li>
-      <li><a href="#prowadzaca">Zespół</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#rezerwacja">Rezerwacja</a></li>
+      <li><a href="#programy-intro">Programy dla kobiet</a></li>
+                  <li><a href="#rezerwacja">Rezerwacja</a></li>
     </ul>
     <a class="btn btn--ghost-light" href="#rezerwacja">Zarezerwuj</a>
     <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><i></i></button>
@@ -569,12 +648,34 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="wrap reel-foot"><span>Z planu zdjęciowego</span><span>Przeciągnij albo kliknij kadr</span></div>
   </section>
 
-  <section class="standfirst has-plants">
+  <section class="rent-intro has-plants" id="wynajem">
     <span class="botanic" data-plant="fern" style="left:-60px; bottom:-40px; --rot:28deg"></span>
-    <span class="botanic" data-plant="banana" style="right:-90px; top:-110px; --rot:-34deg; --w: clamp(160px, 18vw, 280px)"></span>
     <div class="wrap">
-      <p>Przychodzisz na umówioną godzinę. Realizator ustawia światło i mikrofony, Ty rozmawiasz. <em>Po trzech dniach</em> masz zmontowany odcinek, napisy i rolki.</p>
-      <div class="facts"><span>Trzy studia w jednym miejscu</span><span>Realizator w cenie</span><span>Wynajem od 1 godziny</span><span>Montaż w 72 h</span></div>
+      <p class="zone-label">Część 1 · Wynajem studia</p>
+      <h2>Wynajmij studio <em>i nagrywaj swój content</em></h2>
+      <div class="rent-cols">
+        <div class="rent-text">
+          <p class="rent-lead">Udostępniamy w pełni wyposażoną powierzchnię do nagrań. Przychodzisz ze swoim pomysłem, gośćmi i tematem, a my zapewniamy wnętrze, sprzęt i realizatora.</p>
+          <p>Możesz wynająć studio na godzinę albo na cały dzień zdjęciowy. Nagrywasz własny podcast, wywiady z klientami, materiały eksperckie dla swojej firmy lub kurs online. Materiał jest Twój: odbierasz surowe nagranie albo gotowy, zmontowany odcinek z rolkami do mediów społecznościowych.</p>
+          <div class="hero-ctas rent-ctas">
+            <a class="btn btn--fill" href="#rezerwacja">Sprawdź wolne terminy <span class="arrow">→</span></a>
+            <a class="btn btn--ghost-light" href="#cennik">Zobacz cennik</a>
+          </div>
+        </div>
+        <div class="rent-list">
+          <p class="rent-list-title">Co nagrasz w studiu</p>
+          <ul>
+            <li>Podcast audio i wideo</li>
+            <li>Wywiad z gościem lub klientem</li>
+            <li>Wideo eksperckie i wizerunkowe firmy</li>
+            <li>Kurs online i materiały szkoleniowe</li>
+            <li>Rolki na Instagram, TikTok i LinkedIn</li>
+            <li>Webinar i transmisja na żywo</li>
+            <li>Panel dyskusyjny i talk-show</li>
+          </ul>
+        </div>
+      </div>
+      <div class="facts"><span>Wynajem od 1 godziny</span><span>Realizator w cenie</span><span>Trzy studia w jednym miejscu</span><span>Czynne codziennie 9:00–20:00</span></div>
     </div>
   </section>
 
@@ -744,141 +845,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
   </section>
 
-  <section class="programs" id="programy">
-    <div class="wrap">
-      <div class="programs-head">
-        <p class="label">Zaproszenie</p>
-        <h2>Programy dla <em>kobiet biznesu</em></h2>
-        <p>Zapraszamy przedsiębiorczynie do trzech programów Polish Women Chamber of Commerce. W każdym jest 25 miejsc. Uczestniczki nagrywają w naszym studiu, pokazujemy je w kanałach Izby i łączymy ze sobą w zamkniętej grupie.</p>
-        <a class="host-card" href="#prowadzaca">
-          <img src="assets/patricia-face.jpg" alt="" width="240" height="240" loading="lazy">
-          <span><small>Programy prowadzi</small><b>Patricia Claudia Mitro</b><span>Prezydentka Polish Women Chamber of Commerce, redaktorka naczelna Business Women IMPACT</span></span>
-        </a>
-      </div>
-      <div class="programs-grid">
-        <article class="program program--premium">
-          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">10 000 zł</span></div>
-          <h3>Global Women <em>Premium</em></h3>
-          <p class="program-for">Dla doświadczonych przedsiębiorczyń, które działają globalnie.</p>
-          <ul>
-            <li>Wywiad wideo w Studiu Głównym, zmontowany, z 3 rolkami</li>
-            <li>Profil w magazynie Business Women IMPACT</li>
-            <li>Promocja w sieci Izby w 16 krajach</li>
-            <li>Zamknięte spotkania grupy 25 liderek</li>
-            <li>Wprowadzenie do PWCC Investment Club</li>
-          </ul>
-          <details class="persona">
-            <summary>Kim jest uczestniczka?</summary>
-            <div class="persona-body">
-              <p class="persona-name">Katarzyna, 46 lat <span>persona</span></p>
-              <p>Prezeska firmy z oddziałami w trzech krajach, eksport usług lub produktów premium. Zespół powyżej 50 osób, kontakty z inwestorami i partnerami zagranicznymi.</p>
-              <dl>
-                <dt>Chce</dt><dd>być widoczna jako ekspertka na rynkach międzynarodowych, poznać partnerki do ekspansji i inwestorów.</dd>
-                <dt>Blokuje ją</dt><dd>brak czasu na marketing osobisty i rozproszone działania PR.</dd>
-                <dt>Przekonuje ją</dt><dd>selekcja do 25 osób, prestiż Izby i gotowy materiał w jeden dzień nagrań.</dd>
-                <dt>Gdzie jest</dt><dd>LinkedIn, konferencje branżowe, rady nadzorcze, misje gospodarcze.</dd>
-              </dl>
-            </div>
-          </details>
-          <button class="btn btn--cream" type="button" data-service="Program Global Women Premium">Zgłaszam się <span class="arrow">→</span></button>
-        </article>
 
-        <article class="program program--biznes">
-          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">5000 zł</span></div>
-          <h3>Polish Women <em>Business</em></h3>
-          <p class="program-for">Dla Polek, które prowadzą firmy z sukcesami.</p>
-          <ul>
-            <li>Wywiad wideo w studiu, zmontowany, z 3 rolkami</li>
-            <li>Odcinek w Global Women TV</li>
-            <li>Wzmianka w magazynie Business Women IMPACT</li>
-            <li>Spotkania networkingowe grupy</li>
-          </ul>
-          <details class="persona">
-            <summary>Kim jest uczestniczka?</summary>
-            <div class="persona-body">
-              <p class="persona-name">Magdalena, 38 lat <span>persona</span></p>
-              <p>Właścicielka rozwijającej się firmy w Polsce: sieci salonów beauty, biura nieruchomości albo sklepu internetowego. Zatrudnia od 10 do 50 osób.</p>
-              <dl>
-                <dt>Chce</dt><dd>zbudować markę osobistą, pozyskać klientów i przygotować firmę do wyjścia za granicę.</dd>
-                <dt>Blokuje ją</dt><dd>trema przed kamerą i brak działu marketingu.</dd>
-                <dt>Przekonuje ją</dt><dd>realizator, który prowadzi przez nagranie, i społeczność kobiet na podobnym etapie.</dd>
-                <dt>Gdzie jest</dt><dd>Instagram, Facebook, LinkedIn, lokalne wydarzenia biznesowe.</dd>
-              </dl>
-            </div>
-          </details>
-          <button class="btn btn--cream" type="button" data-service="Program Polish Women Business">Zgłaszam się <span class="arrow">→</span></button>
-        </article>
 
-        <article class="program program--entre">
-          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">2500 zł</span></div>
-          <h3>Women <em>Entrepreneur</em></h3>
-          <p class="program-for">Dla przedsiębiorczyń z jednej branży, w tematycznych edycjach.</p>
-          <ul>
-            <li>Udział w tematycznym odcinku podcastu wideo</li>
-            <li>3 rolki promocyjne z Twoją wypowiedzią</li>
-            <li>Publikacja w kanałach Izby</li>
-            <li>Spotkanie grupy tematycznej</li>
-          </ul>
-          <details class="persona">
-            <summary>Kim jest uczestniczka?</summary>
-            <div class="persona-body">
-              <p class="persona-name">Aleksandra, 31 lat <span>persona</span></p>
-              <p>Założycielka młodej firmy usługowej: architektka wnętrz, prawniczka, trenerka albo kosmetolożka. Działa sama lub z małym zespołem.</p>
-              <dl>
-                <dt>Chce</dt><dd>mieć pierwszy profesjonalny materiał wideo i dotrzeć do klientów w swojej niszy.</dd>
-                <dt>Blokuje ją</dt><dd>budżet i stres przed występem w pojedynkę.</dd>
-                <dt>Przekonuje ją</dt><dd>niski próg wejścia i nagranie razem z innymi kobietami z branży.</dd>
-                <dt>Gdzie jest</dt><dd>Instagram, TikTok, grupy branżowe na Facebooku.</dd>
-              </dl>
-            </div>
-          </details>
-          <button class="btn btn--cream" type="button" data-service="Program Women Entrepreneur">Zgłaszam się <span class="arrow">→</span></button>
-        </article>
-      </div>
-      <p class="programs-note">Ceny netto za udział. O zakwalifikowaniu decyduje kolejność zgłoszeń i krótka rozmowa.</p>
-    </div>
-  </section>
-
-  <section class="host" id="prowadzaca">
-    <div class="wrap">
-      <figure class="host-photo" id="host-photo">
-        <img src="assets/patricia-claudia-mitro.jpg" alt="Patricia Claudia Mitro w czerwonej marynarce" width="900" height="1350" loading="lazy">
-        <figcaption>Patricia Claudia Mitro, prowadząca Global Women TV</figcaption>
-      </figure>
-      <div class="host-text">
-        <p class="label">Prowadząca programy i Global Women TV</p>
-        <h2>Patricia <em>Claudia Mitro</em></h2>
-        <p class="host-lead">Prawniczka, mentorka Global Women’s Leadership, certyfikowana coachka ICI, doradczyni kariery oraz mentorka w obszarze tradingu i inteligencji finansowej.</p>
-        <p>Od blisko dwudziestu lat tworzy inicjatywy wspierające rozwój gospodarczy kobiet i ich udział w międzynarodowym biznesie. Jako Prezydentka Polish Women Chamber of Commerce reprezentuje przedsiębiorczynie i buduje partnerstwa z administracją, dyplomacją, izbami gospodarczymi i uczelniami. Zainicjowała Global Women Chamber of Commerce, która łączy przedsiębiorczynie, inwestorów i instytucje z wielu krajów.</p>
-        <p>Jest założycielką i redaktorką naczelną magazynu Business Women IMPACT oraz twórczynią Global Women TV. Jako prezeska GLOBAL WOMEN INVESTMENT, MEDIA &amp; INSURANCE GROUP rozwija projekty łączące biznes, media, technologie i komunikację strategiczną, w tym personal branding premium dla ekspertek i liderek.</p>
-        <p>Jako mentorka inwestycyjna promuje odpowiedzialne budowanie kapitału oparte na wiedzy, świadomości ryzyka i myśleniu długoterminowym. Ukończyła seminaria doktoranckie i studia podyplomowe z doradztwa zawodowego w Akademii Nauk Społecznych i Medycznych w Lublinie.</p>
-        <ul class="host-facts">
-          <li><b>150+</b>inicjatyw biznesowych, edukacyjnych i wydawniczych</li>
-          <li><b>100 000+</b>kobiet, do których dotarły jej projekty</li>
-          <li><b>2022</b>wyróżnienie Equality Leaders od Forbes Women i Ambasady Brytyjskiej</li>
-        </ul>
-        <p class="host-more">Członkini Krajowego Prezydium Rad Kobiet. Współautorka krajowych raportów o ESG i obronie cywilnej. Autorka książek „Przestań czekać – zacznij żyć” i „Przewodnik do spełnionego życia: 50 metod i ćwiczeń”. Mówi po polsku, angielsku i słowacku.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="team" id="zespol">
-    <div class="wrap">
-      <h2>Zespół <em>Global Women</em></h2>
-      <div class="team-grid">
-        <article class="person">
-          <div class="person-photo"><img src="assets/urszula-brzozowska.jpg" alt="Urszula Brzozowska" width="800" height="800" loading="lazy"></div>
-          <h3>Urszula Brzozowska</h3>
-          <p>Dyrektorka generalna magazynu gospodarczego Business Women IMPACT</p>
-        </article>
-        <article class="person">
-          <div class="person-photo"><img src="assets/judyta-niewiadomska-roein.jpg" alt="Judyta Niewiadomska-Roein" width="800" height="800" loading="lazy"></div>
-          <h3>Judyta Niewiadomska-Roein</h3>
-          <p>Dyrektorka biura</p>
-        </article>
-      </div>
-    </div>
-  </section>
 
   <section class="chamber has-plants" id="izba">
     <div class="chamber-grid">
@@ -1012,6 +980,180 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <button class="btn btn--cream" type="button" id="copy">Kopiuj treść</button>
           <button class="btn btn--ghost-light" type="button" id="again">Nowa rezerwacja</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="zone-b" id="programy-intro">
+    <div class="wrap">
+      <p class="zone-label">Część 2 · Programy biznesowe</p>
+      <h2>Programy dla <em>kobiet biznesu</em></h2>
+      <p class="zone-b-lead">Pod patronatem <b>Polish Women Chamber of Commerce</b>, izby gospodarczej kobiet biznesu. Przedsiębiorczynie mogą aplikować do trzech programów rozwojowych. Każdy ma 25 miejsc, a udział obejmuje nagranie w naszym studiu, promocję w Global Women TV i w magazynie Business Women IMPACT oraz zamkniętą społeczność uczestniczek.</p>
+      <a class="btn btn--bordo" href="#aplikuj">Aplikuj do programu <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="programs" id="programy">
+    <div class="wrap">
+      <div class="programs-head">
+        <a class="host-card" href="#prowadzaca">
+          <img src="assets/patricia-face.jpg" alt="" width="240" height="240" loading="lazy">
+          <span><small>Programy prowadzi</small><b>Patricia Claudia Mitro</b><span>Prezydentka Polish Women Chamber of Commerce, redaktorka naczelna Business Women IMPACT</span></span>
+        </a>
+      </div>
+      <div class="programs-grid">
+        <article class="program program--premium">
+          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">10 000 zł</span></div>
+          <h3>Global Women <em>Premium</em></h3>
+          <p class="program-for">Dla doświadczonych przedsiębiorczyń, które działają globalnie.</p>
+          <ul>
+            <li>Wywiad wideo w Studiu Głównym, zmontowany, z 3 rolkami</li>
+            <li>Profil w magazynie Business Women IMPACT</li>
+            <li>Promocja w sieci Izby w 16 krajach</li>
+            <li>Zamknięte spotkania grupy 25 liderek</li>
+            <li>Wprowadzenie do PWCC Investment Club</li>
+          </ul>
+          <details class="persona">
+            <summary>Kim jest uczestniczka?</summary>
+            <div class="persona-body">
+              <p class="persona-name">Katarzyna, 46 lat <span>persona</span></p>
+              <p>Prezeska firmy z oddziałami w trzech krajach, eksport usług lub produktów premium. Zespół powyżej 50 osób, kontakty z inwestorami i partnerami zagranicznymi.</p>
+              <dl>
+                <dt>Chce</dt><dd>być widoczna jako ekspertka na rynkach międzynarodowych, poznać partnerki do ekspansji i inwestorów.</dd>
+                <dt>Blokuje ją</dt><dd>brak czasu na marketing osobisty i rozproszone działania PR.</dd>
+                <dt>Przekonuje ją</dt><dd>selekcja do 25 osób, prestiż Izby i gotowy materiał w jeden dzień nagrań.</dd>
+                <dt>Gdzie jest</dt><dd>LinkedIn, konferencje branżowe, rady nadzorcze, misje gospodarcze.</dd>
+              </dl>
+            </div>
+          </details>
+          <button class="btn btn--bordo" type="button" data-apply="Global Women Premium">Aplikuję <span class="arrow">→</span></button>
+        </article>
+
+        <article class="program program--biznes">
+          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">5000 zł</span></div>
+          <h3>Polish Women <em>Business</em></h3>
+          <p class="program-for">Dla Polek, które prowadzą firmy z sukcesami.</p>
+          <ul>
+            <li>Wywiad wideo w studiu, zmontowany, z 3 rolkami</li>
+            <li>Odcinek w Global Women TV</li>
+            <li>Wzmianka w magazynie Business Women IMPACT</li>
+            <li>Spotkania networkingowe grupy</li>
+          </ul>
+          <details class="persona">
+            <summary>Kim jest uczestniczka?</summary>
+            <div class="persona-body">
+              <p class="persona-name">Magdalena, 38 lat <span>persona</span></p>
+              <p>Właścicielka rozwijającej się firmy w Polsce: sieci salonów beauty, biura nieruchomości albo sklepu internetowego. Zatrudnia od 10 do 50 osób.</p>
+              <dl>
+                <dt>Chce</dt><dd>zbudować markę osobistą, pozyskać klientów i przygotować firmę do wyjścia za granicę.</dd>
+                <dt>Blokuje ją</dt><dd>trema przed kamerą i brak działu marketingu.</dd>
+                <dt>Przekonuje ją</dt><dd>realizator, który prowadzi przez nagranie, i społeczność kobiet na podobnym etapie.</dd>
+                <dt>Gdzie jest</dt><dd>Instagram, Facebook, LinkedIn, lokalne wydarzenia biznesowe.</dd>
+              </dl>
+            </div>
+          </details>
+          <button class="btn btn--bordo" type="button" data-apply="Polish Women Business">Aplikuję <span class="arrow">→</span></button>
+        </article>
+
+        <article class="program program--entre">
+          <div class="program-top"><span class="seats">25 miejsc</span><span class="program-price">2500 zł</span></div>
+          <h3>Women <em>Entrepreneur</em></h3>
+          <p class="program-for">Dla przedsiębiorczyń z jednej branży, w tematycznych edycjach.</p>
+          <ul>
+            <li>Udział w tematycznym odcinku podcastu wideo</li>
+            <li>3 rolki promocyjne z Twoją wypowiedzią</li>
+            <li>Publikacja w kanałach Izby</li>
+            <li>Spotkanie grupy tematycznej</li>
+          </ul>
+          <details class="persona">
+            <summary>Kim jest uczestniczka?</summary>
+            <div class="persona-body">
+              <p class="persona-name">Aleksandra, 31 lat <span>persona</span></p>
+              <p>Założycielka młodej firmy usługowej: architektka wnętrz, prawniczka, trenerka albo kosmetolożka. Działa sama lub z małym zespołem.</p>
+              <dl>
+                <dt>Chce</dt><dd>mieć pierwszy profesjonalny materiał wideo i dotrzeć do klientów w swojej niszy.</dd>
+                <dt>Blokuje ją</dt><dd>budżet i stres przed występem w pojedynkę.</dd>
+                <dt>Przekonuje ją</dt><dd>niski próg wejścia i nagranie razem z innymi kobietami z branży.</dd>
+                <dt>Gdzie jest</dt><dd>Instagram, TikTok, grupy branżowe na Facebooku.</dd>
+              </dl>
+            </div>
+          </details>
+          <button class="btn btn--bordo" type="button" data-apply="Women Entrepreneur">Aplikuję <span class="arrow">→</span></button>
+        </article>
+      </div>
+      <p class="programs-note">Ceny netto za udział. O zakwalifikowaniu decyduje kolejność zgłoszeń i krótka rozmowa.</p>
+    </div>
+  </section>
+  <section class="host" id="prowadzaca">
+    <div class="wrap">
+      <figure class="host-photo" id="host-photo">
+        <img src="assets/patricia-claudia-mitro.jpg" alt="Patricia Claudia Mitro w czerwonej marynarce" width="900" height="1350" loading="lazy">
+        <figcaption>Patricia Claudia Mitro, prowadząca Global Women TV</figcaption>
+      </figure>
+      <div class="host-text">
+        <p class="label">Prowadząca programy i Global Women TV</p>
+        <h2>Patricia <em>Claudia Mitro</em></h2>
+        <p class="host-lead">Prawniczka, mentorka Global Women’s Leadership, certyfikowana coachka ICI, doradczyni kariery oraz mentorka w obszarze tradingu i inteligencji finansowej.</p>
+        <p>Od blisko dwudziestu lat tworzy inicjatywy wspierające rozwój gospodarczy kobiet i ich udział w międzynarodowym biznesie. Jako Prezydentka Polish Women Chamber of Commerce reprezentuje przedsiębiorczynie i buduje partnerstwa z administracją, dyplomacją, izbami gospodarczymi i uczelniami. Zainicjowała Global Women Chamber of Commerce, która łączy przedsiębiorczynie, inwestorów i instytucje z wielu krajów.</p>
+        <p>Jest założycielką i redaktorką naczelną magazynu Business Women IMPACT oraz twórczynią Global Women TV. Jako prezeska GLOBAL WOMEN INVESTMENT, MEDIA &amp; INSURANCE GROUP rozwija projekty łączące biznes, media, technologie i komunikację strategiczną, w tym personal branding premium dla ekspertek i liderek.</p>
+        <p>Jako mentorka inwestycyjna promuje odpowiedzialne budowanie kapitału oparte na wiedzy, świadomości ryzyka i myśleniu długoterminowym. Ukończyła seminaria doktoranckie i studia podyplomowe z doradztwa zawodowego w Akademii Nauk Społecznych i Medycznych w Lublinie.</p>
+        <ul class="host-facts">
+          <li><b>150+</b>inicjatyw biznesowych, edukacyjnych i wydawniczych</li>
+          <li><b>100 000+</b>kobiet, do których dotarły jej projekty</li>
+          <li><b>2022</b>wyróżnienie Equality Leaders od Forbes Women i Ambasady Brytyjskiej</li>
+        </ul>
+        <p class="host-more">Członkini Krajowego Prezydium Rad Kobiet. Współautorka krajowych raportów o ESG i obronie cywilnej. Autorka książek „Przestań czekać – zacznij żyć” i „Przewodnik do spełnionego życia: 50 metod i ćwiczeń”. Mówi po polsku, angielsku i słowacku.</p>
+      </div>
+    </div>
+  </section>
+  <section class="team" id="zespol">
+    <div class="wrap">
+      <h2>Zespół <em>Global Women</em></h2>
+      <div class="team-grid">
+        <article class="person">
+          <div class="person-photo"><img src="assets/urszula-brzozowska.jpg" alt="Urszula Brzozowska" width="800" height="800" loading="lazy"></div>
+          <h3>Urszula Brzozowska</h3>
+          <p>Dyrektorka generalna magazynu gospodarczego Business Women IMPACT</p>
+        </article>
+        <article class="person">
+          <div class="person-photo"><img src="assets/judyta-niewiadomska-roein.jpg" alt="Judyta Niewiadomska-Roein" width="800" height="800" loading="lazy"></div>
+          <h3>Judyta Niewiadomska-Roein</h3>
+          <p>Dyrektorka biura</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="apply" id="aplikuj">
+    <div class="wrap">
+      <div class="apply-head">
+        <h2>Aplikuj <em>do programu</em></h2>
+        <p>Zostaw zgłoszenie. Oddzwonimy, opowiemy o programie i umówimy krótką rozmowę kwalifikacyjną. O przyjęciu decyduje kolejność zgłoszeń.</p>
+      </div>
+      <form class="aform" id="aform" novalidate>
+        <div class="field field--full"><label for="a-program">Program</label>
+          <select id="a-program" name="program">
+            <option>Global Women Premium (10 000 zł)</option>
+            <option>Polish Women Business (5000 zł)</option>
+            <option>Women Entrepreneur (2500 zł)</option>
+            <option>Nie wiem, proszę o doradztwo</option>
+          </select>
+        </div>
+        <div class="field"><label for="a-name">Imię i nazwisko</label><input id="a-name" name="name" autocomplete="name"></div>
+        <div class="field"><label for="a-company">Firma i branża</label><input id="a-company" name="company" autocomplete="organization"></div>
+        <div class="field"><label for="a-email">E-mail</label><input id="a-email" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="a-phone">Telefon</label><input id="a-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field field--full"><label for="a-about">Kilka słów o Twojej firmie i celach</label><textarea id="a-about" name="about" placeholder="Np. prowadzę biuro nieruchomości w Krakowie, chcę wejść na rynek niemiecki."></textarea></div>
+        <label class="consent"><input id="a-consent" name="consent" type="checkbox"> <span>Akceptuję <button type="button" class="text-link" data-doc-open="regulamin">Regulamin</button> i zapoznałam/em się z <button type="button" class="text-link" data-doc-open="rodo">klauzulą informacyjną RODO</button>.</span></label>
+        <div class="form-foot">
+          <button class="btn btn--bordo" type="submit">Wyślij zgłoszenie</button>
+          <p class="error" id="a-error" hidden></p>
+        </div>
+      </form>
+      <div class="done adone" id="adone" hidden>
+        <h3>Dziękujemy za zgłoszenie</h3>
+        <p id="adone-msg"></p>
+        <pre id="adone-text"></pre>
       </div>
     </div>
   </section>
@@ -1676,6 +1818,31 @@ $("copy").addEventListener("click", e => {
     });
     document.addEventListener("click", e => { if (!fig.contains(e.target)) close(); });
     document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  });
+})();
+
+/* Programme application */
+(() => {
+  const f = $("aform"), err = $("a-error");
+  document.querySelectorAll("[data-apply]").forEach(b => b.addEventListener("click", () => {
+    const sel = $("a-program"), opt = [...sel.options].find(o => o.text.startsWith(b.dataset.apply));
+    if (opt) sel.value = opt.value;
+    f.hidden = false; $("adone").hidden = true;
+    $("aplikuj").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+  }));
+  f.addEventListener("submit", async e => {
+    e.preventDefault(); err.hidden = true;
+    const d = Object.fromEntries(new FormData(f)), problems = [];
+    if (!d.name.trim()) problems.push("podaj imię i nazwisko");
+    if (!/^\S+@\S+\.\S+$/.test(d.email)) problems.push("podaj poprawny e-mail");
+    if (!d.consent) problems.push("zaznacz zgodę");
+    if (problems.length) { err.textContent = "Aby wysłać: " + problems.join(", ") + "."; err.hidden = false; return; }
+    const text = [`Program: ${d.program}`, `Imię i nazwisko: ${d.name}`, d.company && `Firma: ${d.company}`, `E-mail: ${d.email}`, d.phone && `Telefon: ${d.phone}`, d.about && `O firmie: ${d.about}`].filter(Boolean).join("\n");
+    let sent = false;
+    if (CONFIG.formEndpoint) { try { const r = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify({ type: "program", ...d }) }); sent = r.ok; } catch (_) {} }
+    $("adone-msg").textContent = sent ? "Zgłoszenie trafiło do biura. Oddzwonimy w ciągu dwóch dni roboczych." : `Skopiuj treść zgłoszenia i wyślij ją na adres ${CONFIG.email}. Oddzwonimy w ciągu dwóch dni roboczych.`;
+    $("adone-text").textContent = text;
+    f.hidden = true; $("adone").hidden = false;
   });
 })();
 
