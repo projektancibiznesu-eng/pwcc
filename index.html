@@ -143,6 +143,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .facts span { display: inline-flex; gap: 10px; align-items: baseline; }
 .facts span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); transform: translateY(-2px); }
 
+/* Why us */
+.why { background: var(--ink); color: var(--cream); padding-block: clamp(80px, 10vw, 130px); }
+.why-head { display: flex; justify-content: space-between; align-items: end; gap: 20px 60px; flex-wrap: wrap; margin-bottom: 56px; }
+.why-head h2 { font-size: var(--t-h2); }
+.why-head p { color: rgba(255,244,234,.75); max-width: 46ch; }
+.why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 40px; }
+.why-item { display: grid; gap: 14px; align-content: start; }
+.why-item svg { width: 68px; height: 68px; padding: 12px; border-radius: 10px; background: var(--orange); fill: none; stroke: #FFF4EA; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.why-item svg text { fill: #FFF4EA; }
+.why-item h3 { font: 600 1rem/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; }
+.why-item p { color: rgba(255,244,234,.78); font-size: .97rem; }
+.why-hours { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line-light); color: var(--peach); font-weight: 500; }
+
 /* Studios */
 .studio { color: var(--cream); padding-block: clamp(70px, 9vw, 130px); }
 .studio--forum { background: var(--bordo); }
@@ -469,6 +482,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .mag { grid-template-columns: minmax(0, 1fr); }
   .mag .btn { justify-self: start; }
   .chamber-grid { grid-template-columns: minmax(0, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .host .wrap { grid-template-columns: minmax(0, 1fr); }
   .host-photo { position: static; max-width: 420px; }
   .chamber-text { padding-left: var(--gutter); }
@@ -491,6 +505,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .steps, .form, .plans { grid-template-columns: minmax(0, 1fr); }
   .price-list li { grid-template-columns: minmax(0, 1fr); }
   .host-facts { grid-template-columns: minmax(0, 1fr); }
+  .why-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .host-card { border-radius: 16px; align-items: flex-start; }
   .booking-info { grid-template-columns: minmax(0, 1fr); }
   .price-list .price { grid-column: 1; grid-row: auto; text-align: left; }
@@ -510,6 +525,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   <div class="wrap">
     <a class="mark" href="#top"><b>IMPACT</b><span>Studio podcastowe</span></a>
     <ul id="nav-links">
+      <li><a href="#dlaczego">Dlaczego my</a></li>
       <li><a href="#studia">Studia</a></li>
       <li><a href="#cennik">Cennik</a></li>
       <li><a href="#pakiety">Pakiety TV</a></li>
@@ -559,6 +575,24 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     <div class="wrap">
       <p>Przychodzisz na umówioną godzinę. Realizator ustawia światło i mikrofony, Ty rozmawiasz. <em>Po trzech dniach</em> masz zmontowany odcinek, napisy i rolki.</p>
       <div class="facts"><span>Trzy studia w jednym miejscu</span><span>Realizator w cenie</span><span>Wynajem od 1 godziny</span><span>Montaż w 72 h</span></div>
+    </div>
+  </section>
+
+  <section class="why" id="dlaczego">
+    <div class="wrap">
+      <div class="why-head">
+        <h2>Dlaczego <em>nasze studio</em></h2>
+        <p>Wynajmujesz nie tylko pokój z mikrofonem. Dostajesz zespół, który przeprowadzi Cię od pomysłu do opublikowanego odcinka.</p>
+      </div>
+      <div class="why-grid">
+        <article class="why-item"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="15" r="7"/><path d="M11 40c1.5-8 6.5-12 13-12s11.5 4 13 12"/><path d="M33 9l4-4M37 13h5"/></svg><h3>Realizator w cenie</h3><p>Na każdej sesji jest z Tobą realizator. Ustawia światło, dźwięk i kamery, prowadzi nagranie i pilnuje jakości. Ty skupiasz się tylko na rozmowie.</p></article>
+        <article class="why-item"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="14" width="27" height="20" rx="3"/><path d="M32 21l11-6v18l-11-6z"/><circle cx="13" cy="24" r="3"/></svg><h3>Obraz 4K z trzech kamer</h3><p>Nagrywamy w jakości 4K z trzech ujęć i na mikrofonach lektorskich klasy broadcast. Materiał wygląda profesjonalnie na YouTube, LinkedIn i w rolkach.</p></article>
+        <article class="why-item"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="16" height="13" rx="2"/><rect x="27" y="9" width="16" height="13" rx="2"/><rect x="5" y="27" width="38" height="13" rx="2"/></svg><h3>Trzy scenografie w jednym miejscu</h3><p>Studio Główne na panele, Kameralne na rozmowę w cztery oczy i Zielone na swobodne wywiady. Dobierasz wnętrze do tematu i wizerunku marki.</p></article>
+        <article class="why-item"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 8h28v32H10z"/><path d="M16 16h16M16 23h16M16 30h10"/><path d="M33 33l4 4 7-8"/></svg><h3>Kompleksowa obsługa</h3><p>Pomagamy ułożyć scenariusz i pytania, zapewniamy makijaż w pakiecie Premium, montujemy, dodajemy napisy, miniatury i rolki. Dostajesz gotowy materiał w 72 godziny.</p></article>
+        <article class="why-item"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="16" y="6" width="16" height="10" rx="2"/><text x="24" y="14" font-size="6" text-anchor="middle" fill="currentColor" stroke="none" font-family="sans-serif" font-weight="700">LIVE</text><rect x="19" y="20" width="10" height="14" rx="5"/><path d="M14 28c0 6 4 9 10 9s10-3 10-9M24 37v6M18 43h12"/></svg><h3>Transmisje na żywo</h3><p>Webinary, konferencje i premiery transmitujemy na żywo z obsługą techniczną. Sala konferencyjna mieści do 40 osób.</p></article>
+        <article class="why-item"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17z"/></svg><h3>Zasięg Global Women</h3><p>Nagranie może trafić do Global Women TV i magazynu Business Women IMPACT. Docierasz do przedsiębiorczyń i inwestorów w 16 krajach, a na ofertę magazynu masz 25% zniżki.</p></article>
+      </div>
+      <p class="why-hours">Studio czynne codziennie, 7 dni w tygodniu, 09:00–20:00</p>
     </div>
   </section>
 
